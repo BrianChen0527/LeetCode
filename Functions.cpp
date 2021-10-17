@@ -58,8 +58,22 @@ int romanToInt(string s) {
     return sum;
 }
 
+int lengthOfLongestSubstring(string s) {
 
+    int n = s.length();
+    int max_len = 0;
+    map<char, int> temp;
 
+    for (int i = 0, j = 0; j < n; j++) {
+        if (temp.find(s[j]) != temp.end()) {
+            i = max(i, temp[s[j]] + 1);
+            temp[s[j]] = j;
+        }
+        max_len = max(max_len, j - i + 1);
+        temp.insert({ s[j], j });
+    }
+    return max_len;
+}
 
 
 

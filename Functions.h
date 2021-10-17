@@ -12,3 +12,8 @@ bool isPalindrome(int x);
 //Given a roman numeral, convert it to an integer.
 int romanToInt(string s);
 
+//Given a string s, find the length of the longest substring without repeating characters.
+int lengthOfLongestSubstring(string s);
+
+//Given a string s, find the length of the longest substring without repeating characters.
+int lengthOfLongestSubstring(string s);
