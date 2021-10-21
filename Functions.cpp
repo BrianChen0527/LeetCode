@@ -75,7 +75,44 @@ int lengthOfLongestSubstring(string s) {
     return max_len;
 }
 
+double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+    int merged_length = nums1.size() + nums2.size();
+    double median = 0;
+    int prev_num = 0;
 
+    for (int i = 0; i < merged_length / 2; i++) {
+        if (nums1.size() == 0) {
+            prev_num = nums2.at(0);
+            nums2.erase(nums2.begin());
+        }
+        else if (nums2.size() == 0) {
+            prev_num = nums1.at(0);
+            nums1.erase(nums1.begin());
+        }
+        else if (nums1.at(0) > nums2.at(0)) {
+            prev_num = nums2.at(0);
+            nums2.erase(nums2.begin());
+        }
+        else {
+            prev_num = nums1.at(0);
+            nums1.erase(nums1.begin());
+        }
+    }
+
+    if (nums1.size() == 0 && nums2.size() == 0)
+        median = 0;
+    else if (nums1.size() == 0)
+        median = nums2.at(0);
+    else if (nums2.size() == 0)
+        median = nums1.at(0);
+    else
+        median = min(nums1.at(0), nums2.at(0));
+
+    if (merged_length % 2 == 0)
+        median = (median + prev_num) / 2;
+
+    return median;
+}
 
 
 
