@@ -1,7 +1,9 @@
 ﻿  Functions.cpp
 C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(46,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(63,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(79,52): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(80,52): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(121,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(122,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   main.cpp
   Generating Code...
   LeetCodeEasy.vcxproj -> C:\Users\brian\source\repos\LeetCodeEasy\x64\Debug\LeetCodeEasy.exe

@@ -20,3 +20,6 @@ int lengthOfLongestSubstring(string s);
 
 //Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
 double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2);
+
+//Improved version of findMedianSortedArrays()
+double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2);

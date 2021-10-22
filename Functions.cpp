@@ -75,6 +75,7 @@ int lengthOfLongestSubstring(string s) {
     return max_len;
 }
 
+//Runtime complexity: O((m+n)/2)
 double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
     int merged_length = nums1.size() + nums2.size();
     double median = 0;
@@ -114,7 +115,39 @@ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
     return median;
 }
 
+//Runtime Complexity: O(min(log m, log n))
+double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2) {
 
+    int n1 = nums1.size();
+    int n2 = nums2.size();
+    int real_median_pos = (n1 + n2 + 1) / 2;
+    if (n1 > n2)
+        return findMedianSortedArrays(nums2, nums1);
+
+    int start = 0;
+    int end = n1;
+    while (start <= end) {
+        int mid = (start + end) / 2;
+        int n1_median_pos = mid;
+        int n2_median_pos = real_median_pos - n1_median_pos;
+
+        int left1 = (n1_median_pos > 0) ? nums1.at(n1_median_pos - 1) : INT_MIN;
+        int left2 = (n2_median_pos > 0) ? nums2.at(n2_median_pos - 1) : INT_MIN;
+        int right1 = (n1 > n1_median_pos) ? nums1.at(n1_median_pos) : INT_MAX;
+        int right2 = (n2 > n2_median_pos) ? nums2.at(n2_median_pos) : INT_MAX;
+        if (right2 >= left1 && right1 >= left2) {
+            if ((n1 + n2) % 2 == 0) {
+                return (max(left1, left2) + min(right1, right2)) / 2.0;
+            }
+            return max(left1, left2) * 1.0;
+        }
+        else if (right2 > left1)
+            start = mid + 1;
+        else
+            end = mid - 1;
+    }
+    return 0.0;
+}
 
 
 
