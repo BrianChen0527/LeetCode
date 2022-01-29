@@ -149,8 +149,24 @@ double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2) {
     return 0.0;
 }
 
-
-
+// Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+bool isAnagram(string s, string t) {
+    if (s.length() != t.length())
+        return false;
+    int letters[26] = { 0 };
+    for (char i : s) {
+        letters[i - 'a']++;
+    }
+    for (char i : t) {
+        letters[i - 'a']--;
+    }
+    for (int i = 0; i < 26; i++) {
+        if (letters[i] != 0) {
+            return false;
+        }
+    }
+    return true;
+}
 
 
 
