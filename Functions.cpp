@@ -1,9 +1,27 @@
 using namespace std;
-#include <iostream>
-#include <vector>
-#include <string>
-#include <map>
 
+#include <map>
+#include <algorithm>
+#include <cassert>
+#include <deque>
+#include <functional>
+#include <iostream>
+#include <iterator>
+#include <limits>
+#include <list>
+#include <map>
+#include <math.h>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <sstream>
+#include <stack>
+#include <string>
+#include <tuple>
+#include <unordered_map>
+#include <unordered_set>
+#include <utility>
+#include <vector>
 
 //Given an array of integers numsand an integer target, return indices of the two numbers such that they add up to target
 vector<int> twoSum(vector<int>& nums, int target) {
@@ -168,8 +186,54 @@ bool isAnagram(string s, string t) {
     return true;
 }
 
+// EECS 281 lab 4
+// Given n ropes, find the minimum cost of connecting ropes where the cost of connecting two
+// ropes is the sum of their lengths.
+// Example : If you had 10, 5, 8, 14, the min cost is 73.
+// Explanation : Join ropes 5 and 8 to get a rope of length 13 (Net cost = 13) Join ropes 13
+// and 10 to get a rope of length 23 (Net cost = 13 + 23) Join ropes 23 and 14 to get a rope
+// of length 37 (Net cost = 13 + 23 + 37 = 73)
+// https://umich.instructure.com/courses/491173/files/folder/Lab/lab04/Lab%20Assignment%20(Quiz)?preview=24159867
+int join_ropes(const vector<int>& rope_lengths) {
+    
+    int min_length = 0;
+    vector<int> total;
+    if (rope_lengths.size() == 1) {
+        return rope_lengths.at(0);
+    }
+
+    for (int i = 0; i < rope_lengths.size(); i++) {
+        total.push_back(rope_lengths.at(i));
+    }
+    sort(total.begin(), total.end());
+
+    while (total.size() > 1) {
+        int new_num = total.at(0) + total.at(1);
+        min_length += new_num;
+
+        if (total.size() == 2) {
+            break;
+        }
+
+        for (int i = 2; i < total.size(); i++) {
+            if (new_num < total.at(i)) {
+                total.insert(total.begin() + i, new_num);
+                break;
+            }
+            if (i == total.size() - 1) {
+                total.push_back(new_num);
+                break;
+            }
+        }
+
+        total.erase(total.begin());
+        total.erase(total.begin());
+
+    }
 
 
+    return min_length;
+}
 
 
 
