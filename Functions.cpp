@@ -398,4 +398,28 @@ Node* add_lists(Node* list1, Node* list2) {
 }
 
 
+// Suppose you are given an array of int, size n and a number k. Return the k largest elements.
+// Output does not need to be sorted.You can assume that k < n.
+vector<int> findKMax(int arr[], size_t n, size_t k) {
 
+    priority_queue<int, vector<int>, greater<int>> top_k;
+    for (int i = 0; i < k; i++) {
+        top_k.push(arr[i]);
+    }
+
+    for (int i = k; i < n; i++) {
+        if (arr[i] > top_k.top()) {
+            top_k.pop();
+            top_k.push(arr[i]);
+        }
+    }
+    cout << top_k.size() << endl;
+
+    vector <int> ans;
+    while (!top_k.empty()) {
+        ans.push_back(top_k.top());
+        top_k.pop();
+    }
+    return ans;
+
+}
