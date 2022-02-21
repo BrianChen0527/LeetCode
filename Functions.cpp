@@ -235,8 +235,88 @@ int join_ropes(const vector<int>& rope_lengths) {
     return min_length;
 }
 
+//################################################################################
+//################################################################################
+//###########################                       ##############################
+//###########################   EECS 281 Practice   ##############################
+//###########################                       ##############################
+//################################################################################
+//################################################################################
+
+struct Node {
+    int val;
+    Node* next;
+    Node() : val{ 0 }, next{ nullptr } {}
+    Node(int x) : val{ x }, next{ nullptr } {}
+    Node(int x, Node* next_in) : val{ x }, next{ next_in } {}
+};
 
 
+// Write a program that reverses this singly-linked list of nodes
+Node* reverse_list(Node* head) {
+    Node* prev = nullptr;
+
+    if (!head) {
+        return nullptr;
+    }
+    while (head) {
+
+        Node* next = head->next;
+        head->next = prev;
+        prev = head;
+        head = next;
+    }
+    return prev;
+}
+
+
+// Write a function that deletes all duplicates in the list so that 
+// each element ends up only appearing once.
+Node* remove_duplicates(Node* head) {
+    if (!head) {
+        return nullptr;
+    }
+    Node* current = head;
+
+    while (current && current->next) {
+        if (current->val == current->next->val) {
+            Node* temp = current->next;
+            current->next = current->next->next;
+            delete temp;
+        }
+        else {
+            current = current->next;
+        }
+    }
+    return head;
+}
+
+
+// You are given a non-empty vector of distinct elements, and you want to
+// return a vector that stores the previous greater element that exists
+// before each index.If no previous greater element exists, -1 is stored.
+vector<int> prev_greatest_element(vector<int>& vec) {
+    int prev_greater = -1;
+    if (vec.size() > 1) {
+        vector<int> tmp;
+
+        for (int i = 0; i < vec.size() - 1; i++) {
+            tmp.push_back(prev_greater);
+            if (vec.at(i + 1) < vec.at(i)) {
+                prev_greater = vec.at(i);
+            }
+        }
+        tmp.push_back(prev_greater);
+        return tmp;
+    }
+    else if (vec.size() == 1) {
+        return vector<int> {-1};
+    }
+    else {
+        return vector<int> {};
+    }
+
+}
 
 
 
