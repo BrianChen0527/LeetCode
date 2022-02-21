@@ -319,12 +319,83 @@ vector<int> prev_greatest_element(vector<int>& vec) {
 }
 
 
+// You are given a collection of intervals. Write a function that 
+// merges all of the overlapping intervals.
+struct Interval {
+    int start;
+    int end;
+};
+bool cmp_Intervals(const Interval& a, const Interval& b) { return (a.start < b.start); }
+vector<Interval> merge_intervals1(vector<Interval>& vec) {
+
+    
+
+    sort(vec.begin(), vec.end(), cmp_Intervals);
+
+    vector<Interval> sorted;
+    if (vec.size() > 1) {
+        sorted.push_back(vec.at(0));
+
+        for (int i = 1; i < vec.size(); i++) {
+            if (sorted.at(sorted.size() - 1).end < vec.at(i).start) {
+                sorted.push_back(vec.at(i));
+            }
+            else {
+                int end = sorted.at(sorted.size() - 1).end;
+                sorted.at(sorted.size() - 1).end = max(end, vec.at(i).end);
+            }
+        }
+    }
+    else {
+        sorted = vec;
+    }
+    return sorted;
+}
 
 
+// You are given two non-empty linked lists representing two non-negative integers. The most significant
+// digit comes firstand each of their nodes contains a single digit. Add the two numbersand return the result
+// as a linked list.You may assume the two numbers do not contain any leading 0’s except the number 0
+// itself.The structure of a Node is provided below :
 
+Node* add_lists(Node* list1, Node* list2) {
+    deque<int> num1, num2;
+    int ans = 0;
+    Node* tmp1 = list1;
+    Node* tmp2 = list2;
 
+    while (tmp1) {
+        num1.push_front(tmp1->val);
+        tmp1 = tmp1->next;
+    }
+    while (tmp2) {
+        num2.push_front(tmp2->val);
+        tmp2 = tmp2->next;
+    }
 
+    int max_size = max(num1.size(), num2.size());
 
+    for (int i = 0; i < max_size; i++) {
+        int num = 0;
+        if (num1.size() > i && num2.size() > i) {
+            num = num1.at(i) + num2.at(i);
+        }
+        else if (num1.size() > i) { num = num1.at(i); }
+        else { num = num2.at(i); }
+
+        ans += (num * pow(10, i));
+    }
+
+    Node* head = new Node(ans / pow(10, max_size - 1));
+    Node* curr = head;
+
+    for (int i = max_size - 2; i >= 0; i--) {
+        ans %= int(pow(10, i + 1));
+        curr->next = new Node(int(ans / pow(10, i)));
+        curr = curr->next;
+    }
+    return head;
+}
 
 
 
