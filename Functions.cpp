@@ -442,11 +442,7 @@ int find_single_element(vector<int>& vec) {
         else if (vec.at(mid) == vec.at(mid - 1)) {
             (mid % 2 == 0) ? (right = mid) : (left = mid + 1);
         }
-        else {
-            return vec.at(mid);
-        }
     }
-
     return vec.at(left);
 }
 
