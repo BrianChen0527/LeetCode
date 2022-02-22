@@ -423,3 +423,33 @@ vector<int> findKMax(int arr[], size_t n, size_t k) {
     return ans;
 
 }
+
+
+// Time Complexity Restriction: O(logn)
+// Space Complexity Restriction: O(1)
+// You are given a sorted array consisting of only integers where every element appears exactly twice, except
+// for one element which appears exactly once.Write a function that returns the single element.
+int find_single_element(vector<int>& vec) {
+    int left = 0;
+    int right = vec.size() - 1;
+
+    while (left < right) {
+        int mid = left + (right - left) / 2;
+
+        if (vec.at(mid) == vec.at(mid + 1)) {
+            (mid % 2 == 0) ? (left = mid) : (right = mid - 1);
+        }
+        else if (vec.at(mid) == vec.at(mid - 1)) {
+            (mid % 2 == 0) ? (right = mid) : (left = mid + 1);
+        }
+        else {
+            return vec.at(mid);
+        }
+    }
+
+    return vec.at(left);
+}
+
+
+
+
