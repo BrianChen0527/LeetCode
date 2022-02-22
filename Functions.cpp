@@ -447,5 +447,41 @@ int find_single_element(vector<int>& vec) {
 }
 
 
+Node* merge_lists(vector<Node*>& lists) {
+    while (lists.size() > 1) {
+        // merge 2 lists together
+        vector<Node*> merged_list;
+        Node* list1 = lists.at(0);
+        Node* list2 = lists.at(1);
 
+        while (list1 || list2) {
+            if (!list2) {
+                merged_list.push_back(list1);
+                list1 = list1->next;
+            }
+            else if (!list1) {
+                merged_list.push_back(list2);
+                list2 = list2->next;
+            }
+            else {
+                if (list1->val > list2->val) {
+                    merged_list.push_back(list2);
+                    list2 = list2->next;
+                }
+                else {
+                    merged_list.push_back(list1);
+                    list1 = list1->next;
+                }
+            }
+        }
+        for (int i = 0; i < merged_list.size() - 1; i++) {
+            merged_list.at(i)->next = merged_list.at(i + 1);
+        }
+        // pop the merged lists from the vector
+        lists.erase(lists.begin(), lists.begin() + 2);
 
+        // push merged list to the back of lists
+        lists.push_back(merged_list.at(0));
+    }
+    return lists.at(0);
+}
