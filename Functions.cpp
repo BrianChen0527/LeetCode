@@ -485,3 +485,23 @@ Node* merge_lists(vector<Node*>& lists) {
     }
     return lists.at(0);
 }
+
+void shift_zeros(vector<int>& vec) {
+
+    if (vec.size() > 1) {
+        for (int ptr1 = 0, ptr2 = 1; ptr2 < vec.size(); ptr1++, ptr2++) {
+            if (vec.at(ptr1) == 0) {
+                while (vec.at(ptr2) == 0 && ptr2 < vec.size() - 1) {
+                    ptr2++;
+                }
+                if (vec.at(ptr2) != 0) {
+                    swap(vec.at(ptr1), vec.at(ptr2));
+                }
+                else {
+                    break;
+                }
+            }
+        }
+    }
+}
+
