@@ -446,7 +446,7 @@ int find_single_element(vector<int>& vec) {
     return vec.at(left);
 }
 
-
+// You are given k sorted linked lists. Write a program that merges all k lists into a single sorted list.
 Node* merge_lists(vector<Node*>& lists) {
     while (lists.size() > 1) {
         // merge 2 lists together
