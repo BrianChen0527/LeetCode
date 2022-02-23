@@ -486,6 +486,8 @@ Node* merge_lists(vector<Node*>& lists) {
     return lists.at(0);
 }
 
+// You are given a vector of integers, vec, and you are told to implement a function that moves all elements
+// with a value of 0 to the end of the vector while maintaining the relative order of the non - zero elements.
 void shift_zeros(vector<int>& vec) {
 
     if (vec.size() > 1) {
