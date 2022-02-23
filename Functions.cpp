@@ -529,3 +529,31 @@ vector<int> warmer_temperatures(vector<int>& temps) {
     }
     return ans;
 }
+
+
+bool matrix_search(vector<vector<int>>& matrix, int target) {
+    int mid_col = matrix.at(0).size() / 2;
+    int row = 0;
+    // linear search on middle column so we can isolate two of the four quadrants for our search
+    for (row = 0; row < matrix.size(); ++row) {
+        if (matrix.at(row).at(mid_col) > target)
+            break;
+        // we accidentally found target
+        else if (matrix.at(row).at(mid_col) == target)
+            return true;
+    }
+
+    // target can only be in last row and after mid_col
+    if (row > matrix.size()) row--;
+    // found the row to use to isolate the two quadrants
+
+    for (int i = 0; i < row; i++)
+        for (int j = mid_col + 1; j < matrix.at(0).size(); j++)
+            if (matrix.at(i).at(j) == target)
+                return true;
+    for (int i = row; i < matrix.size(); i++)
+        for (int j = 0; j < mid_col; j++)
+            if (matrix.at(i).at(j) == target)
+                return true;
+    return false;
+}
