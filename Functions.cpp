@@ -507,7 +507,9 @@ void shift_zeros(vector<int>& vec) {
     }
 }
 
-
+// You are given a vector of integers, temps, that stores the daily temperature forecasts for the next few
+// days.Write a program that, for each index of the input vector, stores the number of days you need to wait
+// for a warmer temperature.If there is no future day where this is possible, a value of 0 should be stored.
 
 vector<int> warmer_temperatures(vector<int>& temps) {
     vector<int> ans(temps.size());
