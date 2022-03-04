@@ -530,7 +530,10 @@ vector<int> warmer_temperatures(vector<int>& temps) {
     return ans;
 }
 
-
+// You are given a m x n matrix in the form of a vector of vectors that has the following properties:
+// • integers in each row are sorted in ascending order from left to right
+// • integers in each column are sorted in ascending order from top to bottom
+// Write a function that searches for a value in this matrixand returns whether the element can be found.
 bool matrix_search(vector<vector<int>>& matrix, int target) {
     int mid_col = matrix.at(0).size() / 2;
     int row = 0;
