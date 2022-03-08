@@ -560,3 +560,26 @@ bool matrix_search(vector<vector<int>>& matrix, int target) {
                 return true;
     return false;
 }
+
+
+
+// Prints out all different pairs in input_vec that have same sum.
+// Time Complexity: O(n^2) on average
+void two_pair_sums(const vector<int>& nums, ostream& os) {
+
+    unordered_map<int, pair<int, int>> hash;
+
+    for (int i = 0; i < nums.size(); i++) {
+        for (int j = i + 1; j < nums.size(); j++) {
+
+            int sum = nums.at(i) + nums.at(j);
+
+            if (hash.find(sum) != hash.end()) {
+                os << "(" << hash.at(sum).first << ", " << hash.at(sum).second << ")";
+                os << " and " << "(" << nums.at(i) << ", " << nums.at(j) << ")\n";
+            }
+
+            hash[sum] = pair<int, int>{ nums.at(i),nums.at(j) };
+        }
+    }
+}
