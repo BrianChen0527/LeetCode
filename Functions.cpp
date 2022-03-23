@@ -583,3 +583,68 @@ void two_pair_sums(const vector<int>& nums, ostream& os) {
         }
     }
 }
+
+
+// EECS 281 Lab7 Written Problem
+// Given a dictionary consisting of many prefixes and a sentence, you need to replace all the successors in
+// the sentence with the prefix forming it.If a successor has many prefixes that can form it, replace it with
+// the prefix with the shortest length.
+// https://umich.instructure.com/courses/491173/files/folder/Lab/lab07/Replace%20Words%20Written%20Problem?preview=23559563
+// Time Complexity: O(PM+NM^2), where 
+// P = number of prefixes in prefix vector 
+// N = number of words in sentence vector
+// M = the length of the longest string in the sentence vector
+
+vector<string> replace_words(const vector<string>& prefixes,
+    const vector<string>& sentence) {
+
+    unordered_set<string> prefix_list;
+    vector<string> ans;
+
+    for (string p : prefixes) {
+        prefix_list.insert(p);
+    }
+
+    for (int j = 0; j < sentence.size(); j++) {
+        bool found = false;
+        for (int i = 1; i <= sentence.at(j).length(); i++) {
+            auto iter = prefix_list.find(sentence.at(j).substr(0, i));
+            if (iter != prefix_list.end()) {
+                ans.push_back(sentence.at(j).substr(0, i));
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            ans.push_back(sentence.at(j));
+        }
+    }
+
+    return ans;
+}
+
+string longestPalindrome(string s) {
+    int it1 = 0, it2 = 0;
+    string longest = "";
+    for (int i = 0; i < s.length(); i++) {
+        it1 = i;
+        it2 = i;
+        char current = s[i];
+
+        while (it1 >= 0 && s[it1] == current)
+            it1--;
+
+        while (it2 < s.length() && s[it2] == current)
+            it2++;
+
+        while ( it1 >= 0 && it2 < s.length() && s[it1] == s[it2]) {
+            it1--;
+            it2++;
+        }
+        cout << it1 << " " << it2 << endl;
+
+        if ((it2 - it1 - 1) > longest.length()) 
+            longest = s.substr(it1 + 1, (it2 - it1 - 1));
+    }
+    return longest;
+}
