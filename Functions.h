@@ -23,3 +23,6 @@ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2);
 
 //Improved version of findMedianSortedArrays()
 double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2);
+
+// Given a string s, return the longest palindromic substring in s.
+string longestPalindrome(string s);

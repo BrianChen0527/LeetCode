@@ -3,5 +3,8 @@ using namespace std;
 
 
 int main() {
-	void* ptr;
+	string a = "abba";
+
+	string s = longestPalindrome(a);
+	cout << s;
 }
