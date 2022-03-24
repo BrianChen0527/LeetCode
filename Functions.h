@@ -26,3 +26,9 @@ double findMedianSortedArrays2(vector<int>& nums1, vector<int>& nums2);
 
 // Given a string s, return the longest palindromic substring in s.
 string longestPalindrome(string s);
+
+// Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+// https://leetcode.com/problems/subarray-sum-equals-k/
+int subarraySum(vector<int>& nums, int k);
+
+int longestConsecutive(vector<int>& nums);

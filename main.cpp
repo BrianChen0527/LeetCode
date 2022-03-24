@@ -3,8 +3,6 @@ using namespace std;
 
 
 int main() {
-	string a = "abba";
-
-	string s = longestPalindrome(a);
-	cout << s;
+	vector<int> a = { 0,4,3,5 };
+	cout << longestConsecutive(a);
 }

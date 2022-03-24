@@ -648,3 +648,55 @@ string longestPalindrome(string s) {
     }
     return longest;
 }
+
+// Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+// https://leetcode.com/problems/subarray-sum-equals-k/
+int subarraySum(vector<int>& nums, int k) {
+    unordered_map<int, int> sums;
+    int sum = 0;
+    int count = 0;
+
+    for (int i = 0; i < nums.size(); i++) {
+        sum += nums[i];
+        cout << sum << endl;
+        
+        if (sum == k)
+            count++;
+        
+        if (sums.find(sum - k) != sums.end())
+            count += sums[sum - k];
+
+        sums.find(sum) == sums.end() ? sums[sum] = 1 : sums[sum]++;
+    }
+    return count;
+}
+
+// Given an unsorted array of integers nums, 
+// return the length of the longest consecutive elements sequence.
+int longestConsecutive(vector<int>& nums) {
+    if (nums.size() < 2)
+        return nums.size();
+
+    sort(nums.begin(), nums.end());
+    int max_count = 1, count = 1;
+    int prev_num = nums[0];
+
+    for (int i = 1; i < nums.size(); i++) {
+        if (nums.at(i) - prev_num == 1) {
+            count++;
+            cout << count << endl;
+        }
+        else if (nums.at(i) - prev_num != 0) {
+            max_count = max(max_count, count);
+            count = 1;
+        }
+        prev_num = nums[i];
+    }
+    return max(max_count, count);
+}
+
+
+
+
+
+
