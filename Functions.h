@@ -32,3 +32,11 @@ string longestPalindrome(string s);
 int subarraySum(vector<int>& nums, int k);
 
 int longestConsecutive(vector<int>& nums);
+
+int reverse(int x);
+
+int myAtoi(string s);
+
+int num_to_string(string s);
+
+int fibonacci(int n);

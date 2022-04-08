@@ -3,6 +3,5 @@ using namespace std;
 
 
 int main() {
-	vector<int> a = { 0,4,3,5 };
-	cout << longestConsecutive(a);
+	cout << num_to_string("12212100");
 }

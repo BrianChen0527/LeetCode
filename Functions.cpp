@@ -695,8 +695,127 @@ int longestConsecutive(vector<int>& nums) {
     return max(max_count, count);
 }
 
+int reverse(int x) {
+    string s = to_string(x);
+    bool neg = x < 0;
+    if (neg) s = s.substr(1);
+    
+    for (int i = 0; i < s.length() / 2; i++) {
+        cout << s[i] << " " << s[s.length() - i - 1] << endl;
+        swap(s[i], s[s.length() - i - 1]);
+    }
+
+    if (s.length() > 10) return 0;
+    if (s.length() == 10 && ((s.compare("2147483647") > 0 && !neg) || (s.compare("2147483648") > 0 && neg)))
+        return 0;
+
+    x = stoi(s);
+    return (neg ? x * -1 : x);
+}
 
 
+// parses string, and extracts integer from string (there can only be one continuous number in string)
+
+/*
+int advancedAtoi(string s) {
+    if (s.empty()) return 0;
+    
+    int pos = 0, neg = 0;
+    string num = "";
+    while (s[pos] != '-' && (s[pos] - '0' < 0 || s[pos] - '9' > 0) && pos < s.length()) { pos++; }
+    if (s[pos] == '-') {
+        neg = 1;
+        pos++;
+    }
+    
+    while (s[pos] - '0' => 0 && s[pos] - '9' <= 0 && pos < s.length()) {
+        num += s[pos];
+        pos++; 
+    }
+    
+    if (num.length() > 10) return neg ? INT32_MIN : INT32_MAX;
+    else if (num.length() == 10 && neg && num.compare("2147483648") > 0) return INT32_MIN;
+    else if (num.length() == 10 && !neg && num.compare("2147483647") > 0) return INT32_MAX;
+
+    return neg ? -1 * stoi(num) : stoi(num);
+}
+*/
+// https://leetcode.com/problems/string-to-integer-atoi/submissions/
+int myAtoi(string s) {
+    if (s.empty()) return 0;
+
+    int pos = 0, neg = 0;
+    while (s[pos] == ' ') pos++;
+    if (s[pos] != '-' && s[pos] != '+' && (s[pos] - '0' < 0 || s[pos] - '9' > 0)) return 0;
+
+    long num = 0;
+    if (s[pos] == '-') { neg = 1; pos++; }
+    else if (s[pos] == '+') pos++;
+
+    while (s[pos] - '0' >= 0 && s[pos] - '9' <= 0 && num < INT32_MAX)
+        num = num * 10 + (s[pos++] - '0');
+
+    neg ? num *= -1 : num = num;
+    if (num > INT32_MAX) return INT32_MAX;
+    else if (num < INT32_MIN) return INT32_MIN;
+    else return num;
+}
+
+
+int fibonacci(int n) {
+    if (n == 1 || n == 0) return 1;
+    else return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+size_t fibonacciDP(size_t n) {
+    if (n < 2) return n;
+
+    vector<size_t> fib(n + 1);
+    fib[0] = 0; fib[1] = 1;
+    for (int i = 2; i < n + 1; i++)
+        fib[i] = fib[i - 1] + fib[i - 2];
+
+    return fib[n];
+}
+
+
+int num_to_string(string s) {
+    int iter1 = 1, sum = 1, size = s.length();
+    vector<int> sections;
+    
+    // Invalid cases
+    if (s[0] == '0') return 0;
+    if (s.length() == 1) return 1;
+
+    for (int i = 0; i < size -1; i++) {
+        // check for double 0s
+        if (s[i] == '0' && s[i + 1] == '0')
+            return 0;
+        
+        // check for 0s
+        if (s[i] == '0' && i != 0) {
+            sections.push_back(iter1 - 1);
+            iter1 = 0;
+        }
+        
+        int num = stoi(s.substr(i, 2));
+        // check for number greater than 26
+        if (num > 26) {
+            // check for invalid case of X0 where X is larger than 2
+            if (num % 10 == 0)
+                return 0;
+            sections.push_back(iter1);
+            iter1 = 0;
+        }
+        iter1++;
+    }
+    // if last digit is 0, last two digits only provide 1 permutation
+    if (s[size-1] == '0') iter1-= 2;
+    sections.push_back(iter1);
+    
+    for (int i : sections) sum *= fibonacciDP(i);
+    return sum;
+}
 
 
 
