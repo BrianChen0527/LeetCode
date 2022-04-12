@@ -842,23 +842,40 @@ bool canConstruct(string target, vector<string> substrings) {
 bool constructUtil(string target, vector<string>& substrings, unordered_map<string, bool>& memo) {
     if (target.empty()) return true;
     if (memo.find(target) != memo.end()) return memo[target];
-    //if (memo.find(target) != memo.end()) return true;
+
     for (string s : substrings) {
         if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
             string sub = target.substr(s.length());
 
             if (constructUtil(sub, substrings, memo)) {
-                //cout << "found: " << sub << endl;
-                memo[sub] = true;
+                memo[target] = true;
                 return true;
             }
-            else {
-                memo[sub] = false;
-                //cout << "Not found: " << sub << endl;
-            }
-
         }
     }
+    memo[target] = false;
     return false;
+}
+
+// determine the number of ways we can construct the string "target" from an array of strings
+int waysConstruct(string target, vector<string> substrings) {
+    unordered_map<string, int> memo;
+    int count = 0;
+    return waysUtil(target, substrings, memo);
+}
+// Helper function
+int waysUtil(string target, vector<string>& substrings, unordered_map<string, int>& memo) {
+    if (target.empty()) return 1;
+    if (memo.find(target) != memo.end()) return memo[target];
+
+    int totalWays = 0;
+    for (string s : substrings) {
+        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
+            string sub = target.substr(s.length());
+            totalWays += waysUtil(sub, substrings, memo);
+        }
+    }
+    memo[target] = totalWays;
+    return totalWays;
 }
 
