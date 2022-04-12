@@ -2,7 +2,7 @@ using namespace std;
 #include <iostream>
 #include <vector>
 #include <string>
-#include <map>
+#include <unordered_map>
 //Given an array of integers numsand an integer target, return indices of the two numbers such that they add up to target
 vector<int> twoSum(vector<int>& nums, int target);
 
@@ -40,3 +40,10 @@ int myAtoi(string s);
 int num_to_string(string s);
 
 int fibonacci(int n);
+
+// return number of ways to climb n stairs when you can either climb 1 or 2 steps each time.
+int climbStairs(int n);
+
+// determine if we can construct the string "target" from an array of strings
+bool canConstruct(string target, vector<string> substrings);
+bool constructUtil(string target, vector<string>& substrings, unordered_map<string, bool>& memo);

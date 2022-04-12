@@ -818,4 +818,47 @@ int num_to_string(string s) {
 }
 
 
+// return number of ways to climb n stairs when you can either climb 1 or 2 steps each time.
+int climbStairs(int n) {
+    vector<int> solutions(n+1, 0);
+
+    solutions[0] = 0;
+    solutions[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        solutions[i] = solutions[i - 1] + solutions[i - 2];
+    }
+    return solutions[n];
+}
+
+
+
+// determine if we can construct the string "target" from an array of strings
+bool canConstruct(string target, vector<string> substrings) {
+    unordered_map<string, bool> memo;
+    return constructUtil(target, substrings, memo);
+}
+
+// Helper function
+bool constructUtil(string target, vector<string>& substrings, unordered_map<string, bool>& memo) {
+    if (target.empty()) return true;
+    if (memo.find(target) != memo.end()) return memo[target];
+    //if (memo.find(target) != memo.end()) return true;
+    for (string s : substrings) {
+        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
+            string sub = target.substr(s.length());
+
+            if (constructUtil(sub, substrings, memo)) {
+                //cout << "found: " << sub << endl;
+                memo[sub] = true;
+                return true;
+            }
+            else {
+                memo[sub] = false;
+                //cout << "Not found: " << sub << endl;
+            }
+
+        }
+    }
+    return false;
+}
 
