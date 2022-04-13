@@ -1,5 +1,5 @@
 using namespace std;
-
+#include "Functions.h"
 #include <map>
 #include <algorithm>
 #include <cassert>
@@ -243,13 +243,7 @@ int join_ropes(const vector<int>& rope_lengths) {
 //################################################################################################
 //################################################################################################
 
-struct Node {
-    int val;
-    Node* next;
-    Node() : val{ 0 }, next{ nullptr } {}
-    Node(int x) : val{ x }, next{ nullptr } {}
-    Node(int x, Node* next_in) : val{ x }, next{ next_in } {}
-};
+
 
 
 // Write a program that reverses this singly-linked list of nodes
@@ -321,16 +315,10 @@ vector<int> prev_greatest_element(vector<int>& vec) {
 
 // You are given a collection of intervals. Write a function that 
 // merges all of the overlapping intervals.
-struct Interval {
-    int start;
-    int end;
-};
 bool cmp_Intervals(const Interval& a, const Interval& b) { return (a.start < b.start); }
+
 vector<Interval> merge_intervals1(vector<Interval>& vec) {
-
-    
-
-    sort(vec.begin(), vec.end(), cmp_Intervals);
+    std::sort(vec.begin(), vec.end(), cmp_Intervals);
 
     vector<Interval> sorted;
     if (vec.size() > 1) {
@@ -857,6 +845,43 @@ bool constructUtil(string target, vector<string>& substrings, unordered_map<stri
     return false;
 }
 
+bool canSum(int target, vector<int> nums){
+    vector<bool> tabulation(target + 1, false);
+    tabulation[0] = true;
+
+    for(int j = 0; j < target+1; j++)
+        for (int i : nums) 
+            if (tabulation[j] && j+i <= target)
+                tabulation[j + i] = true;
+    
+    for (int i = 0; i < tabulation.size(); i++) {
+        cout << i << ":  " << tabulation[i] << endl;
+    }
+
+    return tabulation[target];
+}
+
+
+vector<int> howSum(int target, vector<int> nums) {
+    vector<vector<int>> table(target + 1);
+    table[0] = { 0 };
+
+    for (int j = 0; j < target + 1; j++)
+        for (int i : nums) {
+            if (table[j].size() > 0 && j + i <= target) {
+                if (j == 0) table[i + j] = { i };
+                else {
+                    table[i + j] = table[j];
+                    table[i + j].push_back(i);
+                }
+            }
+        }
+
+    return table[target];
+}
+
+
+
 // determine the number of ways we can construct the string "target" from an array of strings
 int waysConstruct(string target, vector<string> substrings) {
     unordered_map<string, int> memo;
@@ -879,3 +904,33 @@ int waysUtil(string target, vector<string>& substrings, unordered_map<string, in
     return totalWays;
 }
 
+
+
+// determine all the combinations which we can construct the string "target" from an array of strings
+// and return the 2d vector containing our combinations of substrings
+vector<vector<string>> allConstruct(string target, vector<string> substrings) {
+    unordered_map<string, vector<vector<string>>> memo;
+    return allWaysUtil(target, substrings, memo);
+}
+
+// Helper function
+vector<vector<string>> allWaysUtil(string target,
+    vector<string>& substrings, unordered_map<string, vector<vector<string>>>& memo) {
+    vector<vector<string>> v = { {} };
+    if (target.empty()) return v;
+    if (memo.find(target) != memo.end()) return memo[target];
+
+    vector<vector<string>> allCombinations;
+    vector<vector<string>> combinations;
+    for (string s : substrings) {
+        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
+            string sub = target.substr(s.length());
+            for (vector<string>& v : allWaysUtil(sub, substrings, memo)) {
+                v.insert(v.begin(), s);
+                allCombinations.push_back(v);
+            }
+        }
+    }
+    memo[target] = allCombinations;
+    return allCombinations;
+}

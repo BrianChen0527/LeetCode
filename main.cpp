@@ -3,5 +3,9 @@ using namespace std;
 
 
 int main() {
-	cout << num_to_string("12212100");
+	vector<int> t = { 3, 2, 5};
+	int target = 76;
+	for (int i : howSum(target, t)) {
+		cout << i << " ";
+	}
 }
