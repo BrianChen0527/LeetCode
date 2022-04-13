@@ -880,7 +880,24 @@ vector<int> howSum(int target, vector<int> nums) {
     return table[target];
 }
 
+// given an array of integers nums and a target number, return the shortest combination of 
+// integers in nums that sums up to target
+vector<int> bestSum(int target, vector<int> nums) {
+    vector<vector<int>> table(target + 1);
+    table[0] = { 0 };
 
+    for (int j = 0; j < target + 1; j++)
+        for (int i : nums) {
+            if (table[j].size() > 0 && j + i <= target) {
+                if (j == 0) table[i + j] = { i };
+                else if (table[i + j].empty() || table[i + j].size() > table[j].size() + 1) {
+                    table[i + j] = table[j];
+                    table[i + j].push_back(i);
+                }
+            }
+        }
+    return table[target];
+}
 
 // determine the number of ways we can construct the string "target" from an array of strings
 int waysConstruct(string target, vector<string> substrings) {
@@ -934,3 +951,7 @@ vector<vector<string>> allWaysUtil(string target,
     memo[target] = allCombinations;
     return allCombinations;
 }
+
+
+
+
