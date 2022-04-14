@@ -818,42 +818,15 @@ int climbStairs(int n) {
     return solutions[n];
 }
 
-
-
-// determine if we can construct the string "target" from an array of strings
-bool canConstruct(string target, vector<string> substrings) {
-    unordered_map<string, bool> memo;
-    return constructUtil(target, substrings, memo);
-}
-
-// Helper function
-bool constructUtil(string target, vector<string>& substrings, unordered_map<string, bool>& memo) {
-    if (target.empty()) return true;
-    if (memo.find(target) != memo.end()) return memo[target];
-
-    for (string s : substrings) {
-        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
-            string sub = target.substr(s.length());
-
-            if (constructUtil(sub, substrings, memo)) {
-                memo[target] = true;
-                return true;
-            }
-        }
-    }
-    memo[target] = false;
-    return false;
-}
-
-bool canSum(int target, vector<int> nums){
+bool canSum(int target, vector<int> nums) {
     vector<bool> tabulation(target + 1, false);
     tabulation[0] = true;
 
-    for(int j = 0; j < target+1; j++)
-        for (int i : nums) 
-            if (tabulation[j] && j+i <= target)
+    for (int j = 0; j < target + 1; j++)
+        for (int i : nums)
+            if (tabulation[j] && j + i <= target)
                 tabulation[j + i] = true;
-    
+
     for (int i = 0; i < tabulation.size(); i++) {
         cout << i << ":  " << tabulation[i] << endl;
     }
@@ -899,6 +872,49 @@ vector<int> bestSum(int target, vector<int> nums) {
     return table[target];
 }
 
+// determine if we can construct the string "target" from an array of strings
+// using MEMOIZATION 
+bool canConstruct(string target, vector<string> substrings) {
+    unordered_map<string, bool> memo;
+    return constructUtil(target, substrings, memo);
+}
+
+// Helper function
+bool constructUtil(string target, vector<string>& substrings, unordered_map<string, bool>& memo) {
+    if (target.empty()) return true;
+    if (memo.find(target) != memo.end()) return memo[target];
+
+    for (string s : substrings) {
+        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
+            string sub = target.substr(s.length());
+
+            if (constructUtil(sub, substrings, memo)) {
+                memo[target] = true;
+                return true;
+            }
+        }
+    }
+    memo[target] = false;
+    return false;
+}
+
+// determine if we can construct the string "target" from an array of strings
+// using TABULATION
+bool canConstruct2(string target, vector<string> substrings) {
+    vector<bool> table(target.length() + 1, false);
+    table[0] = true;
+    for (int i = 0; i < target.length(); i++) {
+        for (string s : substrings) {
+            if (target[i] == s[0] && table[i] && target.substr(i, s.length()) == s) {
+                table[i + s.length()] = true;
+            }
+        }
+    }
+    return table[target.length()];
+}
+
+
+
 // determine the number of ways we can construct the string "target" from an array of strings
 int waysConstruct(string target, vector<string> substrings) {
     unordered_map<string, int> memo;
@@ -919,6 +935,21 @@ int waysUtil(string target, vector<string>& substrings, unordered_map<string, in
     }
     memo[target] = totalWays;
     return totalWays;
+}
+
+// determine the number of ways we can construct the string "target" from an array of strings
+// using TABULATION
+int waysConstruct2(string target, vector<string> substrings) {
+    vector<int> table(target.length() + 1, 0);
+    table[0] = 1;
+    for (int i = 0; i < target.length(); i++) {
+        for (string s : substrings) {
+            if (target[i] == s[0] && table[i] && target.substr(i, s.length()) == s) {
+                table[i + s.length()] += table[i];
+            }
+        }
+    }
+    return table[target.length()];
 }
 
 
@@ -951,7 +982,25 @@ vector<vector<string>> allWaysUtil(string target,
     memo[target] = allCombinations;
     return allCombinations;
 }
+// determine all the combinations which we can construct the string "target" from an array of strings
+// and return the 2d vector containing our combinations of substrings
+// using TABULATION
+vector<vector<string>> allConstruct2(string target, vector<string> substrings) {
+    vector<vector<vector<string>>> table(target.length() + 1, vector<vector<string>>{});
+    table[0] = { {} };
 
-
+    for (int i = 0; i < target.length(); i++) {
+        for (string s : substrings) {
+            if (target[i] == s[0] && !table[i].empty() && target.substr(i, s.length()) == s) {
+                vector<vector<string>> vec = table[i];
+                for (vector<string>& v : vec) {
+                    v.push_back(s);
+                    table[i + s.length()].push_back(v);
+                }
+            }
+        }
+    }
+    return table[target.length()];
+}
 
 

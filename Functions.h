@@ -138,12 +138,17 @@ vector<int> howSum(int target, vector<int> nums);
 // using MEMOIZATION 
 bool canConstruct(string target, vector<string> substrings);
 bool constructUtil(string target, vector<string>& substrings, unordered_map<string, bool>& memo);
+// using TABULATION
+bool canConstruct2(string target, vector<string> substrings);
 
 
 // determine if we can construct the string "target" from an array of strings
 // using MEMOIZATION 
 int waysConstruct(string target, vector<string> substrings);
 int waysUtil(string target, vector<string>& substrings, unordered_map<string, int>& memo);
+// using TABULATION
+int waysConstruct2(string target, vector<string> substrings);
+
 
 // determine all the combinations which we can construct the string "target" from an array of strings
 // and return the 2d vector containing our combinations of substrings
@@ -151,4 +156,5 @@ int waysUtil(string target, vector<string>& substrings, unordered_map<string, in
 vector<vector<string>> allConstruct(string target, vector<string> substrings);
 vector<vector<string>> allWaysUtil(string target,
     vector<string>& substrings, unordered_map<string, vector<vector<string>>>& memo);
-
+// using TABULATION
+vector<vector<string>> allConstruct2(string target, vector<string> substrings);
