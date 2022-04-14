@@ -158,3 +158,23 @@ vector<vector<string>> allWaysUtil(string target,
     vector<string>& substrings, unordered_map<string, vector<vector<string>>>& memo);
 // using TABULATION
 vector<vector<string>> allConstruct2(string target, vector<string> substrings);
+
+
+
+// https://leetcode.com/problems/house-robber/submissions/
+int rob(vector<int>& nums);
+
+// https://leetcode.com/problems/house-robber-ii/submissions/
+int rob2(vector<int>& nums);
+int rob2Util(vector<int>& nums, int pos1, int pos2);
+
+// https://leetcode.com/problems/decode-ways/submissions/
+// Tabulation Dynamic Programming O(n) time & O(n) space
+int numDecodings(string s);
+
+// https://leetcode.com/problems/decode-ways/submissions/
+// Dynamic Programming O(n) time & O(1) space
+int numDecodings2(string s);
+
+// https://leetcode.com/problems/unique-paths/
+int uniquePaths(int m, int n);

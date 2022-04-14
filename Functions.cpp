@@ -1004,3 +1004,81 @@ vector<vector<string>> allConstruct2(string target, vector<string> substrings) {
 }
 
 
+// https://leetcode.com/problems/house-robber/submissions/
+int rob(vector<int>& nums) {
+    if (nums.empty()) return 0;
+    if (nums.size() == 1) return nums[0];
+    if (nums.size() == 2) return max(nums[0], nums[1]);
+
+    vector<int> table(nums.size() + 1, 0);
+    table[1] = nums[0];
+    table[2] = nums[1];
+    for (int i = 3; i < table.size(); i++) {
+        table[i] = max(table[i - 3], table[i - 2]) + nums[i - 1];
+    }
+    return max(table.at(table.size() - 2), table.back());
+}
+
+int rob2(vector<int>& nums) {
+    if (nums.size() < 2)
+        return nums.size() ? nums[0] : 0;
+    return max(rob2Util(nums, 1, nums.size()), rob2Util(nums, 0, nums.size() - 1));
+}
+
+int rob2Util(vector<int>& nums, int pos1, int pos2) {
+    if (nums.size() < 2)
+        return nums.size() ? nums[0] : 0;
+
+    int curr = 0, prev = 0;
+    for (int i = pos1; i < pos2; i++) {
+        int next = max(curr, prev + nums[i]);
+        prev = curr;
+        curr = next;
+    }
+    return curr;
+}
+
+// https://leetcode.com/problems/decode-ways/submissions/
+// Tabulation Dynamic Programming O(n) time & O(n) space
+int numDecodings(string s) {
+    if (!s.length()) return 0;
+    vector<int> table(s.length() + 1, 0);
+    table.back() = 1;
+    for (int i = s.length() - 1; i >= 0; i--) {
+        if (s[i] != '0')
+            table[i] += table[i + 1];
+        if (i + 1 < s.length() && stoi(s.substr(i, 2)) <= 26 && s[i] != '0')
+            table[i] += table[i + 2];
+    }
+    return table[0];
+}
+
+// https://leetcode.com/problems/decode-ways/submissions/
+// Dynamic Programming O(n) time & O(1) space
+int numDecodings2(string s) {
+    if (!s.length()) return 0;
+
+    int prev2 = 1, prev1 = 1;
+    for (int i = s.length() - 1; i >= 0; i--) {
+        int tmp = 0;
+        if (s[i] != '0')
+            tmp += prev1;
+        if (i + 1 < s.length() && stoi(s.substr(i, 2)) <= 26 && s[i] != '0')
+            tmp += prev2;
+        prev2 = prev1;
+        prev1 = tmp;
+    }
+    return prev1;
+}
+
+
+// https://leetcode.com/problems/unique-paths/
+int uniquePaths(int m, int n) {
+    vector<vector<int>> table(m, vector<int>(n, 1));
+    for (int r = 1; r < m; r++) {
+        for (int c = 1; c < n; c++) {
+            table[r][c] = table[r - 1][c] + table[r][c - 1];
+        }
+    }
+    return table[m - 1][n - 1];
+}
