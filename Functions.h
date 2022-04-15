@@ -178,3 +178,27 @@ int numDecodings2(string s);
 
 // https://leetcode.com/problems/unique-paths/
 int uniquePaths(int m, int n);
+
+// https://leetcode.com/problems/jump-game-iii/submissions/
+bool canReach(vector<int>& arr, int start); 
+
+// https://leetcode.com/problems/jump-game
+bool canJump(vector<int>& nums);
+
+// https://leetcode.com/problems/jump-game-ii
+int jump(vector<int>& nums);
+
+// https://leetcode.com/problems/longest-common-subsequence
+int longestCommonSubsequence(string text1, string text2);
+
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode() : val(0), next(nullptr) {}
+    ListNode(int x) : val(x), next(nullptr) {}
+    ListNode(int x, ListNode* next) : val(x), next(next) {}
+};
+
+// https://leetcode.com/problems/merge-k-sorted-lists/submissions/
+ListNode* mergeKLists(vector<ListNode*>& lists);
+

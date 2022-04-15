@@ -235,6 +235,599 @@ int join_ropes(const vector<int>& rope_lengths) {
     return min_length;
 }
 
+string longestPalindrome(string s) {
+    int it1 = 0, it2 = 0;
+    string longest = "";
+    for (int i = 0; i < s.length(); i++) {
+        it1 = i;
+        it2 = i;
+        char current = s[i];
+
+        while (it1 >= 0 && s[it1] == current)
+            it1--;
+
+        while (it2 < s.length() && s[it2] == current)
+            it2++;
+
+        while (it1 >= 0 && it2 < s.length() && s[it1] == s[it2]) {
+            it1--;
+            it2++;
+        }
+        cout << it1 << " " << it2 << endl;
+
+        if ((it2 - it1 - 1) > longest.length())
+            longest = s.substr(it1 + 1, (it2 - it1 - 1));
+    }
+    return longest;
+}
+
+// Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+// https://leetcode.com/problems/subarray-sum-equals-k/
+int subarraySum(vector<int>& nums, int k) {
+    unordered_map<int, int> sums;
+    int sum = 0;
+    int count = 0;
+
+    for (int i = 0; i < nums.size(); i++) {
+        sum += nums[i];
+        cout << sum << endl;
+
+        if (sum == k)
+            count++;
+
+        if (sums.find(sum - k) != sums.end())
+            count += sums[sum - k];
+
+        sums.find(sum) == sums.end() ? sums[sum] = 1 : sums[sum]++;
+    }
+    return count;
+}
+
+// Given an unsorted array of integers nums, 
+// return the length of the longest consecutive elements sequence.
+int longestConsecutive(vector<int>& nums) {
+    if (nums.size() < 2)
+        return nums.size();
+
+    sort(nums.begin(), nums.end());
+    int max_count = 1, count = 1;
+    int prev_num = nums[0];
+
+    for (int i = 1; i < nums.size(); i++) {
+        if (nums.at(i) - prev_num == 1) {
+            count++;
+            cout << count << endl;
+        }
+        else if (nums.at(i) - prev_num != 0) {
+            max_count = max(max_count, count);
+            count = 1;
+        }
+        prev_num = nums[i];
+    }
+    return max(max_count, count);
+}
+
+int reverse(int x) {
+    string s = to_string(x);
+    bool neg = x < 0;
+    if (neg) s = s.substr(1);
+
+    for (int i = 0; i < s.length() / 2; i++) {
+        cout << s[i] << " " << s[s.length() - i - 1] << endl;
+        swap(s[i], s[s.length() - i - 1]);
+    }
+
+    if (s.length() > 10) return 0;
+    if (s.length() == 10 && ((s.compare("2147483647") > 0 && !neg) || (s.compare("2147483648") > 0 && neg)))
+        return 0;
+
+    x = stoi(s);
+    return (neg ? x * -1 : x);
+}
+
+
+// parses string, and extracts integer from string (there can only be one continuous number in string)
+
+/*
+int advancedAtoi(string s) {
+    if (s.empty()) return 0;
+
+    int pos = 0, neg = 0;
+    string num = "";
+    while (s[pos] != '-' && (s[pos] - '0' < 0 || s[pos] - '9' > 0) && pos < s.length()) { pos++; }
+    if (s[pos] == '-') {
+        neg = 1;
+        pos++;
+    }
+
+    while (s[pos] - '0' => 0 && s[pos] - '9' <= 0 && pos < s.length()) {
+        num += s[pos];
+        pos++;
+    }
+
+    if (num.length() > 10) return neg ? INT32_MIN : INT32_MAX;
+    else if (num.length() == 10 && neg && num.compare("2147483648") > 0) return INT32_MIN;
+    else if (num.length() == 10 && !neg && num.compare("2147483647") > 0) return INT32_MAX;
+
+    return neg ? -1 * stoi(num) : stoi(num);
+}
+*/
+// https://leetcode.com/problems/string-to-integer-atoi/submissions/
+int myAtoi(string s) {
+    if (s.empty()) return 0;
+
+    int pos = 0, neg = 0;
+    while (s[pos] == ' ') pos++;
+    if (s[pos] != '-' && s[pos] != '+' && (s[pos] - '0' < 0 || s[pos] - '9' > 0)) return 0;
+
+    long num = 0;
+    if (s[pos] == '-') { neg = 1; pos++; }
+    else if (s[pos] == '+') pos++;
+
+    while (s[pos] - '0' >= 0 && s[pos] - '9' <= 0 && num < INT32_MAX)
+        num = num * 10 + (s[pos++] - '0');
+
+    neg ? num *= -1 : num = num;
+    if (num > INT32_MAX) return INT32_MAX;
+    else if (num < INT32_MIN) return INT32_MIN;
+    else return num;
+}
+
+
+int fibonacci(int n) {
+    if (n == 1 || n == 0) return 1;
+    else return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+size_t fibonacciDP(size_t n) {
+    if (n < 2) return n;
+
+    vector<size_t> fib(n + 1);
+    fib[0] = 0; fib[1] = 1;
+    for (int i = 2; i < n + 1; i++)
+        fib[i] = fib[i - 1] + fib[i - 2];
+
+    return fib[n];
+}
+
+
+int num_to_string(string s) {
+    int iter1 = 1, sum = 1, size = s.length();
+    vector<int> sections;
+
+    // Invalid cases
+    if (s[0] == '0') return 0;
+    if (s.length() == 1) return 1;
+
+    for (int i = 0; i < size - 1; i++) {
+        // check for double 0s
+        if (s[i] == '0' && s[i + 1] == '0')
+            return 0;
+
+        // check for 0s
+        if (s[i] == '0' && i != 0) {
+            sections.push_back(iter1 - 1);
+            iter1 = 0;
+        }
+
+        int num = stoi(s.substr(i, 2));
+        // check for number greater than 26
+        if (num > 26) {
+            // check for invalid case of X0 where X is larger than 2
+            if (num % 10 == 0)
+                return 0;
+            sections.push_back(iter1);
+            iter1 = 0;
+        }
+        iter1++;
+    }
+    // if last digit is 0, last two digits only provide 1 permutation
+    if (s[size - 1] == '0') iter1 -= 2;
+    sections.push_back(iter1);
+
+    for (int i : sections) sum *= fibonacciDP(i);
+    return sum;
+}
+
+
+// return number of ways to climb n stairs when you can either climb 1 or 2 steps each time.
+int climbStairs(int n) {
+    vector<int> solutions(n + 1, 0);
+
+    solutions[0] = 0;
+    solutions[1] = 1;
+    for (int i = 2; i <= n; i++) {
+        solutions[i] = solutions[i - 1] + solutions[i - 2];
+    }
+    return solutions[n];
+}
+
+bool canSum(int target, vector<int> nums) {
+    vector<bool> tabulation(target + 1, false);
+    tabulation[0] = true;
+
+    for (int j = 0; j < target + 1; j++)
+        for (int i : nums)
+            if (tabulation[j] && j + i <= target)
+                tabulation[j + i] = true;
+
+    for (int i = 0; i < tabulation.size(); i++) {
+        cout << i << ":  " << tabulation[i] << endl;
+    }
+
+    return tabulation[target];
+}
+
+
+vector<int> howSum(int target, vector<int> nums) {
+    vector<vector<int>> table(target + 1);
+    table[0] = { 0 };
+
+    for (int j = 0; j < target + 1; j++)
+        for (int i : nums) {
+            if (table[j].size() > 0 && j + i <= target) {
+                if (j == 0) table[i + j] = { i };
+                else {
+                    table[i + j] = table[j];
+                    table[i + j].push_back(i);
+                }
+            }
+        }
+
+    return table[target];
+}
+
+// given an array of integers nums and a target number, return the shortest combination of 
+// integers in nums that sums up to target
+vector<int> bestSum(int target, vector<int> nums) {
+    vector<vector<int>> table(target + 1);
+    table[0] = { 0 };
+
+    for (int j = 0; j < target + 1; j++)
+        for (int i : nums) {
+            if (table[j].size() > 0 && j + i <= target) {
+                if (j == 0) table[i + j] = { i };
+                else if (table[i + j].empty() || table[i + j].size() > table[j].size() + 1) {
+                    table[i + j] = table[j];
+                    table[i + j].push_back(i);
+                }
+            }
+        }
+    return table[target];
+}
+
+// determine if we can construct the string "target" from an array of strings
+// using MEMOIZATION 
+bool canConstruct(string target, vector<string> substrings) {
+    unordered_map<string, bool> memo;
+    return constructUtil(target, substrings, memo);
+}
+
+// Helper function
+bool constructUtil(string target, vector<string>& substrings, unordered_map<string, bool>& memo) {
+    if (target.empty()) return true;
+    if (memo.find(target) != memo.end()) return memo[target];
+
+    for (string s : substrings) {
+        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
+            string sub = target.substr(s.length());
+
+            if (constructUtil(sub, substrings, memo)) {
+                memo[target] = true;
+                return true;
+            }
+        }
+    }
+    memo[target] = false;
+    return false;
+}
+
+// determine if we can construct the string "target" from an array of strings
+// using TABULATION
+bool canConstruct2(string target, vector<string> substrings) {
+    vector<bool> table(target.length() + 1, false);
+    table[0] = true;
+    for (int i = 0; i < target.length(); i++) {
+        for (string s : substrings) {
+            if (target[i] == s[0] && table[i] && target.substr(i, s.length()) == s) {
+                table[i + s.length()] = true;
+            }
+        }
+    }
+    return table[target.length()];
+}
+
+
+
+// determine the number of ways we can construct the string "target" from an array of strings
+int waysConstruct(string target, vector<string> substrings) {
+    unordered_map<string, int> memo;
+    int count = 0;
+    return waysUtil(target, substrings, memo);
+}
+// Helper function
+int waysUtil(string target, vector<string>& substrings, unordered_map<string, int>& memo) {
+    if (target.empty()) return 1;
+    if (memo.find(target) != memo.end()) return memo[target];
+
+    int totalWays = 0;
+    for (string s : substrings) {
+        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
+            string sub = target.substr(s.length());
+            totalWays += waysUtil(sub, substrings, memo);
+        }
+    }
+    memo[target] = totalWays;
+    return totalWays;
+}
+
+// determine the number of ways we can construct the string "target" from an array of strings
+// using TABULATION
+int waysConstruct2(string target, vector<string> substrings) {
+    vector<int> table(target.length() + 1, 0);
+    table[0] = 1;
+    for (int i = 0; i < target.length(); i++) {
+        for (string s : substrings) {
+            if (target[i] == s[0] && table[i] && target.substr(i, s.length()) == s) {
+                table[i + s.length()] += table[i];
+            }
+        }
+    }
+    return table[target.length()];
+}
+
+
+
+// determine all the combinations which we can construct the string "target" from an array of strings
+// and return the 2d vector containing our combinations of substrings
+vector<vector<string>> allConstruct(string target, vector<string> substrings) {
+    unordered_map<string, vector<vector<string>>> memo;
+    return allWaysUtil(target, substrings, memo);
+}
+
+// Helper function
+vector<vector<string>> allWaysUtil(string target,
+    vector<string>& substrings, unordered_map<string, vector<vector<string>>>& memo) {
+    vector<vector<string>> v = { {} };
+    if (target.empty()) return v;
+    if (memo.find(target) != memo.end()) return memo[target];
+
+    vector<vector<string>> allCombinations;
+    vector<vector<string>> combinations;
+    for (string s : substrings) {
+        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
+            string sub = target.substr(s.length());
+            for (vector<string>& v : allWaysUtil(sub, substrings, memo)) {
+                v.insert(v.begin(), s);
+                allCombinations.push_back(v);
+            }
+        }
+    }
+    memo[target] = allCombinations;
+    return allCombinations;
+}
+// determine all the combinations which we can construct the string "target" from an array of strings
+// and return the 2d vector containing our combinations of substrings
+// using TABULATION
+vector<vector<string>> allConstruct2(string target, vector<string> substrings) {
+    vector<vector<vector<string>>> table(target.length() + 1, vector<vector<string>>{});
+    table[0] = { {} };
+
+    for (int i = 0; i < target.length(); i++) {
+        for (string s : substrings) {
+            if (target[i] == s[0] && !table[i].empty() && target.substr(i, s.length()) == s) {
+                vector<vector<string>> vec = table[i];
+                for (vector<string>& v : vec) {
+                    v.push_back(s);
+                    table[i + s.length()].push_back(v);
+                }
+            }
+        }
+    }
+    return table[target.length()];
+}
+
+
+// https://leetcode.com/problems/house-robber/submissions/
+int rob(vector<int>& nums) {
+    if (nums.empty()) return 0;
+    if (nums.size() == 1) return nums[0];
+    if (nums.size() == 2) return max(nums[0], nums[1]);
+
+    vector<int> table(nums.size() + 1, 0);
+    table[1] = nums[0];
+    table[2] = nums[1];
+    for (int i = 3; i < table.size(); i++) {
+        table[i] = max(table[i - 3], table[i - 2]) + nums[i - 1];
+    }
+    return max(table.at(table.size() - 2), table.back());
+}
+
+int rob2(vector<int>& nums) {
+    if (nums.size() < 2)
+        return nums.size() ? nums[0] : 0;
+    return max(rob2Util(nums, 1, nums.size()), rob2Util(nums, 0, nums.size() - 1));
+}
+
+int rob2Util(vector<int>& nums, int pos1, int pos2) {
+    if (nums.size() < 2)
+        return nums.size() ? nums[0] : 0;
+
+    int curr = 0, prev = 0;
+    for (int i = pos1; i < pos2; i++) {
+        int next = max(curr, prev + nums[i]);
+        prev = curr;
+        curr = next;
+    }
+    return curr;
+}
+
+// https://leetcode.com/problems/decode-ways/submissions/
+// Tabulation Dynamic Programming O(n) time & O(n) space
+int numDecodings(string s) {
+    if (!s.length()) return 0;
+    vector<int> table(s.length() + 1, 0);
+    table.back() = 1;
+    for (int i = s.length() - 1; i >= 0; i--) {
+        if (s[i] != '0')
+            table[i] += table[i + 1];
+        if (i + 1 < s.length() && stoi(s.substr(i, 2)) <= 26 && s[i] != '0')
+            table[i] += table[i + 2];
+    }
+    return table[0];
+}
+
+// https://leetcode.com/problems/decode-ways/submissions/
+// Dynamic Programming O(n) time & O(1) space
+int numDecodings2(string s) {
+    if (!s.length()) return 0;
+
+    int prev2 = 1, prev1 = 1;
+    for (int i = s.length() - 1; i >= 0; i--) {
+        int tmp = 0;
+        if (s[i] != '0')
+            tmp += prev1;
+        if (i + 1 < s.length() && stoi(s.substr(i, 2)) <= 26 && s[i] != '0')
+            tmp += prev2;
+        prev2 = prev1;
+        prev1 = tmp;
+    }
+    return prev1;
+}
+
+
+// https://leetcode.com/problems/unique-paths/
+int uniquePaths(int m, int n) {
+    vector<vector<int>> table(m, vector<int>(n, 1));
+    for (int r = 1; r < m; r++) {
+        for (int c = 1; c < n; c++) {
+            table[r][c] = table[r - 1][c] + table[r][c - 1];
+        }
+    }
+    return table[m - 1][n - 1];
+}
+
+// https://leetcode.com/problems/jump-game-iii/submissions/
+bool canReach(vector<int>& arr, int start) {
+    queue<int> q;
+    q.push(start);
+    vector<bool> visited(arr.size(), false);
+    while (!q.empty()) {
+        int pos = q.front(); q.pop();
+        if (arr[pos] == 0) return true;
+        visited[pos] = true;
+        int front = pos + arr[pos], back = pos - arr[pos];
+        if (front < arr.size() && !visited[front]) q.push(front);
+        if (back >= 0 && !visited[back]) q.push(back);
+    }
+    return false;
+}
+
+
+// https://leetcode.com/problems/jump-game
+bool canJump(vector<int>& nums) {
+    if (nums.size() < 2) return true;
+    int maxPos = 0;
+    for (int i = 0; i < nums.size(); i++) {
+        if (nums[i] == 0 && maxPos < i) return false;
+        maxPos = max(maxPos, i + nums[i]);
+    }
+    return maxPos >= nums.size() - 1;
+}
+
+// https://leetcode.com/problems/jump-game-ii
+int jump(vector<int>& nums) {
+    if (nums.size() < 2) return 0;
+    int currMaxPos = 0, nextMaxPos = 0, i = 0, jumps = 0;
+
+    while (currMaxPos < nums.size() - 1) {
+        nextMaxPos = max(nextMaxPos, i + nums[i]);
+
+        if (i == currMaxPos) {
+            currMaxPos = nextMaxPos;
+            jumps++;
+        }
+
+        i++;
+    }
+    return jumps;
+}
+
+// https://leetcode.com/problems/longest-common-subsequence
+int longestCommonSubsequence(string text1, string text2) {
+    vector<vector<int>> table(text1.length() + 1, vector<int>(text2.length() + 1, 0));
+
+    for (int r = 1; r < table.size(); r++) {
+        for (int c = 1; c < table.at(0).size(); c++) {
+            if (text1[r - 1] == text2[c - 1]) table[r][c] = table[r - 1][c - 1] + 1;
+            else table[r][c] = max(table[r][c - 1], table[r - 1][c]);
+        }
+    }
+
+    return table[table.size() - 1][table.at(0).size() - 1];
+}
+
+// https://leetcode.com/problems/merge-k-sorted-lists/submissions/
+ListNode* mergeKLists(vector<ListNode*>& lists) {
+    if (lists.empty()) return nullptr;
+    deque<ListNode*> toMerge;
+    for (ListNode* ptr : lists) {
+        toMerge.push_back(ptr);
+    }
+
+    while (toMerge.size() > 1) {
+        ListNode* ptr1 = toMerge.front(); toMerge.pop_front();
+        ListNode* ptr2 = toMerge.front(); toMerge.pop_front();
+        ListNode* curr = new ListNode(0, nullptr);
+        ListNode* head = curr;
+
+        while (ptr1 && ptr2) {
+            if (ptr1->val > ptr2->val) {
+                curr->next = ptr2;
+                ptr2 = ptr2->next;
+            }
+            else {
+                curr->next = ptr1;
+                ptr1 = ptr1->next;
+            }
+            curr = curr->next;
+        }
+        if (ptr1)
+            curr->next = ptr1;
+        if (ptr2)
+            curr->next = ptr2;
+        head = head->next;
+        toMerge.push_back(head);
+    }
+    return toMerge.front();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //################################################################################################
 //################################################################################################
 //###################################                       ######################################
@@ -242,9 +835,6 @@ int join_ropes(const vector<int>& rope_lengths) {
 //###################################                       ######################################
 //################################################################################################
 //################################################################################################
-
-
-
 
 // Write a program that reverses this singly-linked list of nodes
 Node* reverse_list(Node* head) {
@@ -611,474 +1201,3 @@ vector<string> replace_words(const vector<string>& prefixes,
     return ans;
 }
 
-string longestPalindrome(string s) {
-    int it1 = 0, it2 = 0;
-    string longest = "";
-    for (int i = 0; i < s.length(); i++) {
-        it1 = i;
-        it2 = i;
-        char current = s[i];
-
-        while (it1 >= 0 && s[it1] == current)
-            it1--;
-
-        while (it2 < s.length() && s[it2] == current)
-            it2++;
-
-        while ( it1 >= 0 && it2 < s.length() && s[it1] == s[it2]) {
-            it1--;
-            it2++;
-        }
-        cout << it1 << " " << it2 << endl;
-
-        if ((it2 - it1 - 1) > longest.length()) 
-            longest = s.substr(it1 + 1, (it2 - it1 - 1));
-    }
-    return longest;
-}
-
-// Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
-// https://leetcode.com/problems/subarray-sum-equals-k/
-int subarraySum(vector<int>& nums, int k) {
-    unordered_map<int, int> sums;
-    int sum = 0;
-    int count = 0;
-
-    for (int i = 0; i < nums.size(); i++) {
-        sum += nums[i];
-        cout << sum << endl;
-        
-        if (sum == k)
-            count++;
-        
-        if (sums.find(sum - k) != sums.end())
-            count += sums[sum - k];
-
-        sums.find(sum) == sums.end() ? sums[sum] = 1 : sums[sum]++;
-    }
-    return count;
-}
-
-// Given an unsorted array of integers nums, 
-// return the length of the longest consecutive elements sequence.
-int longestConsecutive(vector<int>& nums) {
-    if (nums.size() < 2)
-        return nums.size();
-
-    sort(nums.begin(), nums.end());
-    int max_count = 1, count = 1;
-    int prev_num = nums[0];
-
-    for (int i = 1; i < nums.size(); i++) {
-        if (nums.at(i) - prev_num == 1) {
-            count++;
-            cout << count << endl;
-        }
-        else if (nums.at(i) - prev_num != 0) {
-            max_count = max(max_count, count);
-            count = 1;
-        }
-        prev_num = nums[i];
-    }
-    return max(max_count, count);
-}
-
-int reverse(int x) {
-    string s = to_string(x);
-    bool neg = x < 0;
-    if (neg) s = s.substr(1);
-    
-    for (int i = 0; i < s.length() / 2; i++) {
-        cout << s[i] << " " << s[s.length() - i - 1] << endl;
-        swap(s[i], s[s.length() - i - 1]);
-    }
-
-    if (s.length() > 10) return 0;
-    if (s.length() == 10 && ((s.compare("2147483647") > 0 && !neg) || (s.compare("2147483648") > 0 && neg)))
-        return 0;
-
-    x = stoi(s);
-    return (neg ? x * -1 : x);
-}
-
-
-// parses string, and extracts integer from string (there can only be one continuous number in string)
-
-/*
-int advancedAtoi(string s) {
-    if (s.empty()) return 0;
-    
-    int pos = 0, neg = 0;
-    string num = "";
-    while (s[pos] != '-' && (s[pos] - '0' < 0 || s[pos] - '9' > 0) && pos < s.length()) { pos++; }
-    if (s[pos] == '-') {
-        neg = 1;
-        pos++;
-    }
-    
-    while (s[pos] - '0' => 0 && s[pos] - '9' <= 0 && pos < s.length()) {
-        num += s[pos];
-        pos++; 
-    }
-    
-    if (num.length() > 10) return neg ? INT32_MIN : INT32_MAX;
-    else if (num.length() == 10 && neg && num.compare("2147483648") > 0) return INT32_MIN;
-    else if (num.length() == 10 && !neg && num.compare("2147483647") > 0) return INT32_MAX;
-
-    return neg ? -1 * stoi(num) : stoi(num);
-}
-*/
-// https://leetcode.com/problems/string-to-integer-atoi/submissions/
-int myAtoi(string s) {
-    if (s.empty()) return 0;
-
-    int pos = 0, neg = 0;
-    while (s[pos] == ' ') pos++;
-    if (s[pos] != '-' && s[pos] != '+' && (s[pos] - '0' < 0 || s[pos] - '9' > 0)) return 0;
-
-    long num = 0;
-    if (s[pos] == '-') { neg = 1; pos++; }
-    else if (s[pos] == '+') pos++;
-
-    while (s[pos] - '0' >= 0 && s[pos] - '9' <= 0 && num < INT32_MAX)
-        num = num * 10 + (s[pos++] - '0');
-
-    neg ? num *= -1 : num = num;
-    if (num > INT32_MAX) return INT32_MAX;
-    else if (num < INT32_MIN) return INT32_MIN;
-    else return num;
-}
-
-
-int fibonacci(int n) {
-    if (n == 1 || n == 0) return 1;
-    else return fibonacci(n - 1) + fibonacci(n - 2);
-}
-
-size_t fibonacciDP(size_t n) {
-    if (n < 2) return n;
-
-    vector<size_t> fib(n + 1);
-    fib[0] = 0; fib[1] = 1;
-    for (int i = 2; i < n + 1; i++)
-        fib[i] = fib[i - 1] + fib[i - 2];
-
-    return fib[n];
-}
-
-
-int num_to_string(string s) {
-    int iter1 = 1, sum = 1, size = s.length();
-    vector<int> sections;
-    
-    // Invalid cases
-    if (s[0] == '0') return 0;
-    if (s.length() == 1) return 1;
-
-    for (int i = 0; i < size -1; i++) {
-        // check for double 0s
-        if (s[i] == '0' && s[i + 1] == '0')
-            return 0;
-        
-        // check for 0s
-        if (s[i] == '0' && i != 0) {
-            sections.push_back(iter1 - 1);
-            iter1 = 0;
-        }
-        
-        int num = stoi(s.substr(i, 2));
-        // check for number greater than 26
-        if (num > 26) {
-            // check for invalid case of X0 where X is larger than 2
-            if (num % 10 == 0)
-                return 0;
-            sections.push_back(iter1);
-            iter1 = 0;
-        }
-        iter1++;
-    }
-    // if last digit is 0, last two digits only provide 1 permutation
-    if (s[size-1] == '0') iter1-= 2;
-    sections.push_back(iter1);
-    
-    for (int i : sections) sum *= fibonacciDP(i);
-    return sum;
-}
-
-
-// return number of ways to climb n stairs when you can either climb 1 or 2 steps each time.
-int climbStairs(int n) {
-    vector<int> solutions(n+1, 0);
-
-    solutions[0] = 0;
-    solutions[1] = 1;
-    for (int i = 2; i <= n; i++) {
-        solutions[i] = solutions[i - 1] + solutions[i - 2];
-    }
-    return solutions[n];
-}
-
-bool canSum(int target, vector<int> nums) {
-    vector<bool> tabulation(target + 1, false);
-    tabulation[0] = true;
-
-    for (int j = 0; j < target + 1; j++)
-        for (int i : nums)
-            if (tabulation[j] && j + i <= target)
-                tabulation[j + i] = true;
-
-    for (int i = 0; i < tabulation.size(); i++) {
-        cout << i << ":  " << tabulation[i] << endl;
-    }
-
-    return tabulation[target];
-}
-
-
-vector<int> howSum(int target, vector<int> nums) {
-    vector<vector<int>> table(target + 1);
-    table[0] = { 0 };
-
-    for (int j = 0; j < target + 1; j++)
-        for (int i : nums) {
-            if (table[j].size() > 0 && j + i <= target) {
-                if (j == 0) table[i + j] = { i };
-                else {
-                    table[i + j] = table[j];
-                    table[i + j].push_back(i);
-                }
-            }
-        }
-
-    return table[target];
-}
-
-// given an array of integers nums and a target number, return the shortest combination of 
-// integers in nums that sums up to target
-vector<int> bestSum(int target, vector<int> nums) {
-    vector<vector<int>> table(target + 1);
-    table[0] = { 0 };
-
-    for (int j = 0; j < target + 1; j++)
-        for (int i : nums) {
-            if (table[j].size() > 0 && j + i <= target) {
-                if (j == 0) table[i + j] = { i };
-                else if (table[i + j].empty() || table[i + j].size() > table[j].size() + 1) {
-                    table[i + j] = table[j];
-                    table[i + j].push_back(i);
-                }
-            }
-        }
-    return table[target];
-}
-
-// determine if we can construct the string "target" from an array of strings
-// using MEMOIZATION 
-bool canConstruct(string target, vector<string> substrings) {
-    unordered_map<string, bool> memo;
-    return constructUtil(target, substrings, memo);
-}
-
-// Helper function
-bool constructUtil(string target, vector<string>& substrings, unordered_map<string, bool>& memo) {
-    if (target.empty()) return true;
-    if (memo.find(target) != memo.end()) return memo[target];
-
-    for (string s : substrings) {
-        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
-            string sub = target.substr(s.length());
-
-            if (constructUtil(sub, substrings, memo)) {
-                memo[target] = true;
-                return true;
-            }
-        }
-    }
-    memo[target] = false;
-    return false;
-}
-
-// determine if we can construct the string "target" from an array of strings
-// using TABULATION
-bool canConstruct2(string target, vector<string> substrings) {
-    vector<bool> table(target.length() + 1, false);
-    table[0] = true;
-    for (int i = 0; i < target.length(); i++) {
-        for (string s : substrings) {
-            if (target[i] == s[0] && table[i] && target.substr(i, s.length()) == s) {
-                table[i + s.length()] = true;
-            }
-        }
-    }
-    return table[target.length()];
-}
-
-
-
-// determine the number of ways we can construct the string "target" from an array of strings
-int waysConstruct(string target, vector<string> substrings) {
-    unordered_map<string, int> memo;
-    int count = 0;
-    return waysUtil(target, substrings, memo);
-}
-// Helper function
-int waysUtil(string target, vector<string>& substrings, unordered_map<string, int>& memo) {
-    if (target.empty()) return 1;
-    if (memo.find(target) != memo.end()) return memo[target];
-
-    int totalWays = 0;
-    for (string s : substrings) {
-        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
-            string sub = target.substr(s.length());
-            totalWays += waysUtil(sub, substrings, memo);
-        }
-    }
-    memo[target] = totalWays;
-    return totalWays;
-}
-
-// determine the number of ways we can construct the string "target" from an array of strings
-// using TABULATION
-int waysConstruct2(string target, vector<string> substrings) {
-    vector<int> table(target.length() + 1, 0);
-    table[0] = 1;
-    for (int i = 0; i < target.length(); i++) {
-        for (string s : substrings) {
-            if (target[i] == s[0] && table[i] && target.substr(i, s.length()) == s) {
-                table[i + s.length()] += table[i];
-            }
-        }
-    }
-    return table[target.length()];
-}
-
-
-
-// determine all the combinations which we can construct the string "target" from an array of strings
-// and return the 2d vector containing our combinations of substrings
-vector<vector<string>> allConstruct(string target, vector<string> substrings) {
-    unordered_map<string, vector<vector<string>>> memo;
-    return allWaysUtil(target, substrings, memo);
-}
-
-// Helper function
-vector<vector<string>> allWaysUtil(string target,
-    vector<string>& substrings, unordered_map<string, vector<vector<string>>>& memo) {
-    vector<vector<string>> v = { {} };
-    if (target.empty()) return v;
-    if (memo.find(target) != memo.end()) return memo[target];
-
-    vector<vector<string>> allCombinations;
-    vector<vector<string>> combinations;
-    for (string s : substrings) {
-        if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
-            string sub = target.substr(s.length());
-            for (vector<string>& v : allWaysUtil(sub, substrings, memo)) {
-                v.insert(v.begin(), s);
-                allCombinations.push_back(v);
-            }
-        }
-    }
-    memo[target] = allCombinations;
-    return allCombinations;
-}
-// determine all the combinations which we can construct the string "target" from an array of strings
-// and return the 2d vector containing our combinations of substrings
-// using TABULATION
-vector<vector<string>> allConstruct2(string target, vector<string> substrings) {
-    vector<vector<vector<string>>> table(target.length() + 1, vector<vector<string>>{});
-    table[0] = { {} };
-
-    for (int i = 0; i < target.length(); i++) {
-        for (string s : substrings) {
-            if (target[i] == s[0] && !table[i].empty() && target.substr(i, s.length()) == s) {
-                vector<vector<string>> vec = table[i];
-                for (vector<string>& v : vec) {
-                    v.push_back(s);
-                    table[i + s.length()].push_back(v);
-                }
-            }
-        }
-    }
-    return table[target.length()];
-}
-
-
-// https://leetcode.com/problems/house-robber/submissions/
-int rob(vector<int>& nums) {
-    if (nums.empty()) return 0;
-    if (nums.size() == 1) return nums[0];
-    if (nums.size() == 2) return max(nums[0], nums[1]);
-
-    vector<int> table(nums.size() + 1, 0);
-    table[1] = nums[0];
-    table[2] = nums[1];
-    for (int i = 3; i < table.size(); i++) {
-        table[i] = max(table[i - 3], table[i - 2]) + nums[i - 1];
-    }
-    return max(table.at(table.size() - 2), table.back());
-}
-
-int rob2(vector<int>& nums) {
-    if (nums.size() < 2)
-        return nums.size() ? nums[0] : 0;
-    return max(rob2Util(nums, 1, nums.size()), rob2Util(nums, 0, nums.size() - 1));
-}
-
-int rob2Util(vector<int>& nums, int pos1, int pos2) {
-    if (nums.size() < 2)
-        return nums.size() ? nums[0] : 0;
-
-    int curr = 0, prev = 0;
-    for (int i = pos1; i < pos2; i++) {
-        int next = max(curr, prev + nums[i]);
-        prev = curr;
-        curr = next;
-    }
-    return curr;
-}
-
-// https://leetcode.com/problems/decode-ways/submissions/
-// Tabulation Dynamic Programming O(n) time & O(n) space
-int numDecodings(string s) {
-    if (!s.length()) return 0;
-    vector<int> table(s.length() + 1, 0);
-    table.back() = 1;
-    for (int i = s.length() - 1; i >= 0; i--) {
-        if (s[i] != '0')
-            table[i] += table[i + 1];
-        if (i + 1 < s.length() && stoi(s.substr(i, 2)) <= 26 && s[i] != '0')
-            table[i] += table[i + 2];
-    }
-    return table[0];
-}
-
-// https://leetcode.com/problems/decode-ways/submissions/
-// Dynamic Programming O(n) time & O(1) space
-int numDecodings2(string s) {
-    if (!s.length()) return 0;
-
-    int prev2 = 1, prev1 = 1;
-    for (int i = s.length() - 1; i >= 0; i--) {
-        int tmp = 0;
-        if (s[i] != '0')
-            tmp += prev1;
-        if (i + 1 < s.length() && stoi(s.substr(i, 2)) <= 26 && s[i] != '0')
-            tmp += prev2;
-        prev2 = prev1;
-        prev1 = tmp;
-    }
-    return prev1;
-}
-
-
-// https://leetcode.com/problems/unique-paths/
-int uniquePaths(int m, int n) {
-    vector<vector<int>> table(m, vector<int>(n, 1));
-    for (int r = 1; r < m; r++) {
-        for (int c = 1; c < n; c++) {
-            table[r][c] = table[r - 1][c] + table[r][c - 1];
-        }
-    }
-    return table[m - 1][n - 1];
-}
