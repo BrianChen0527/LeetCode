@@ -202,3 +202,21 @@ struct ListNode {
 // https://leetcode.com/problems/merge-k-sorted-lists/submissions/
 ListNode* mergeKLists(vector<ListNode*>& lists);
 
+// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/submissions/
+int maxProfit(vector<int>& prices);
+
+
+// https://leetcode.com/problems/contains-duplicate/submissions/
+bool containsDuplicate(vector<int>& nums);
+
+//https://leetcode.com/problems/contains-duplicate-ii/submissions/
+bool containsDuplicate2(vector<int>& nums, int k);
+
+
+
+
+
+
+
+
+

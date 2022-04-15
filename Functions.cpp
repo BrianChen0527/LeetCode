@@ -802,12 +802,37 @@ ListNode* mergeKLists(vector<ListNode*>& lists) {
     return toMerge.front();
 }
 
+// https://leetcode.com/problems/best-time-to-buy-and-sell-stock/submissions/
+int maxProfit(vector<int>& prices) {
+    uint16_t minPrice = INT32_MAX, maxProfit = 0;
+    for (uint16_t p : prices) {
+        if (p - minPrice > maxProfit) maxProfit = p - minPrice;
+        if (p < minPrice) minPrice = p;
+    }
+    return maxProfit;
+}
 
+// https://leetcode.com/problems/contains-duplicate/submissions/
+bool containsDuplicate(vector<int>& nums) {
+    unordered_set<int> appeared;
+    for (int n : nums) {
+        if (appeared.find(n) != appeared.end())
+            return true;
+        appeared.insert(n);
+    }
+    return false;
+}
 
-
-
-
-
+//https://leetcode.com/problems/contains-duplicate-ii/submissions/
+bool containsDuplicate2(vector<int>& nums, int k) {
+    unordered_map<int, int> appeared;
+    for (int j = 0; j < nums.size(); j++) {
+        if (appeared.find(nums[j]) != appeared.end() && abs(appeared[nums[j]] - j) <= k)
+            return true;
+        appeared[nums[j]] = j;
+    }
+    return false;
+}
 
 
 
