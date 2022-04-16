@@ -221,7 +221,8 @@ int maxSubArray(vector<int>& nums);
 // https://leetcode.com/problems/maximum-product-subarray/
 int maxProduct(vector<int>& nums);
 
-
+// https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+int findMin(vector<int>& nums);
 
 
 

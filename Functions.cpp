@@ -888,7 +888,16 @@ int maxProduct(vector<int>& nums) {
     return trueMax;
 }
 
+// https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+int findMin(vector<int>& nums) {
+    int left = 0, mid = nums.size() / 2, right = nums.size() - 1;
 
+    while (right - left > 1) {
+        nums[mid] < nums[right] ? right = mid : left = mid;
+        mid = (left + right) / 2;
+    }
+    return min(nums[left], nums[right]);
+}
 
 
 
