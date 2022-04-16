@@ -224,6 +224,20 @@ int maxProduct(vector<int>& nums);
 // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 int findMin(vector<int>& nums);
 
+// https://leetcode.com/problems/coin-change/
+int coinChange(vector<int>& coins, int amount);
+
+// https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/
+int search(vector<int>& nums, int target);
+
+// https://leetcode.com/problems/merge-intervals/submissions/
+vector<vector<int>> merge(vector<vector<int>>& intervals);
+
+
+
+
+
+
 
 
 

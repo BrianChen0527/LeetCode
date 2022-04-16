@@ -899,11 +899,56 @@ int findMin(vector<int>& nums) {
     return min(nums[left], nums[right]);
 }
 
+// https://leetcode.com/problems/coin-change/
+int coinChange(vector<int>& coins, int amount) {
+    vector<int> table(amount + 1, 0);
+    table[0] = 1;
+    for (int i = 0; i < amount + 1; i++) {
+        for (int coin : coins) {
+            if (coin <= i && table[i - coin] != 0) {
+                table[i] = (table[i]) ? min(table[i], table[i - coin] + 1) : table[i - coin] + 1;
+            }
+        }
+    }
+    return table[amount] - 1;
+}
 
+// https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/
+int search(vector<int>& nums, int target) {
+    int left = 0, mid = nums.size() / 2, right = nums.size() - 1;
+    while (right >= left) {
+        int l = nums[left], r = nums[right], m = nums[mid];
+        if (target == m) return mid;
 
+        if (m > r)
+            (target < m&& target >= l) ? right = mid - 1 : left = mid + 1;
+        else if (l > m)
+            (target > m && target <= r) ? left = mid + 1 : right = mid - 1;
+        else
+            (target > m) ? left = mid + 1 : right = mid - 1;
+        mid = (left + right) / 2;
+    }
+    return -1;
+}
 
+// https://leetcode.com/problems/merge-intervals/submissions/
+vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    vector<vector<int>> merged;
+    sort(intervals.begin(), intervals.end(), [](vector<int>& a, vector<int>& b) {return a[0] < b[0]; });
 
-
+    int idx = 0;
+    while (idx < intervals.size()) {
+        if (!merged.empty() && merged.back()[1] >= intervals[idx][0]) {
+            merged.back()[1] = max(intervals[idx][1], merged.back()[1]);
+            idx++;
+        }
+        else {
+            merged.push_back(intervals[idx]);
+            idx++;
+        }
+    }
+    return merged;
+}
 
 
 
