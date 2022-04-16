@@ -212,7 +212,14 @@ bool containsDuplicate(vector<int>& nums);
 //https://leetcode.com/problems/contains-duplicate-ii/submissions/
 bool containsDuplicate2(vector<int>& nums, int k);
 
+// https://leetcode.com/problems/product-of-array-except-self/submissions/
+vector<int> productExceptSelf(vector<int>& nums);
 
+// https://leetcode.com/problems/maximum-subarray/
+int maxSubArray(vector<int>& nums);
+
+// https://leetcode.com/problems/maximum-product-subarray/
+int maxProduct(vector<int>& nums);
 
 
 

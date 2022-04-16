@@ -834,10 +834,59 @@ bool containsDuplicate2(vector<int>& nums, int k) {
     return false;
 }
 
+// https://leetcode.com/problems/product-of-array-except-self/submissions/
+vector<int> productExceptSelf(vector<int>& nums) {
+    int left = 1, right = 1, n = nums.size();
+    vector<int> products(n, 1);
+    for (int i = 0; i < n; i++) {
+        products[i] *= left;
+        left *= nums[i];
+        products[n - 1 - i] *= right;
+        right *= nums[n - 1 - i];
+    }
+    return products;
+}
 
 
+// https://leetcode.com/problems/maximum-subarray/
+int maxSubArray(vector<int>& nums) {
+    int curr = nums[0], maxN = curr;
+    for (int i = 1; i < nums.size(); i++) {
+        if (curr < 0) {
+            if (nums[i] > curr) {
+                curr = nums[i];
+                maxN = curr;
+            }
+        }
+        else {
+            if (nums[i] + curr > 0) {
+                curr += nums[i];
+                maxN = max(maxN, curr);
+            }
+            else curr = 0;
+        }
+    }
+    return maxN;
+}
 
+// https://leetcode.com/problems/maximum-product-subarray/
+int maxProduct(vector<int>& nums) {
+    int minP = nums[0], maxP = minP, trueMax = maxP;
+    for (int i = 1; i < nums.size(); i++) {
+        if (nums[i] < 0) {
+            swap(minP, maxP);
+        }
+        minP = min(minP * nums[i], nums[i]);
+        maxP = max(maxP * nums[i], nums[i]);
+        cout << minP << " " << maxP << endl;
 
+        trueMax = max(maxP, trueMax);
+        if (nums[i] == 0) {
+            minP = 1; maxP = 1;
+        }
+    }
+    return trueMax;
+}
 
 
 
