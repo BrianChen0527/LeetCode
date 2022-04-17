@@ -950,7 +950,29 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
     return merged;
 }
 
-
+// https://leetcode.com/problems/insert-interval/submissions/
+vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+    vector<vector<int>> result;
+    if (intervals.empty()) {
+        result.push_back(newInterval);
+        return result;
+    }
+    int start = newInterval[0], end = newInterval[1], n = intervals.size();
+    int i = 0;
+    while (i < n && start > intervals[i][1]) {
+        result.push_back(intervals[i++]);
+    }
+    while (i < n && end >= intervals[i][0]) {
+        start = min(start, intervals[i][0]);
+        end = max(end, intervals[i][1]);
+        i++;
+    }
+    result.push_back({ start,end });
+    while (i < n) {
+        result.push_back(intervals[i++]);
+    }
+    return result;
+}
 
 
 
