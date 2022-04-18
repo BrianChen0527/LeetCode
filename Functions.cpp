@@ -593,7 +593,6 @@ vector<vector<string>> allWaysUtil(string target,
     if (memo.find(target) != memo.end()) return memo[target];
 
     vector<vector<string>> allCombinations;
-    vector<vector<string>> combinations;
     for (string s : substrings) {
         if (target.length() >= s.length() && target.substr(0, s.length()) == s) {
             string sub = target.substr(s.length());
@@ -626,6 +625,28 @@ vector<vector<string>> allConstruct2(string target, vector<string> substrings) {
     }
     return table[target.length()];
 }
+
+// https://leetcode.com/problems/word-break-ii/submissions/
+// word berak 2
+vector<string> allConstruct3(string target, vector<string> substrings) {
+    vector<vector<string>> table(target.length() + 1);
+    table[0] = {""};
+
+    for (int i = 0; i < target.length(); i++) {
+        for (string sub : substrings) {
+            if (target[i] == sub[0] && !table[i].empty() && target.substr(i, sub.length()) == sub) {
+                vector<string> vec = table[i];
+                for (string str: vec) {
+                    if (str.empty()) str = sub;
+                    else str += (" " + sub);
+                    table[i + sub.length()].push_back(str);
+                }
+            }
+        }
+    }
+    return table[target.length()];
+}
+
 
 
 // https://leetcode.com/problems/house-robber/submissions/
@@ -1086,12 +1107,26 @@ string minWindow(string s, string t) {
 }
 
 
+// https://leetcode.com/problems/word-break/submissions/
+bool wordBreak(string s, vector<string>& wordDict) {
+    unordered_map<string, bool> memo;
+    return breakHelper(s, wordDict, memo);
+}
+bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>& memo) {
+    if (s.empty()) return true;
+    if (memo.find(s) != memo.end()) return memo[s];
 
-
-
-
-
-
+    for (string& word : wordDict) {
+        if (s.length() >= word.length() && s.substr(0, word.length()) == word) {
+            if (breakHelper(s.substr(word.length()), wordDict, memo)) {
+                memo[s] = true;
+                return true;
+            }
+        }
+    }
+    memo[s] = false;
+    return false;
+}
 
 
 

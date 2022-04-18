@@ -159,7 +159,9 @@ vector<vector<string>> allWaysUtil(string target,
 // using TABULATION
 vector<vector<string>> allConstruct2(string target, vector<string> substrings);
 
-
+// https://leetcode.com/problems/word-break-ii/submissions/
+// word berak 2
+vector<string> allConstruct3(string target, vector<string> substrings);
 
 // https://leetcode.com/problems/house-robber/submissions/
 int rob(vector<int>& nums);
@@ -250,3 +252,10 @@ int characterReplacement(string s, int k);
 
 // https://leetcode.com/problems/minimum-window-substring/
 string minWindow(string s, string t);
+
+// https://leetcode.com/problems/word-break/submissions/
+bool wordBreak(string s, vector<string>& wordDict);
+bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>& memo);
+
+
+
