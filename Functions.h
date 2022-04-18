@@ -257,5 +257,6 @@ string minWindow(string s, string t);
 bool wordBreak(string s, vector<string>& wordDict);
 bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>& memo);
 
-
+// https://leetcode.com/problems/combination-sum-iv/
+int combinationSum4(vector<int>& nums, int target);
 

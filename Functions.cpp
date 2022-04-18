@@ -1128,10 +1128,25 @@ bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>
     return false;
 }
 
+// https://leetcode.com/problems/combination-sum-iv/
+int combinationSum4(vector<int>& nums, int target) {
+    unordered_map<int, int> table;
+    return combinationHelper(nums, target, table);
+}
 
+int combinationHelper(vector<int>& nums, int target, unordered_map<int, int> &table) {
+    if (target == 0) return 1;
+    if (table.find(target) != table.end()) return table[target];
 
-
-
+    int totalWays = 0;
+    for (int i : nums) {
+        if (target - i >= 0) {
+            totalWays += combinationHelper(nums, target - i, table);
+        }
+    }
+    table[target] = totalWays;
+    return totalWays;
+}
 
 
 
