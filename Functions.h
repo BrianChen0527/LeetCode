@@ -259,4 +259,9 @@ bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>
 
 // https://leetcode.com/problems/combination-sum-iv/
 int combinationSum4(vector<int>& nums, int target);
+int combinationHelper(vector<int>& nums, int target, unordered_map<int, int>& table);
 
+
+// https://leetcode.com/problems/group-anagrams/
+vector<vector<string>> groupAnagrams(vector<string>& strs);
+string countingSort(string s);

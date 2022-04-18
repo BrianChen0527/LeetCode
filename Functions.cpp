@@ -1148,8 +1148,22 @@ int combinationHelper(vector<int>& nums, int target, unordered_map<int, int> &ta
     return totalWays;
 }
 
+// https://leetcode.com/problems/group-anagrams/
+vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    return { {} };
+}
 
-
+string countingSort(string s) {
+    string sorted = "";
+    vector<int> alphabet(26, 0);
+    for (char c : s) alphabet[c - 'a']++;
+    for (int i = 0; i < 26; i++) {
+        while(alphabet[i]-- > 0) {
+            sorted += char('a' + i);
+        }
+    }
+    return sorted;
+}
 
 
 //################################################################################################
