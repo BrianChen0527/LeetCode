@@ -974,6 +974,130 @@ vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInter
     return result;
 }
 
+// https://leetcode.com/problems/reverse-linked-list/
+ListNode* reverseList(ListNode* head) {
+    if (!head) return nullptr;
+    ListNode* prev = nullptr;
+    ListNode* curr = head;
+
+    while (curr) {
+        ListNode* next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+
+// https://leetcode.com/problems/linked-list-cycle/
+bool hasCycle(ListNode* head) {
+    unordered_set<ListNode*> table;
+    while (head) {
+        if (table.find(head) != table.end()) return true;
+        table.insert(head);
+        head = head->next;
+    }
+    return false;
+}
+
+// https://leetcode.com/problems/linked-list-cycle/
+bool FloydsAlgorithm(ListNode* head) {
+    if (!head) return false;
+    ListNode* slow = head;
+    ListNode* fast = head;
+
+    while (slow && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) return true;
+    }
+    return false;
+}
+
+// https://leetcode.com/problems/merge-two-sorted-lists/
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+    ListNode* head = new ListNode(0);
+    while (list1 && list2) {
+        if (list1->val > list2->val) {
+            head->next = list2;
+            list2 = list2->next;
+        }
+        else {
+            head->next = list1;
+            list1 = list1->next;
+        }
+    }
+    while (list1) {
+        head->next = list1;
+        list1 = list1->next;
+    }
+    while (list2) {
+        head->next = list2;
+        list2 = list2->next;
+    }
+    return head->next;
+}
+
+// https://leetcode.com/problems/longest-repeating-character-replacement/
+int characterReplacement(string s, int k) {
+    int ptr1 = 0, ptr2 = 0, maxf = 0, maxLen = 0;
+    unordered_map<char, int> table;
+    while (ptr2 < s.length()) {
+        int sublen = ptr2 - ptr1 + 1;
+        // increment the occurence of the new character in our table
+        table[s[ptr2]]++;
+
+        // maxf keeps track of the running highest frequency of any character in current and past substrings
+        maxf = max(maxf, table[s[ptr2]]);
+        
+        // if current substring length - max frequency of a character in substring > k
+        // that means we need to bring the sliding window closer from the back
+        if (sublen - maxf > k) {
+            table[s[ptr1]]--;
+            ptr1++; sublen--;
+        }
+        maxLen = max(maxLen, sublen); ptr2++;
+    }
+    return maxLen;
+}
+
+// https://leetcode.com/problems/minimum-window-substring/
+string minWindow(string s, string t) {
+    int start = 0, end = 0, counter = t.length(), minStart = 0, minLen = INT32_MAX;
+        vector<int> m(128, 0);
+        for (char c : t) m[c]++;
+
+        while (end < s.length()) {
+            if (m[s[end]] > 0) counter--;
+            m[s[end]]--;
+
+            while (counter == 0) {
+                if(end-start + 1 < minLen){
+                    minLen = end-start + 1;
+                    minStart = start;
+                }
+                m[s[start]]++;
+                if (m[s[start]] > 0) counter++;
+                start++;
+            }
+            end++;
+        }
+        return minLen == INT32_MAX ? "" : s.substr(minStart, minLen);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

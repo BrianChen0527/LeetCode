@@ -233,12 +233,20 @@ int search(vector<int>& nums, int target);
 // https://leetcode.com/problems/merge-intervals/submissions/
 vector<vector<int>> merge(vector<vector<int>>& intervals);
 
+// https://leetcode.com/problems/insert-interval/submissions/
+vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval);
 
+// https://leetcode.com/problems/reverse-linked-list/
+ListNode* reverseList(ListNode* head);
 
+// https://leetcode.com/problems/linked-list-cycle/
+bool hasCycle(ListNode* head);
 
+// https://leetcode.com/problems/merge-two-sorted-lists/
+ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);
 
+// https://leetcode.com/problems/longest-repeating-character-replacement/
+int characterReplacement(string s, int k);
 
-
-
-
-
+// https://leetcode.com/problems/minimum-window-substring/
+string minWindow(string s, string t);

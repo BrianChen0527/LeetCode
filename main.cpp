@@ -3,9 +3,7 @@ using namespace std;
 
 
 int main() {
-	vector<int> t = { 3, 2, 5};
-	int target = 76;
-	for (int i : howSum(target, t)) {
-		cout << i << " ";
-	}
+	string s = "AB";
+	string s1 = "A";
+	cout << minWindow(s, s1);
 }
