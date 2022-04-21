@@ -110,8 +110,13 @@ int subarraySum(vector<int>& nums, int k);
 // return the length of the longest consecutive elements sequence.
 int longestConsecutive(vector<int>& nums);
 
+// https://umich.instructure.com/courses/491173/files/folder/Exam%20-%20Practice/Exam%202%20-%20Final?preview=24280664
+int number_of_tilings(int n);
 
 int longestConsecutive(vector<int>& nums);
+
+// file:///C:/Users/brian/Downloads/practice_final_2_combined_answers.pdf
+bool zero_contiguous_sum(vector<int>& nums)
 
 int reverse(int x);
 
@@ -265,3 +270,19 @@ int combinationHelper(vector<int>& nums, int target, unordered_map<int, int>& ta
 // https://leetcode.com/problems/group-anagrams/
 vector<vector<string>> groupAnagrams(vector<string>& strs);
 string countingSort(string s);
+
+
+struct TreeNode {
+    int val;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode() : val(0), left(nullptr), right(nullptr) {}
+    TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+    TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
+};
+// https://leetcode.com/problems/invert-binary-tree/
+TreeNode* invertTree(TreeNode* root);/**/
+
+int maxSubarray(vector<int>& v);
+
+int maxSubarrayProduct(vector<int>& v);

@@ -3,7 +3,5 @@ using namespace std;
 
 
 int main() {
-	char a = 'a';
-	string c = "asdfas";
-	cout << countingSort(c);
+	cout << number_of_tilings(4);
 }

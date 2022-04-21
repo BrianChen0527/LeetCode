@@ -1150,7 +1150,16 @@ int combinationHelper(vector<int>& nums, int target, unordered_map<int, int> &ta
 
 // https://leetcode.com/problems/group-anagrams/
 vector<vector<string>> groupAnagrams(vector<string>& strs) {
-    return { {} };
+    unordered_map<string, vector<string>> anagrams;
+    for (string s : strs) {
+        anagrams[countingSort(s)].push_back(s);
+    }
+    
+    vector<vector<string>> ans(anagrams.size());
+    for (auto strs : anagrams)
+        ans.push_back(strs.second);
+    
+    return ans;
 }
 
 string countingSort(string s) {
@@ -1165,6 +1174,209 @@ string countingSort(string s) {
     return sorted;
 }
 
+// https://leetcode.com/problems/valid-parentheses/
+bool isValid(string s) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    int b1 = 0, b2 = 0, b3 = 0;
+    stack<char> prevChar;
+
+    for (char c : s) {
+        switch (c) {
+        case '(':
+            prevChar.push(c);
+            break;
+        case ')':
+            if (prevChar.top() != '(') return false;
+            prevChar.pop();
+            break;
+        case '[':
+            prevChar.push(c);
+            break;
+        case ']':
+            if (prevChar.top() != '[') return false;
+            prevChar.pop();
+            break;
+        case '{':
+            prevChar.push(c);
+            break;
+        case '}':
+            if (prevChar.top() != '{') return false;
+            prevChar.pop();
+            break;
+        default: break;
+        }
+    }
+    return true;
+}
+
+// https://leetcode.com/problems/palindromic-substrings/
+int countSubstrings(string s) {
+    int count = 0;
+    for (int i = 0; i < s.length(); i++) {
+        count++;
+
+        // check for even-length palindromes
+        int ptr1 = i, ptr2 = i+1;
+        while(ptr2 < s.length() && ptr1 >= 0 && s[ptr1--] == s[ptr2++]) count++;
+
+        // check for odd-length palindromes
+        ptr1 = i - 1, ptr2 = i + 1;
+        while (ptr2 < s.length() && ptr1 >= 0 && s[ptr1--] == s[ptr2++]) count++;
+    }
+    return count;
+}
+
+// https://leetcode.com/problems/invert-binary-tree/
+TreeNode* invertTree(TreeNode* root) {
+    queue<TreeNode*> q;
+    q.push(root);
+
+    while (!q.empty()) {
+        TreeNode* parent = q.front();
+        q.pop();
+        if (parent) {
+            TreeNode* tmp = parent->left;
+            q.push(tmp); q.push(parent->right);
+            parent->left = parent->right;
+            parent->right = tmp;
+        }
+    }
+    return root;
+}
+
+// https://leetcode.com/problems/same-tree/
+bool isSameTree(TreeNode* p, TreeNode* q) {
+    queue<TreeNode*> q1, q2;
+    q1.push(p); q2.push(q);
+
+    while (!q1.empty() && !q2.empty()) {
+        TreeNode* p1 = q1.front();
+        q1.pop();
+        TreeNode* p2 = q2.front();
+        q2.pop();
+        if (p1 && !p2 || !p1 && p2) return false;
+        if (p1 && p2 && (p1->val != p2->val)) return false;
+
+        if (p1) {
+            q1.push(p1->left); q1.push(p1->right);
+            q2.push(p2->left); q2.push(p2->right);
+        }
+    }
+    return q2.empty() && q1.empty();
+}
+
+
+int minDifference(vector<int> v1, vector<int> v2) {
+    sort(v1.begin(), v1.end());
+    sort(v2.begin(), v2.end());
+
+    int ptr1 = 0, ptr2 = 0, minDiff = INT32_MAX;
+
+    while (ptr1 != v1.size() && ptr2 != v2.size()) {
+        minDiff = min(minDiff, abs(v1[ptr1] - v2[ptr2]));
+        
+        if (v1[ptr1] > v2[ptr2]) {
+            ptr2++;
+        }
+        else if (v1[ptr1] < v2[ptr2]) {
+            ptr1++;
+        }
+        else return 0;
+    }
+    return minDiff;
+}
+/*
+TreeNode * randNode(TreeNode* root) {
+    vector<TreeNode*> nodes;
+    queue<TreeNode*> BFS;
+    BFS.push(root);
+
+    while (!BFS.empty()) {
+        TreeNode* top = BFS.front();
+        BFS.pop();
+        if (top) {
+            nodes.push_back(top);
+            BFS.push(top->left);
+            BFS.push(top->right);
+        }
+    }
+    
+    int r = rand();
+    return nodes[r % nodes.size()];
+}
+
+TreeNode* randNode2(TreeNode* root) {
+    size_t size = root->size;
+    int target = rand() % size;
+    TreeNode* currNode = root;
+    while (true) {
+        int leftSize = 0;
+        if (currNode->left) leftSize = root->left->size;
+        
+        if (target == 0) return currNode;
+        else if (target > leftSize) {
+            currNode = currNode->right;
+        }
+        else {
+            currNode = currNode->left;
+        }
+    }
+    return nullptr;
+}
+*/
+// find max subarray
+// [-5,3,4,-2]
+
+
+int maxSubarray(vector<int> &v) {
+    int maxSum = INT32_MIN, currSum = 0;
+    for (int i : v) {
+        currSum += i;
+        maxSum = max(maxSum, currSum);
+        if (currSum < 0) currSum = 0;
+    }
+    return maxSum;
+}
+
+int maxSubarrayProduct(vector<int>& v) {
+    int maxP = 1, minP = 1, currP = 1;
+    int totalMaxP = INT32_MIN;
+    for (int i : v) {
+        if (i < 0) {
+            swap(minP, maxP);
+        }
+        maxP = max(maxP * i, i);
+        totalMaxP = max(maxP, totalMaxP);
+        minP = min(minP * i, i);
+    }
+    return totalMaxP;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //################################################################################################
 //################################################################################################
@@ -1173,6 +1385,43 @@ string countingSort(string s) {
 //###################################                       ######################################
 //################################################################################################
 //################################################################################################
+
+// https://umich.instructure.com/courses/491173/files/folder/Exam%20-%20Practice/Exam%202%20-%20Final?preview=24280664
+int number_of_tilings(int n) {
+    // base cases f(1) = 1, f(2) = 3
+    if (n == 1) return 1;
+    if (n == 2) return 3;
+
+    // f(n) = f(n-1) + 2*f(n-2)
+    int base1 = 1, base2 = 3, curr = 3;
+    for (int i = 3; i <= n; i++) {
+        curr = base2 + 2 * base1;
+        base1 = base2;
+        base2 = curr;
+    }
+    return curr;
+}
+
+// https://umich.instructure.com/courses/491173/files/folder/Exam%20-%20Practice/Exam%202%20-%20Final?preview=24280664
+bool existsInTree(TreeNode* root, int val) {
+    if (!root) return false;
+    if (root->val == val) return true;
+    return root->val > val ? existsInTree(root->left, val) : existsInTree(root->right, val);
+}
+
+// file:///C:/Users/brian/Downloads/practice_final_2_combined_answers.pdf
+bool zero_contiguous_sum(vector<int>& nums) {
+    unordered_set<int> table;
+    int currSum = 0;
+    for (int i : nums) {
+        currSum += i;
+        if (table.find(currSum) != table.end()) return true;
+        table.insert(currSum);
+    }
+
+    return false;
+}
+
 
 // Write a program that reverses this singly-linked list of nodes
 Node* reverse_list(Node* head) {
