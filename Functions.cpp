@@ -1412,14 +1412,39 @@ bool existsInTree(TreeNode* root, int val) {
 // file:///C:/Users/brian/Downloads/practice_final_2_combined_answers.pdf
 bool zero_contiguous_sum(vector<int>& nums) {
     unordered_set<int> table;
+    table.insert(0);
     int currSum = 0;
     for (int i : nums) {
         currSum += i;
         if (table.find(currSum) != table.end()) return true;
         table.insert(currSum);
     }
-
     return false;
+}
+
+// file:///C:/Users/brian/Downloads/practice_final_2_combined_answers.pdf
+void range_queries(const vector<unsigned int>& data,
+    const vector<Query>& queries) {
+    
+    unordered_map<int, vector<int>> table;
+    vector<int> v(data.size(), 0);
+    for (int i = 0; i < data.size(); i++) {
+        int num = data[i];
+        int count = 0;
+        if (table.find(num) == table.end()) {
+            table[num].resize(i+1, 0);
+            for (int j = i; j < data.size(); j++) {
+                if (data[j] == num) 
+                    count++;
+                table[num].push_back(count);
+            }
+        }
+    }
+
+    for (const Query& q : queries) {
+        if (table[q.id].empty()) cout << "0 ";
+        else cout << table[q.id][q.end+1] - table[q.id][q.start] << " ";
+    }
 }
 
 
