@@ -116,7 +116,15 @@ int number_of_tilings(int n);
 int longestConsecutive(vector<int>& nums);
 
 // file:///C:/Users/brian/Downloads/practice_final_2_combined_answers.pdf
-bool zero_contiguous_sum(vector<int>& nums)
+bool zero_contiguous_sum(vector<int>& nums);
+
+// file:///C:/Users/brian/Downloads/practice_final_2_combined_answers.pdf
+struct Query { unsigned int id, start, end; 
+
+Query(unsigned int i1, unsigned int s1, unsigned int e1) : id(i1), start(s1), end(e1) {}
+};
+void range_queries(const vector<unsigned int>& data,
+    const vector<Query>& queries);
 
 int reverse(int x);
 
