@@ -318,6 +318,20 @@ int majorityElement(vector<int>& arr) {
 }
 
 
+// Given an integer array nums, return true if any value appears at 
+// least twice in the array, and return false if every element is distinct.
+bool containsDuplicate(vector<int>& nums) {
+    unordered_set<int> hashmap;
+    for (int n : nums) {
+        if (hashmap.find(n) != hashmap.end()) {
+            return true;
+        }
+        hashmap.insert(n);
+    }
+    return false;
+}
+
+
 // Given an unsorted array of integers nums, 
 // return the length of the longest consecutive elements sequence.
 int longestConsecutive(vector<int>& nums) {
