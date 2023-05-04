@@ -99,6 +99,9 @@ int romanToInt(string s) {
     return sum;
 }
 
+
+
+
 int lengthOfLongestSubstring(string s) {
 
     int n = s.length();
@@ -253,35 +256,32 @@ int join_ropes(const vector<int>& rope_lengths) {
         total.erase(total.begin());
 
     }
-
-
     return min_length;
 }
 
+// Given a string s, return the longest palindromic substring in s.
 string longestPalindrome(string s) {
-    int it1 = 0, it2 = 0;
-    string longest = "";
-    for (int i = 0; i < s.length(); i++) {
-        it1 = i;
-        it2 = i;
-        char current = s[i];
-
-        while (it1 >= 0 && s[it1] == current)
-            it1--;
-
-        while (it2 < s.length() && s[it2] == current)
-            it2++;
-
-        while (it1 >= 0 && it2 < s.length() && s[it1] == s[it2]) {
-            it1--;
-            it2++;
+    int l = 0, r = 0, ptr = 0;
+    int maxL = 0, maxR = 0;
+    while (ptr < s.length()) {
+        l = ptr;
+        r = ptr;
+        cout << ptr << endl;
+        while (r + 1 < s.length() && s[r] == s[r + 1]) {
+            r += 1;
+            cout << l << " - " << r << endl;
         }
-        cout << it1 << " " << it2 << endl;
-
-        if ((it2 - it1 - 1) > longest.length())
-            longest = s.substr(it1 + 1, (it2 - it1 - 1));
+        while (l - 1 >= 0 && r + 1 < s.length() && s[l - 1] == s[r + 1]) {
+            l--;
+            r++;
+            cout << l << " -- " << r << endl;
+        }
+        if (maxR - maxL < r - l) {
+            maxR = r, maxL = l;
+        }
+        ptr++;
     }
-    return longest;
+    return s.substr(maxL, maxR - maxL + 1);
 }
 
 // Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
@@ -305,6 +305,18 @@ int subarraySum(vector<int>& nums, int k) {
     }
     return count;
 }
+
+
+int majorityElement(vector<int>& arr) {
+    int ele = arr[0];
+    int count = 0;
+    for (int i = 0; i < arr.size(); i++) {
+        if (count == 0)ele = arr[i];
+        count += (ele == arr[i]) ? 1 : -1;
+    }
+    return ele;
+}
+
 
 // Given an unsorted array of integers nums, 
 // return the length of the longest consecutive elements sequence.

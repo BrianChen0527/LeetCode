@@ -31,6 +31,8 @@ string longestPalindrome(string s);
 // https://leetcode.com/problems/subarray-sum-equals-k/
 int subarraySum(vector<int>& nums, int k);
 
+int majorityElement(vector<int>& arr);
+
 // https://leetcode.com/problems/longest-palindrome/submissions/
 int longestPalindromeLen(string s);
 

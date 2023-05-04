@@ -10,6 +10,5 @@ using namespace std;
 
 
 int main() {
-    
-    cout << 'C' - 'A';
+    cout << longestPalindrome("aba");
 }   
