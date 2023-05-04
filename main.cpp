@@ -1,7 +1,15 @@
 using namespace std;
+#include <functional>
+#include <queue>
+#include <stack>
+#include <vector>
+#include <iostream>
 #include "Functions.h"
+#include <fstream>
+
 
 
 int main() {
-	cout << number_of_tilings(4);
-}
+    
+    cout << 'C' - 'A';
+}   

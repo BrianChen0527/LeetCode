@@ -1,0 +1,10 @@
+[
+ {
+       company_name: (BlackRock)
+       ticker: (BLK)
+       stock_price: {
+            2022-04-03: ($930)
+            2022-04-02: ($932)
+       }
+ }
+]

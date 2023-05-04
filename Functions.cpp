@@ -49,6 +49,29 @@ bool isPalindrome(int x) {
     return true;
 }
 
+// Given a string s which consists of lowercase or uppercase letters, 
+// return the length of the longest palindrome that can be built with those letters.
+int longestPalindromeLen(string s) {
+    int arr[58] = { 0 };
+    for (char c : s) {
+        arr[c - 'A']++;
+    }
+
+    int maxLen = 0;
+    bool hasOdd = false;
+    for (int i : arr) {
+        if (i % 2 == 0){
+            maxLen += i;
+        }
+        else {
+            maxLen += (i - 1);
+            hasOdd = true;
+        }
+    }
+    return (hasOdd ? maxLen + 1 : maxLen);
+}
+
+
 //Given a roman numeral, convert it to an integer.
 int romanToInt(string s) {
     int sum = 0;
@@ -1353,8 +1376,21 @@ int maxSubarrayProduct(vector<int>& v) {
     return totalMaxP;
 }
 
-
-
+// https://leetcode.com/problems/task-scheduler/
+int leastInterval(vector<char>& tasks, int n) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    unordered_map<char, int> m;
+    int maxCount = 0;
+    for (char c : tasks) {
+        m[c]++;
+        maxCount = max(maxCount, m[c]);
+    }
+    int ans = (maxCount - 1) * (n + 1);
+    for (pair<char, int> p : m)
+        if (p.second == maxCount) ans++;
+    return max(int(tasks.size()), ans);
+}
 
 
 

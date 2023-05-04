@@ -31,6 +31,8 @@ string longestPalindrome(string s);
 // https://leetcode.com/problems/subarray-sum-equals-k/
 int subarraySum(vector<int>& nums, int k);
 
+// https://leetcode.com/problems/longest-palindrome/submissions/
+int longestPalindromeLen(string s);
 
 struct Node {
     int val;
@@ -294,3 +296,16 @@ TreeNode* invertTree(TreeNode* root);/**/
 int maxSubarray(vector<int>& v);
 
 int maxSubarrayProduct(vector<int>& v);
+
+// https://leetcode.com/problems/task-scheduler/
+int leastInterval(vector<char>& tasks, int n);
+
+
+
+
+
+
+
+
+
+
