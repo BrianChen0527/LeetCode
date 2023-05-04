@@ -306,6 +306,25 @@ int subarraySum(vector<int>& nums, int k) {
     return count;
 }
 
+// Given a non-empty array of integers nums, every element appears twice except for one. Find it.
+// You must implement a solution with a linear runtime complexityand use only constant extra space.
+int singleNumber(vector<int>& nums) {
+    return accumulate(nums.begin(), nums.end(), 0, [](int a, int b) { return a ^ b; });
+}
+
+
+// Given an integer array nums, move all 0's to the end of it while maintaining the 
+// relative order of the non-zero elements.
+void moveZeroes(vector<int>& nums) {
+    int j = 0;
+    for (int i = 0; i < nums.size(); i++) {
+        if (nums[i] != 0) {
+            swap(nums[j], nums[i]);
+            j++;
+        }
+    }
+}
+
 
 int majorityElement(vector<int>& arr) {
     int ele = arr[0];
@@ -317,18 +336,17 @@ int majorityElement(vector<int>& arr) {
     return ele;
 }
 
-
-// Given an integer array nums, return true if any value appears at 
-// least twice in the array, and return false if every element is distinct.
-bool containsDuplicate(vector<int>& nums) {
-    unordered_set<int> hashmap;
-    for (int n : nums) {
-        if (hashmap.find(n) != hashmap.end()) {
-            return true;
+// Write a function that takes the binary representation of an unsigned 
+// integer and returns the number of '1' bits it has (Hamming weight).
+int hammingWeight(uint32_t n) {
+    int ones = 0;
+    while (n) {
+        if (n & 1) {
+            ones++;
         }
-        hashmap.insert(n);
+        n >>= 1;
     }
-    return false;
+    return ones;
 }
 
 
@@ -893,16 +911,6 @@ bool containsDuplicate(vector<int>& nums) {
     return false;
 }
 
-//https://leetcode.com/problems/contains-duplicate-ii/submissions/
-bool containsDuplicate2(vector<int>& nums, int k) {
-    unordered_map<int, int> appeared;
-    for (int j = 0; j < nums.size(); j++) {
-        if (appeared.find(nums[j]) != appeared.end() && abs(appeared[nums[j]] - j) <= k)
-            return true;
-        appeared[nums[j]] = j;
-    }
-    return false;
-}
 
 // https://leetcode.com/problems/product-of-array-except-self/submissions/
 vector<int> productExceptSelf(vector<int>& nums) {

@@ -33,6 +33,15 @@ int subarraySum(vector<int>& nums, int k);
 
 int majorityElement(vector<int>& arr);
 
+// https://leetcode.com/problems/number-of-1-bits/
+int hammingWeight(uint32_t n);
+
+// https://leetcode.com/problems/single-number/description/
+int singleNumber(vector<int>& nums);
+
+// https://leetcode.com/problems/move-zeroes/description/
+void moveZeroes(vector<int>& nums);
+
 // https://leetcode.com/problems/longest-palindrome/submissions/
 int longestPalindromeLen(string s);
 

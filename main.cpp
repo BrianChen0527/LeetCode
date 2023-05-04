@@ -7,8 +7,7 @@ using namespace std;
 #include "Functions.h"
 #include <fstream>
 
-
-
 int main() {
-
-}   
+	int a = 13;
+	int b = 12;
+}
