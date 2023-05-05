@@ -287,11 +287,18 @@ bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>
 int combinationSum4(vector<int>& nums, int target);
 int combinationHelper(vector<int>& nums, int target, unordered_map<int, int>& table);
 
+// https://leetcode.com/problems/missing-number/solutions/?orderBy=most_votes&languageTags=cpp
+int missingNumber(vector<int>& nums);
 
 // https://leetcode.com/problems/group-anagrams/
 vector<vector<string>> groupAnagrams(vector<string>& strs);
 string countingSort(string s);
 
+// https://leetcode.com/problems/missing-number/solutions/?orderBy=most_votes&languageTags=cpp
+int missingNumber(vector<int>& nums);
+
+// https://leetcode.com/problems/reverse-bits/
+uint32_t reverseBits(uint32_t n);
 
 struct TreeNode {
     int val;
@@ -301,8 +308,21 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
+
+
+// https://leetcode.com/problems/symmetric-tree/
+bool isSymmetric(TreeNode* root);
+
+// https://leetcode.com/problems/symmetric-tree/submissions/944700866/
+bool compareNodes(TreeNode* l, TreeNode* r);
+bool isSymmetric(TreeNode* root);
+
 // https://leetcode.com/problems/invert-binary-tree/
 TreeNode* invertTree(TreeNode* root);/**/
+
+// https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+TreeNode* growTree(vector<int>& nums, int left, int right);
+TreeNode* sortedArrayToBST(vector<int>& nums);
 
 int maxSubarray(vector<int>& v);
 

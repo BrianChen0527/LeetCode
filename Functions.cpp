@@ -100,7 +100,43 @@ int romanToInt(string s) {
 }
 
 
+// Given the root of a binary tree, check whether it is a mirror of itself (i.e., symmetric around its center).
+bool compareNodes(TreeNode* l, TreeNode* r) {
+    if (l && r && l->val != r->val) return false;
+    else if ((!l && r) || (!r && l)) return false;
+    else if (!l && !r) return true;
+    else return compareNodes(l->left, r->right) && compareNodes(l->right, r->left);
+}
+bool isSymmetric(TreeNode* root) {
+    if (!root) return true;
+    return compareNodes(root->left, root->right);
+}
 
+
+// https://leetcode.com/problems/missing-number/solutions/?orderBy=most_votes&languageTags=cpp
+int missingNumber(vector<int>& nums) {
+    int missing = nums.size();
+    for (int i = 0; i < nums.size(); i++) {
+        missing ^= i;
+        missing ^= nums[i];
+    }
+    return missing;
+}
+
+// https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/
+TreeNode* growTree(vector<int>& nums, int left, int right) {
+    if (left == right) return new TreeNode(nums[right]);
+
+    int mid = (left + right)/ 2;
+    TreeNode* node = new TreeNode(nums[mid]);
+    
+    if(left != mid) node->left = growTree(nums, left, mid - 1);
+    node->right = growTree(nums, mid + 1, right);
+    return node;
+}
+TreeNode* sortedArrayToBST(vector<int>& nums) {
+    return growTree(nums, 0, nums.size() - 1);
+}
 
 int lengthOfLongestSubstring(string s) {
 
@@ -1231,10 +1267,11 @@ string countingSort(string s) {
     return sorted;
 }
 
+
 // https://leetcode.com/problems/valid-parentheses/
 bool isValid(string s) {
     ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+    cin.tie(0); cout.tie(0);
     int b1 = 0, b2 = 0, b3 = 0;
     stack<char> prevChar;
 

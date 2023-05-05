@@ -7,7 +7,27 @@ using namespace std;
 #include "Functions.h"
 #include <fstream>
 
+void printTree(TreeNode* root) {
+	queue< TreeNode*> q;
+	q.push(root);
+
+	while (q.size()) {
+		queue<TreeNode*> q2;
+
+		while (q.size()) {
+			TreeNode* node = q.front();
+			cout << node->val << " ";
+			if (node->left) q2.push(node->left);
+			if (node->right) q2.push(node->right);
+			q.pop();
+		}
+		cout << endl;
+		q = q2;
+	}
+}
+
 int main() {
-	int a = 13;
-	int b = 12;
+	vector<int> test = { 1,3,5,7};
+	TreeNode* root = sortedArrayToBST(test);
+	printTree(root);
 }
