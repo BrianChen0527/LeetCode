@@ -309,6 +309,8 @@ struct TreeNode {
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
+// https://leetcode.com/problems/subtree-of-another-tree/
+bool isSubtree(TreeNode* root, TreeNode* subRoot);
 
 // https://leetcode.com/problems/symmetric-tree/
 bool isSymmetric(TreeNode* root);

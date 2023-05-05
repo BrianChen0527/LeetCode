@@ -1304,6 +1304,44 @@ bool isValid(string s) {
     return true;
 }
 
+// https://leetcode.com/problems/reverse-bits/
+uint32_t reverseBits(uint32_t n) {
+    uint32_t reversed = 0;
+    for (int i = 31; i >= 0; i--) {
+        reversed <<= 1;
+        reversed |= (n & 1);
+        n >>= 1;
+    }
+    return reversed;
+}
+
+// https://leetcode.com/problems/subtree-of-another-tree/
+bool compareTree(TreeNode* root, TreeNode* subRoot) {
+    if (!root && !subRoot) {
+        return true;
+    }
+    else if (!subRoot || !root) {
+        return false;
+    }
+    else if (root->val == subRoot->val) {
+        return compareTree(root->left, subRoot->left) && compareTree(root->right, subRoot->right);
+    }
+    return false;
+}
+bool isSubtree(TreeNode* root, TreeNode* subRoot) {
+    cout << "root: " << root->val << "  subRoot: " << subRoot->val << endl;
+    if (!root && !subRoot) {
+        return true;
+    }
+    else if (!subRoot || !root) {
+        return false;
+    }
+    else if (root->val == subRoot->val) {
+        return compareTree(root, subRoot) || isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+    }
+    return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
+}
+
 // https://leetcode.com/problems/palindromic-substrings/
 int countSubstrings(string s) {
     int count = 0;

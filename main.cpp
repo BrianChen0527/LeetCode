@@ -27,7 +27,9 @@ void printTree(TreeNode* root) {
 }
 
 int main() {
-	vector<int> test = { 1,3,5,7};
+	vector<int> test = { 1,1};
 	TreeNode* root = sortedArrayToBST(test);
 	printTree(root);
+	TreeNode* node = new TreeNode(1);
+	cout << isSubtree(root, node) << endl;
 }
