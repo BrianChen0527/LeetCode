@@ -26,10 +26,26 @@ void printTree(TreeNode* root) {
 	}
 }
 
+template<typename T>
+void vector_print(vector<T> v) {
+	for (auto i : v) {
+		cout << i << " ";
+	}
+	cout << endl;
+}
+
+class CoordCompare
+{
+public:
+	bool operator() (vector<int> p1, vector<int> p2)
+	{
+		return (pow(p1[0], 2) + pow(p1[1], 2)) < (pow(p2[0], 2) + pow(p2[1], 2));
+	}
+};
+
 int main() {
-	vector<int> test = { 1,1};
-	TreeNode* root = sortedArrayToBST(test);
-	printTree(root);
-	TreeNode* node = new TreeNode(1);
-	cout << isSubtree(root, node) << endl;
+	priority_queue<vector<int>, vector<vector<int>>, CoordCompare> closest;
+	closest.push({ 1,2 });
+	closest.push({ 3,4 });
+	vector_print(closest.top());
 }

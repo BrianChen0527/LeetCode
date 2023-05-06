@@ -1242,8 +1242,20 @@ int combinationHelper(vector<int>& nums, int target, unordered_map<int, int> &ta
 }
 
 // https://leetcode.com/problems/k-closest-points-to-origin/
-vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+class CoordCompare
+{
+public:
+    bool operator() (vector<int> p1, vector<int> p2)
+    {
+        return (pow(p1[0], 2) + pow(p1[1], 2)) < (pow(p2[0], 2) + pow(p2[1], 2));
+    }
+};
 
+vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+    priority_queue<int, vector<int>, CoordCompare> closest;
+
+    vector<vector<int>> test;
+    return test;
 }
 
 
