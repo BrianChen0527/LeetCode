@@ -1241,6 +1241,35 @@ int combinationHelper(vector<int>& nums, int target, unordered_map<int, int> &ta
     return totalWays;
 }
 
+// https://leetcode.com/problems/k-closest-points-to-origin/
+vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+
+}
+
+
+// https://leetcode.com/problems/01-matrix/
+vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
+    int rows = mat.size(), cols = mat[0].size();
+    vector<vector<int>> dists(rows, vector<int>(cols, INT_MAX));
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+            if (mat[r][c] == 0) dists[r][c] = 0;
+            else {
+                if (r - 1 >= 0) dists[r][c] = min(1 + dists[r - 1][c], dists[r][c]);
+                if (c - 1 >= 0) dists[r][c] = min(1 + dists[r][c - 1], dists[r][c]);
+            }
+        }
+    }
+    for (int r = rows - 1; r >= 0; r--) {
+        for (int c = cols - 1; c >= 0; c--) {
+            if (r + 1 < rows) dists[r][c] = min(1 + dists[r + 1][c], dists[r][c]);
+            if (c + 1 < cols) dists[r][c] = min(1 + dists[r][c + 1], dists[r][c]);
+        }
+    }
+    return dists;
+}
+
+
 // https://leetcode.com/problems/group-anagrams/
 vector<vector<string>> groupAnagrams(vector<string>& strs) {
     unordered_map<string, vector<string>> anagrams;
@@ -1284,6 +1313,9 @@ vector<int> sortedSquares(vector<int>& nums) {
     }
     return sortedSqrs;
 }
+
+
+
 
 
 // https://leetcode.com/problems/valid-parentheses/

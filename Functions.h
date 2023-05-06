@@ -303,6 +303,15 @@ uint32_t reverseBits(uint32_t n);
 // https://leetcode.com/problems/squares-of-a-sorted-array/
 vector<int> sortedSquares(vector<int>& nums);
 
+// https://leetcode.com/problems/01-matrix/
+vector<vector<int>> updateMatrix(vector<vector<int>>& mat);
+
+// https://leetcode.com/problems/01-matrix/
+vector<vector<int>> updateMatrix(vector<vector<int>>&mat);
+
+// https://leetcode.com/problems/k-closest-points-to-origin/
+vector<vector<int>> kClosest(vector<vector<int>>& points, int k);
+
 struct TreeNode {
     int val;
     TreeNode* left;
