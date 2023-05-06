@@ -1267,6 +1267,24 @@ string countingSort(string s) {
     return sorted;
 }
 
+// https://leetcode.com/problems/squares-of-a-sorted-array/
+vector<int> sortedSquares(vector<int>& nums) {
+    vector<int> sortedSqrs(nums.size(), 0);
+    int l = 0, r = nums.size() - 1;
+    while (l <= r) {
+        int sq1 = pow(nums[l], 2), sq2 = pow(nums[r], 2);
+        if (sq1 > sq2) {
+            sortedSqrs[r - l] = sq1;
+            l++; 
+        }
+        else {
+            sortedSqrs[r - l] = sq2;
+            r--;
+        }
+    }
+    return sortedSqrs;
+}
+
 
 // https://leetcode.com/problems/valid-parentheses/
 bool isValid(string s) {

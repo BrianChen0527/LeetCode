@@ -300,6 +300,9 @@ int missingNumber(vector<int>& nums);
 // https://leetcode.com/problems/reverse-bits/
 uint32_t reverseBits(uint32_t n);
 
+// https://leetcode.com/problems/squares-of-a-sorted-array/
+vector<int> sortedSquares(vector<int>& nums);
+
 struct TreeNode {
     int val;
     TreeNode* left;
