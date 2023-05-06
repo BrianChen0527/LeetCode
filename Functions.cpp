@@ -1252,10 +1252,19 @@ public:
 };
 
 vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
-    priority_queue<int, vector<int>, CoordCompare> closest;
+    priority_queue<vector<int>, vector<vector<int>>, CoordCompare> closest;
+    for (auto p : points) {
+        closest.push(p);
+        if (closest.size() > k) closest.pop();
+    }
 
-    vector<vector<int>> test;
-    return test;
+    vector<vector<int>> ans(closest.size());
+    for (int i = 0; i < k; i++) {
+        ans[i] = closest.top();
+        closest.pop();
+    }
+
+    return ans;
 }
 
 
