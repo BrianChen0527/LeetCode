@@ -300,6 +300,12 @@ int missingNumber(vector<int>& nums);
 // https://leetcode.com/problems/reverse-bits/
 uint32_t reverseBits(uint32_t n);
 
+// https://leetcode.com/problems/3sum/
+vector<vector<int>> threeSum(vector<int>& nums);
+
+// https://leetcode.com/problems/3sum/
+vector<vector<int>> threeSum(vector<int>& nums);
+
 // https://leetcode.com/problems/squares-of-a-sorted-array/
 vector<int> sortedSquares(vector<int>& nums);
 
@@ -312,6 +318,9 @@ vector<vector<int>> updateMatrix(vector<vector<int>>&mat);
 // https://leetcode.com/problems/k-closest-points-to-origin/
 vector<vector<int>> kClosest(vector<vector<int>>& points, int k);
 
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/
+int lengthOfLongestSubstring(string s);
+
 struct TreeNode {
     int val;
     TreeNode* left;
@@ -320,6 +329,9 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
+
+// https://leetcode.com/problems/binary-tree-level-order-traversal/
+vector<vector<int>> levelOrder(TreeNode* root);
 
 // https://leetcode.com/problems/subtree-of-another-tree/
 bool isSubtree(TreeNode* root, TreeNode* subRoot);

@@ -138,23 +138,6 @@ TreeNode* sortedArrayToBST(vector<int>& nums) {
     return growTree(nums, 0, nums.size() - 1);
 }
 
-int lengthOfLongestSubstring(string s) {
-
-    int n = s.length();
-    int max_len = 0;
-    map<char, int> temp;
-
-    for (int i = 0, j = 0; j < n; j++) {
-        if (temp.find(s[j]) != temp.end()) {
-            i = max(i, temp[s[j]] + 1);
-            temp[s[j]] = j;
-        }
-        max_len = max(max_len, j - i + 1);
-        temp.insert({ s[j], j });
-    }
-    return max_len;
-}
-
 //Runtime complexity: O((m+n)/2)
 double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
     int merged_length = nums1.size() + nums2.size();
@@ -1302,6 +1285,74 @@ vector<vector<string>> groupAnagrams(vector<string>& strs) {
     for (auto strs : anagrams)
         ans.push_back(strs.second);
     
+    return ans;
+}
+
+//int lengthOfLongestSubstring(string s) {
+//
+//    int n = s.length();
+//    int max_len = 0;
+//    map<char, int> temp;
+//
+//    for (int i = 0, j = 0; j < n; j++) {
+//        if (temp.find(s[j]) != temp.end()) {
+//            i = max(i, temp[s[j]] + 1);
+//            temp[s[j]] = j;
+//        }
+//        max_len = max(max_len, j - i + 1);
+//        temp.insert({ s[j], j });
+//    }
+//    return max_len;
+//}
+
+// https://leetcode.com/problems/longest-substring-without-repeating-characters/
+int lengthOfLongestSubstring(string s) {
+    unordered_map<char, int> mp;
+    int len = 0, longest = 0;
+    for (int i = 0; i < s.length(); i++) {
+        if (mp.find(s[i]) == mp.end()) {
+            mp[s[i]] = i;
+            len++;
+        }
+        else if (mp[s[i]] < i - len) {
+            mp[s[i]] = i;
+            len++;
+        }
+        else {
+            len = i - mp[s[i]];
+            mp[s[i]] = i;
+        }
+        longest = max(len, longest);
+    }
+    return longest;
+}
+
+// https://leetcode.com/problems/3sum/
+vector<vector<int>> threeSum(vector<int>& nums) {
+    sort(nums.begin(), nums.end());
+    vector<vector<int>> ans;
+    int i = 0;
+    while (i < nums.size() - 2 && nums[i] <= 0) {
+        int l = i + 1, r = nums.size() - 1;
+        int num1 = nums[i];
+        while (l < r) {
+            int tot = num1 + nums[l] + nums[r];
+            if (tot < 0) l++;
+            else if (tot > 0) r--;
+            else {
+                ans.push_back({ num1, nums[l], nums[r] });
+                l++; r--;
+                while (nums[l] == nums[l - 1]) l++;
+                while (nums[r] == nums[r + 1]) r--;
+
+            } 
+        }
+
+
+        }
+        i++;
+        while (i < nums.size() - 2 && nums[i] == nums[i-1]) i++;
+    }
     return ans;
 }
 

@@ -44,8 +44,7 @@ public:
 };
 
 int main() {
-	priority_queue<vector<int>, vector<vector<int>>, CoordCompare> closest;
-	closest.push({ 1,2 });
-	closest.push({ 3,4 });
-	vector_print(closest.top());
+	vector<int> test = { -1,0,1,2,-1,-4 };
+	vector<vector<int>> Test = threeSum(test);
+	
 }
