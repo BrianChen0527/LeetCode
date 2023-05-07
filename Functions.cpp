@@ -303,6 +303,32 @@ string longestPalindrome(string s) {
     return s.substr(maxL, maxR - maxL + 1);
 }
 
+// https://leetcode.com/problems/binary-tree-level-order-traversal/
+vector<vector<int>> levelOrder(TreeNode* root) {
+    vector<vector<int>> levels = {};
+    queue<TreeNode*> level;
+    level.push(root);
+
+    while (!level.empty()) {
+        int ptr = 0, num_nodes = level.size();
+        queue<TreeNode*> nextLevel;
+        vector<int> curr_level;
+
+        while (ptr++ < num_nodes) {
+            TreeNode* node = level.front();
+            level.pop();
+
+            if (!node) continue;
+
+            curr_level.push_back(node->val);
+            level.push(node->left);
+            level.push(node->right);
+        }
+        if (!curr_level.empty()) levels.push_back(curr_level);
+    }
+    return levels;
+}
+
 // Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
 // https://leetcode.com/problems/subarray-sum-equals-k/
 int subarraySum(vector<int>& nums, int k) {
@@ -1334,7 +1360,7 @@ vector<vector<int>> threeSum(vector<int>& nums) {
     int i = 0;
     while (i < nums.size() - 2 && nums[i] <= 0) {
         int l = i + 1, r = nums.size() - 1;
-        int num1 = nums[i];
+        int num1 = nums[i++];
         while (l < r) {
             int tot = num1 + nums[l] + nums[r];
             if (tot < 0) l++;
@@ -1342,15 +1368,10 @@ vector<vector<int>> threeSum(vector<int>& nums) {
             else {
                 ans.push_back({ num1, nums[l], nums[r] });
                 l++; r--;
-                while (nums[l] == nums[l - 1]) l++;
-                while (nums[r] == nums[r + 1]) r--;
-
+                while (l < nums.size() && nums[l] == nums[l - 1]) l++;
+                while (r >= 0 && nums[r] == nums[r + 1]) r--;
             } 
         }
-
-
-        }
-        i++;
         while (i < nums.size() - 2 && nums[i] == nums[i-1]) i++;
     }
     return ans;
