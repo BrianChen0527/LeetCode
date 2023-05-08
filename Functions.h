@@ -53,12 +53,39 @@ struct Node {
     Node(int x, Node* next_in) : val{ x }, next{ next_in } {}
 };
 
+// https://leetcode.com/problems/course-schedule/
+bool canFinish(int numCourses, vector<vector<int>>& prerequisites);
+
+// https://leetcode.com/problems/evaluate-reverse-polish-notation/
+int evalRPN(vector<string>& tokens);
+
 // Write a program that reverses this singly-linked list of nodes
 Node* reverse_list(Node* head);
 
 // Write a function that deletes all duplicates in the list so that 
 // each element ends up only appearing once.
 Node* remove_duplicates(Node* head);
+
+class GraphNode {
+public:
+    int val;
+    vector<GraphNode*> neighbors;
+    GraphNode() {
+        val = 0;
+        neighbors = vector<GraphNode*>();
+    }
+    GraphNode(int _val) {
+        val = _val;
+        neighbors = vector<GraphNode*>();
+    }
+    GraphNode(int _val, vector<GraphNode*> _neighbors) {
+        val = _val;
+        neighbors = _neighbors;
+    }
+};
+
+// https://leetcode.com/problems/clone-graph/
+GraphNode* cloneGraph(GraphNode* node);
 
 // You are given a non-empty vector of distinct elements, and you want to
 // return a vector that stores the previous greater element that exists

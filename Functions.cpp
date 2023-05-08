@@ -1161,6 +1161,50 @@ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
     return head->next;
 }
 
+// https://leetcode.com/problems/clone-graph/
+GraphNode* cloner(GraphNode* curr_node, unordered_map<int, GraphNode*> &visited) {
+    if (visited.find(curr_node->val) != visited.end()) return visited[curr_node->val];
+    cout << curr_node->val << endl;
+
+    GraphNode* new_node = new GraphNode(curr_node->val);
+    visited[curr_node->val] = new_node;
+    
+    new_node->neighbors.reserve(curr_node->neighbors.size());
+    for (auto n : curr_node->neighbors) {
+        new_node->neighbors.push_back(cloner(n, visited));
+    }
+    return new_node;
+}
+
+GraphNode* cloneGraph(GraphNode* node) {
+    if (!node) return node;
+    unordered_map<int, GraphNode*> visited;
+    return cloner(node, visited);
+}
+
+// https://leetcode.com/problems/evaluate-reverse-polish-notation/
+int evalRPN(vector<string>& tokens) {
+    stack<int> nums;
+    for (int i = 0; i < tokens.size(); i++) {
+        if (isdigit(tokens[i][0]) || (tokens[i].length() > 1 && tokens[i][0] == '-')) {
+            nums.push(stoi(tokens[i]));
+        }
+        else {
+            int num1 = nums.top();
+            nums.pop();
+            int num2 = nums.top();
+            nums.pop();
+            int result = 0;
+
+            if (tokens[i] == "+") nums.push(num2 + num1);
+            else if (tokens[i] == "-") nums.push(num2 - num1);
+            else if (tokens[i] == "*") nums.push(num2 * num1);
+            else nums.push(num2 / num1);
+        }
+    }
+    return nums.top();
+}
+
 // https://leetcode.com/problems/longest-repeating-character-replacement/
 int characterReplacement(string s, int k) {
     int ptr1 = 0, ptr2 = 0, maxf = 0, maxLen = 0;
@@ -1406,9 +1450,6 @@ vector<int> sortedSquares(vector<int>& nums) {
     }
     return sortedSqrs;
 }
-
-
-
 
 
 // https://leetcode.com/problems/valid-parentheses/
@@ -1831,6 +1872,31 @@ vector<Interval> merge_intervals1(vector<Interval>& vec) {
 }
 
 
+// https://leetcode.com/problems/course-schedule/
+bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+    vector<vector<int>> G(numCourses, vector<int>());
+    vector<int> edges(numCourses, 0);
+    for ( auto v : prerequisites) {
+        G[v[1]].push_back(v[0]);
+        edges[v[0]]++;
+    }
+
+    vector<int> clean;
+    for (int i = 0; i < edges.size(); i++)
+        if (!edges[i]) clean.push_back(i);
+
+    for (int i = 0; i < clean.size(); i++) {
+        for (auto j : G[clean[i]]) {
+            --edges[j];
+            if (edges[j] == 0) {
+                clean.push_back(j);
+            }
+        }
+    }
+    return clean.size() == numCourses;
+}
+
+
 // You are given two non-empty linked lists representing two non-negative integers. The most significant
 // digit comes firstand each of their nodes contains a single digit. Add the two numbersand return the result
 // as a linked list.You may assume the two numbers do not contain any leading 0’s except the number 0
@@ -1901,6 +1967,58 @@ vector<int> findKMax(int arr[], size_t n, size_t k) {
     return ans;
 
 }
+
+
+class TrieNode {
+public:
+    TrieNode* children[26];
+    bool period;
+    TrieNode() {
+        period = false;
+        for (int i = 0; i < 26; i++) {
+            children[i] = NULL;
+        }
+    }
+};
+
+class Trie {
+public:
+    TrieNode* root;
+    Trie() {
+        root = new TrieNode();
+    }
+
+    void insert(string word) {
+        TrieNode* node = root;
+        for (auto c : word) {
+            int pos = c - 'a';
+            if (node->children[pos] == NULL) node->children[pos] = new TrieNode();
+            node = node->children[pos];
+        }
+        node->period = true;
+    }
+
+    bool search(string word) {
+        TrieNode* node = root;
+        for (auto c : word) {
+            int pos = c - 'a';
+            if (node->children[pos] == NULL) return false;
+            node = node->children[pos];
+        }
+        return node->period;
+    }
+
+    bool startsWith(string prefix) {
+        TrieNode* node = root;
+        for (auto c : prefix) {
+            int pos = c - 'a';
+            if (node->children[pos] == NULL) return false;
+            node = node->children[pos];
+        }
+        return true;
+    }
+};
+
 
 
 // Time Complexity Restriction: O(logn)

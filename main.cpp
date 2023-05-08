@@ -44,7 +44,7 @@ public:
 };
 
 int main() {
-	vector<int> test = { -1,0,1,2,-1,-4 };
-	vector<vector<int>> Test = threeSum(test);
-	
+	vector<string> tokens = { "10","6","9","3","+","-11","*","/","*","17","+","5","+" };
+	cout << evalRPN(tokens);
+
 }
