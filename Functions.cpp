@@ -957,20 +957,6 @@ bool containsDuplicate(vector<int>& nums) {
 }
 
 
-// https://leetcode.com/problems/product-of-array-except-self/submissions/
-vector<int> productExceptSelf(vector<int>& nums) {
-    int left = 1, right = 1, n = nums.size();
-    vector<int> products(n, 1);
-    for (int i = 0; i < n; i++) {
-        products[i] *= left;
-        left *= nums[i];
-        products[n - 1 - i] *= right;
-        right *= nums[n - 1 - i];
-    }
-    return products;
-}
-
-
 // https://leetcode.com/problems/maximum-subarray/
 int maxSubArray(vector<int>& nums) {
     int curr = nums[0], maxN = curr;
@@ -1022,19 +1008,6 @@ int findMin(vector<int>& nums) {
     return min(nums[left], nums[right]);
 }
 
-// https://leetcode.com/problems/coin-change/
-int coinChange(vector<int>& coins, int amount) {
-    vector<int> table(amount + 1, 0);
-    table[0] = 1;
-    for (int i = 0; i < amount + 1; i++) {
-        for (int coin : coins) {
-            if (coin <= i && table[i - coin] != 0) {
-                table[i] = (table[i]) ? min(table[i], table[i - coin] + 1) : table[i - coin] + 1;
-            }
-        }
-    }
-    return table[amount] - 1;
-}
 
 // https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/
 int search(vector<int>& nums, int target) {
@@ -1449,6 +1422,22 @@ vector<int> sortedSquares(vector<int>& nums) {
         }
     }
     return sortedSqrs;
+}
+
+
+// https://leetcode.com/problems/product-of-array-except-self/
+vector<int> productExceptSelf(vector<int>& nums) {
+    int l = 1, r = 1;
+    size_t len = nums.size();
+    vector<int> products(len, 1);
+    for (size_t i = 0; i < len; i++) {
+        cout << l << " " << r << endl;
+        products[i] *= l;
+        l *= nums[i];
+        products[len - i - 1] *= r;
+        r *= nums[len - i - 1];
+    }
+    return products;
 }
 
 
