@@ -45,6 +45,9 @@ void moveZeroes(vector<int>& nums);
 // https://leetcode.com/problems/longest-palindrome/submissions/
 int longestPalindromeLen(string s);
 
+// https://leetcode.com/problems/product-of-array-except-self/
+vector<int> productExceptSelf(vector<int>& nums);
+
 struct Node {
     int val;
     Node* next;
