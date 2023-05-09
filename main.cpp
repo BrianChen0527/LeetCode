@@ -44,7 +44,7 @@ public:
 };
 
 int main() {
-	vector<string> tokens = { "10","6","9","3","+","-11","*","/","*","17","+","5","+" };
-	cout << evalRPN(tokens);
+	vector<int > test = { 1,2,3,4 };
+	 productExceptSelf(test);
 
 }
