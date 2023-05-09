@@ -2222,3 +2222,38 @@ vector<string> replace_words(const vector<string>& prefixes,
     return ans;
 }
 
+
+class MinStack {
+public:
+    vector<int> S;
+    int min_val = INT_MAX;
+
+    MinStack() {
+    }
+
+    void push(int val) {
+        S.push_back(val);
+        min_val = min(val, min_val);
+    }
+
+    void pop() {
+        if (min_val == S.back()) {
+            min_val = INT_MAX;
+            S.pop_back();
+            for (size_t i = 0; i < S.size(); i++) {
+                min_val = min(min_val, S[i]);
+            }
+        }
+        else {
+            S.pop_back(); 
+        }
+    }
+
+    int top() {
+        return S.back();
+    }
+
+    int getMin() {
+        return min_val;
+    }
+};
