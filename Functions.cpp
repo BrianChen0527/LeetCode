@@ -1441,6 +1441,23 @@ vector<int> productExceptSelf(vector<int>& nums) {
 }
 
 
+// https://leetcode.com/problems/validate-binary-search-tree/
+void inOrderTraversal(TreeNode* root, vector<int>& result) {
+    if (root->left) inOrderTraversal(root->left, result);
+    result.push_back(root->val);
+    if (root->right) inOrderTraversal(root->right, result);
+}
+bool isValidBST(TreeNode* root) {
+    vector<int> result;
+    inOrderTraversal(root, result);
+    
+    for (size_t i = 1; i < result.size(); i++) {
+        if (result[i - 1] >= result[i]) return false;
+    }
+    return true;
+}
+
+
 // https://leetcode.com/problems/valid-parentheses/
 bool isValid(string s) {
     ios_base::sync_with_stdio(false);
