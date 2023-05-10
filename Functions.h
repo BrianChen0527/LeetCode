@@ -48,6 +48,11 @@ int longestPalindromeLen(string s);
 // https://leetcode.com/problems/product-of-array-except-self/
 vector<int> productExceptSelf(vector<int>& nums);
 
+// https://leetcode.com/problems/number-of-islands/
+void islandBFS(vector<vector<char>>& grid, vector<pair<int, int>>& directions, int r, int c, int rows, int cols);
+int seaBFS(vector<vector<char>>& grid, vector<pair<int, int>>& directions, int r, int c, int rows, int cols);
+int numIslands(vector<vector<char>>& grid);
+
 struct Node {
     int val;
     Node* next;
