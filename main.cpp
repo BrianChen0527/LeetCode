@@ -44,7 +44,6 @@ public:
 };
 
 int main() {
-	vector<int > test = { 1,2,3,4 };
-	 productExceptSelf(test);
-
+	vector<vector<char>> test = { {'1', '1', '0', '0', '0'},{'1', '1', '0', '0', '0'},{'0', '0', '1', '0', '0'},{'0', '0', '0', '1', '1'} };
+	cout << numIslands(test);
 }
