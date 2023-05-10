@@ -50,8 +50,12 @@ vector<int> productExceptSelf(vector<int>& nums);
 
 // https://leetcode.com/problems/number-of-islands/
 void islandBFS(vector<vector<char>>& grid, vector<pair<int, int>>& directions, int r, int c, int rows, int cols);
-int seaBFS(vector<vector<char>>& grid, vector<pair<int, int>>& directions, int r, int c, int rows, int cols);
 int numIslands(vector<vector<char>>& grid);
+
+// https://leetcode.com/problems/rotting-oranges/
+int orangeDFS(vector<vector<int>>& grid, vector<pair<int, int>>& directions, int r, int c, int rows, int cols, int minute);
+int orangesRotting(vector<vector<int>>& grid);
+
 
 struct Node {
     int val;

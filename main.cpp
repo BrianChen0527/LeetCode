@@ -44,6 +44,6 @@ public:
 };
 
 int main() {
-	vector<vector<char>> test = { {'1', '1', '0', '0', '0'},{'1', '1', '0', '0', '0'},{'0', '0', '1', '0', '0'},{'0', '0', '0', '1', '1'} };
-	cout << numIslands(test);
+	vector<vector<int>> test = { {2,2} };
+	cout << orangesRotting(test);
 }

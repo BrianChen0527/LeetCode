@@ -1445,7 +1445,6 @@ vector<int> productExceptSelf(vector<int>& nums) {
 void islandBFS(vector<vector<char>>& grid, vector<pair<int, int>>& directions, int r, int c, int rows, int cols) {
     if (r < 0 || r >= rows || c < 0 || c >= cols) return;
     if (grid[r][c] == '_' || grid[r][c] == '0') return;
-    
     grid[r][c] = '_';
     for (auto p : directions) islandBFS(grid, directions, r + p.first, c + p.second, rows, cols);
 }
@@ -1466,7 +1465,42 @@ int numIslands(vector<vector<char>>& grid) {
         }
     }
 
-    return seaBFS(grid, directions, 0, 0, rows, cols);
+    return islands;
+}
+
+
+int orangesRotting(vector<vector<int>>& grid) {
+    vector<pair<int, int>> directions = { {1, 0}, {0, 1}, {-1, 0}, {0, -1} };
+    queue< pair<int, int>> rotten;
+    int rows = grid.size(), cols = grid[0].size();
+    int minutes = 0, fresh = 0;
+    
+    for (auto i = 0; i < rows; i++) {
+        for (auto j = 0; j < cols; j++) {
+            if (grid[i][j] == 2) rotten.emplace(i, j); 
+            if (grid[i][j] == 1) fresh++;
+        }
+    }
+
+    while (fresh != 0 && !rotten.empty()) {
+        queue< pair<int, int>> rotten2;
+        while (!rotten.empty()) {
+            int r = rotten.front().first, c = rotten.front().second;
+            rotten.pop();
+            for (auto p : directions) {
+                if (r + p.first >= 0 && r + p.first < rows && 
+                    c + p.second >= 0 && c + p.second < cols &&
+                    grid[r + p.first][c + p.second] == 1) {
+                    fresh--;
+                    grid[r + p.first][c + p.second] = 2;
+                    rotten2.emplace(r + p.first, c + p.second);
+                }
+            }
+        }
+        rotten = rotten2;
+        minutes++;
+    }
+    return fresh == 0 ? minutes : -1;
 }
 
 
