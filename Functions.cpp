@@ -1441,6 +1441,35 @@ vector<int> productExceptSelf(vector<int>& nums) {
 }
 
 
+// https://leetcode.com/problems/number-of-islands/
+void islandBFS(vector<vector<char>>& grid, vector<pair<int, int>>& directions, int r, int c, int rows, int cols) {
+    if (r < 0 || r >= rows || c < 0 || c >= cols) return;
+    if (grid[r][c] == '_' || grid[r][c] == '0') return;
+    
+    grid[r][c] = '_';
+    for (auto p : directions) islandBFS(grid, directions, r + p.first, c + p.second, rows, cols);
+}
+
+
+int numIslands(vector<vector<char>>& grid) {
+    int rows = grid.size(), cols = grid[0].size();
+    vector<pair<int, int>> directions = { {1, 0}, {0, 1}, {-1, 0}, {0, -1} };
+    int islands = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (grid[i][j] == '_') continue;
+            if (grid[i][j] == '1') {
+                islandBFS(grid, directions, i, j, rows, cols);
+                islands++;
+            }
+            grid[i][j] = '_';
+        }
+    }
+
+    return seaBFS(grid, directions, 0, 0, rows, cols);
+}
+
+
 // https://leetcode.com/problems/validate-binary-search-tree/
 void inOrderTraversal(TreeNode* root, vector<int>& result) {
     if (root->left) inOrderTraversal(root->left, result);
