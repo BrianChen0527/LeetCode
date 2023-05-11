@@ -997,17 +997,6 @@ int maxProduct(vector<int>& nums) {
     return trueMax;
 }
 
-// https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
-int findMin(vector<int>& nums) {
-    int left = 0, mid = nums.size() / 2, right = nums.size() - 1;
-
-    while (right - left > 1) {
-        nums[mid] < nums[right] ? right = mid : left = mid;
-        mid = (left + right) / 2;
-    }
-    return min(nums[left], nums[right]);
-}
-
 
 // https://leetcode.com/problems/search-in-rotated-sorted-array/submissions/
 int search(vector<int>& nums, int target) {
@@ -1466,6 +1455,46 @@ int numIslands(vector<vector<char>>& grid) {
     }
 
     return islands;
+}
+
+
+// https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
+int findMin(vector<int>& nums) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    int left = 0, mid = nums.size() / 2, right = nums.size() - 1;
+    while (right - left > 1) {
+        nums[mid] < nums[right] ? right = mid : left = mid;
+        mid = (left + right) / 2;
+    }
+    return min(nums[left], nums[right]);
+}
+
+
+// https://leetcode.com/problems/search-in-rotated-sorted-array/
+int searchRotatedSortedArray(vector<int>& nums, int target) {
+    int l = 0, r = nums.size() - 1;
+
+    while (l < r) {
+        int m = (l + r) / 2;
+        int left = nums[l], right = nums[r], mid = nums[m];
+
+        if (target == mid) return m;
+
+        if (left < right) {
+            if (target < mid) r = m - 1;
+            else l = m + 1;
+        }
+        else if (left <= mid) {
+            if (target < mid && target >= left) r = m - 1;
+            else l = m + 1;
+        }
+        else {
+            if (target <= right && target > mid) l = m + 1;
+            else r = m - 1;
+        }
+    }
+    return nums[l] == target ? l : -1;
 }
 
 
