@@ -44,6 +44,6 @@ public:
 };
 
 int main() {
-	vector<vector<int>> test = { {2,2} };
-	cout << orangesRotting(test);
+	vector<int> test = { 3,1 };
+	cout << searchRotatedSortedArray(test, 1);
 }
