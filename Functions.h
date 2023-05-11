@@ -53,9 +53,10 @@ void islandBFS(vector<vector<char>>& grid, vector<pair<int, int>>& directions, i
 int numIslands(vector<vector<char>>& grid);
 
 // https://leetcode.com/problems/rotting-oranges/
-int orangeDFS(vector<vector<int>>& grid, vector<pair<int, int>>& directions, int r, int c, int rows, int cols, int minute);
 int orangesRotting(vector<vector<int>>& grid);
 
+// https://leetcode.com/problems/search-in-rotated-sorted-array/
+int searchRotatedSortedArray(vector<int>& nums, int target);
 
 struct Node {
     int val;
