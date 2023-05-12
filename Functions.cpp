@@ -503,6 +503,12 @@ size_t fibonacciDP(size_t n) {
 }
 
 
+// https://leetcode.com/problems/permutations/
+vector<vector<int>> permute(vector<int>& nums) {
+
+}
+
+
 int num_to_string(string s) {
     int iter1 = 1, sum = 1, size = s.length();
     vector<int> sections;
@@ -1238,7 +1244,7 @@ bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>
 
 
 // https://leetcode.com/problems/combination-sum/submissions/
-void combinationDFS(vector<int>& candidates, vector<vector<int>>& ans, vector<int> path, int target, int pos, int len) {
+void combinationDFS(vector<int>& candidates, vector<vector<int>>& ans, vector<int>& path, int target, int pos, int len) {
     if (target == 0) ans.push_back(path);
     if (target < 0) return;
 
@@ -1249,7 +1255,6 @@ void combinationDFS(vector<int>& candidates, vector<vector<int>>& ans, vector<in
     }
 }
 vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
-    sort(candidates.begin(), candidates.end());
     vector<vector<int>> ans;
     vector<int> path;
     combinationDFS(candidates, ans, path, target, 0, candidates.size());
