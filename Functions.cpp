@@ -1236,6 +1236,27 @@ bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>
     return false;
 }
 
+
+// https://leetcode.com/problems/combination-sum/submissions/
+void combinationDFS(vector<int>& candidates, vector<vector<int>>& ans, vector<int> path, int target, int pos, int len) {
+    if (target == 0) ans.push_back(path);
+    if (target < 0) return;
+
+    for (int i = pos; i < len; i++){
+        path.push_back(candidates[i]);
+        combinationDFS(candidates, ans, path, target - candidates[i], i, len);
+        path.pop_back();
+    }
+}
+vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+    sort(candidates.begin(), candidates.end());
+    vector<vector<int>> ans;
+    vector<int> path;
+    combinationDFS(candidates, ans, path, target, 0, candidates.size());
+    return ans;
+}
+
+
 // https://leetcode.com/problems/combination-sum-iv/
 int combinationSum4(vector<int>& nums, int target) {
     unordered_map<int, int> table;
