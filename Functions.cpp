@@ -504,8 +504,30 @@ size_t fibonacciDP(size_t n) {
 
 
 // https://leetcode.com/problems/permutations/
-vector<vector<int>> permute(vector<int>& nums) {
+void permuteHelper(vector<int>& nums, vector<int>& path, vector<vector<int>>& ans, unordered_set<int>& visited, int len, int tot_size){
+    
+    for (int n : nums) {
+        if (visited.find(n) != visited.end()) continue;
+        path[len] = n;
 
+        if (len == tot_size - 1) {
+            ans.push_back(path);
+            return;
+        }
+        
+        visited.insert(n);
+        permuteHelper(nums, path, ans, visited, len + 1, tot_size);
+        visited.erase(n);
+    }
+}
+
+vector<vector<int>> permute(vector<int>& nums) {
+    unordered_set<int> visited;
+    int tot_size = nums.size();
+    vector<int> path (tot_size, -1);
+    vector<vector<int>> ans;
+    permuteHelper(nums, path, ans, visited, 0, tot_size);
+    return ans;
 }
 
 
