@@ -1046,25 +1046,12 @@ int search(vector<int>& nums, int target) {
 
 
 // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
-bool ancestorFinder(TreeNode* root, TreeNode* p, TreeNode* q, bool found, TreeNode* ans) {
-    if (!root) return false;
-    if (root->val == p->val || root->val == q->val) {
-        if (found) return true;
-        if (ancestorFinder(root->left, p, q, !found, ans) || ancestorFinder(root->right, p, q, !found, ans)) {
-            ans = root;
-            return false;
-        }
-        return true;
-    }
-    if (ancestorFinder(root->left, p, q, found, ans) && ancestorFinder(root->right, p, q, found, ans))
-        ans = root;
-    return false;
-}
-
 TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-    TreeNode* ans = root;
-    ancestorFinder(root, p, q, false, ans);
-    return ans;
+    if (!root || root->val == p->val || root->val == q->val) return root;
+    TreeNode* l = lowestCommonAncestor(root->left, p, q);
+    TreeNode* r = lowestCommonAncestor(root->right, p, q);
+    if (l && r) return root;
+    return (l ? l : r);
 }
 
 
