@@ -370,6 +370,9 @@ struct TreeNode {
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q);
+
 // https://leetcode.com/problems/binary-tree-level-order-traversal/
 vector<vector<int>> levelOrder(TreeNode* root);
 

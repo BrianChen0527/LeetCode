@@ -1044,6 +1044,30 @@ int search(vector<int>& nums, int target) {
     return -1;
 }
 
+
+// https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
+bool ancestorFinder(TreeNode* root, TreeNode* p, TreeNode* q, bool found, TreeNode* ans) {
+    if (!root) return false;
+    if (root->val == p->val || root->val == q->val) {
+        if (found) return true;
+        if (ancestorFinder(root->left, p, q, !found, ans) || ancestorFinder(root->right, p, q, !found, ans)) {
+            ans = root;
+            return false;
+        }
+        return true;
+    }
+    if (ancestorFinder(root->left, p, q, found, ans) && ancestorFinder(root->right, p, q, found, ans))
+        ans = root;
+    return false;
+}
+
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    TreeNode* ans = root;
+    ancestorFinder(root, p, q, false, ans);
+    return ans;
+}
+
+
 // https://leetcode.com/problems/merge-intervals/submissions/
 vector<vector<int>> merge(vector<vector<int>>& intervals) {
     vector<vector<int>> merged;
