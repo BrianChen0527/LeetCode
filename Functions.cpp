@@ -1124,6 +1124,26 @@ bool hasCycle(ListNode* head) {
     return false;
 }
 
+
+class TimeMap {
+private: 
+    unordered_map<string, vector<pair<int, string>>> mp;
+
+public:
+    TimeMap() {
+    }
+
+    void set(string key, string value, int timestamp) {
+        mp[key].emplace_back(timestamp, value);
+    }
+
+    string get(string key, int timestamp) {
+        auto it = upper_bound(mp[key].begin(), mp[key].end(), timestamp, [](pair<int, string> a) { return a.first; });
+        return it->first == timestamp ? it->second : prev(it)->second;
+    }
+};
+
+
 // https://leetcode.com/problems/linked-list-cycle/
 bool FloydsAlgorithm(ListNode* head) {
     if (!head) return false;
