@@ -885,6 +885,46 @@ bool canReach(vector<int>& arr, int start) {
 }
 
 
+// https://leetcode.com/problems/accounts-merge/description/
+void accountsDFS(unordered_map<string, vector<int>>& email_accounts, vector<vector<string>>& accounts, vector<bool>& visited, unordered_set<string>& emails, int account) {
+    if (visited[account]) return;
+    visited[account] = true;
+
+    for (int i = 1; i < accounts.size(); i++) {
+        string email = accounts[i]
+        if (emails.find(email) == emails.end()) emails.insert(email);
+        for (auto i : email_accounts[email]) {
+            accountsDFS(email_accounts, accounts, visited, emails, i);
+        }
+    }
+}
+
+
+vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+    unordered_map<string, vector<int>> email_accounts;
+    vector<bool> visited(accounts.size(), false);
+
+    for (int j = 0; j < accounts.size(); j++) {
+        for (int i = 1; i < accounts[j].size(); i++) {
+            email_accounts[accounts[j][i]].push_back(j);
+        }
+    }
+
+    vector<vector<string>> ans;
+    for (int i = 0; i < accounts.size(); i++) {
+        if (visited[i]) continue;
+        
+        unordered_set<string> emails;
+        accountsDFS(email_accounts, accounts, visited, emails, i);
+
+        int pos = 1;
+        ans.emplace_back(emails.size() + 1, accounts[i][0]);
+        for (auto e : emails) ans.back()[pos++] = e;
+    }
+    return ans;
+}
+
+
 // https://leetcode.com/problems/jump-game
 bool canJump(vector<int>& nums) {
     if (nums.size() < 2) return true;

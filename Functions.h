@@ -39,6 +39,9 @@ int hammingWeight(uint32_t n);
 // https://leetcode.com/problems/single-number/description/
 int singleNumber(vector<int>& nums);
 
+// https://leetcode.com/problems/accounts-merge/description/
+vector<vector<string>> accountsMerge(vector<vector<string>>& accounts);
+
 // https://leetcode.com/problems/move-zeroes/description/
 void moveZeroes(vector<int>& nums);
 
