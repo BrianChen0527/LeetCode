@@ -1155,12 +1155,6 @@ bool canPartition(vector<int>& nums) {
             else dp[i % 2][j] = (dp[-(i % 2) + 1][j - n] || dp[-(i % 2) + 1][j]);
         }
 
-        cout << endl;
-        for (auto c : dp[-(i % 2) + 1]) cout << c << " ";
-        cout << endl;
-        for (auto c : dp[i % 2]) cout << c << " ";
-        cout << endl;
-
         if (dp[i % 2][len]) return true;
     }
     return false;
