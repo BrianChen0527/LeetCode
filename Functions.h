@@ -33,6 +33,12 @@ int subarraySum(vector<int>& nums, int k);
 
 int majorityElement(vector<int>& arr);
 
+// https://leetcode.com/problems/word-break/
+bool wordBreak(string s, vector<string>& wordDict);
+
+// https://leetcode.com/problems/partition-equal-subset-sum/description/
+bool canPartition(vector<int>& nums);
+
 // https://leetcode.com/problems/number-of-1-bits/
 int hammingWeight(uint32_t n);
 
