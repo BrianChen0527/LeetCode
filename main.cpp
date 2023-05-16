@@ -43,7 +43,8 @@ public:
 	}
 };
 
-int main() {
-	vector<int> test = { 3,1 };
-	cout << searchRotatedSortedArray(test, 1);
+int main() { 
+	vector<int> test = { 1,5,10,6 };
+	cout << canPartition(test);
+
 }
