@@ -886,43 +886,45 @@ bool canReach(vector<int>& arr, int start) {
 
 
 // https://leetcode.com/problems/accounts-merge/description/
-void accountsDFS(unordered_map<string, vector<int>>& email_accounts, vector<vector<string>>& accounts, vector<bool>& visited, unordered_set<string>& emails, int account) {
-    if (visited[account]) return;
-    visited[account] = true;
+//void accountsDFS(unordered_map<string, vector<int>>& email_accounts, vector<vector<string>>& accounts, vector<bool>& visited, unordered_set<string>& emails, int account) {
+//    if (visited[account]) return;
+//    visited[account] = true;
+//
+//    for (int i = 1; i < accounts[account].size(); i++) {
+//        string email = accounts[account][i];
+//        if (emails.find(email) == emails.end()) emails.insert(email);
+//        for (auto i : email_accounts[email]) {
+//            accountsDFS(email_accounts, accounts, visited, emails, i);
+//        }
+//    }
+//}
 
-    for (int i = 1; i < accounts.size(); i++) {
-        string email = accounts[i]
-        if (emails.find(email) == emails.end()) emails.insert(email);
-        for (auto i : email_accounts[email]) {
-            accountsDFS(email_accounts, accounts, visited, emails, i);
-        }
-    }
-}
 
-
-vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
-    unordered_map<string, vector<int>> email_accounts;
-    vector<bool> visited(accounts.size(), false);
-
-    for (int j = 0; j < accounts.size(); j++) {
-        for (int i = 1; i < accounts[j].size(); i++) {
-            email_accounts[accounts[j][i]].push_back(j);
-        }
-    }
-
-    vector<vector<string>> ans;
-    for (int i = 0; i < accounts.size(); i++) {
-        if (visited[i]) continue;
-        
-        unordered_set<string> emails;
-        accountsDFS(email_accounts, accounts, visited, emails, i);
-
-        int pos = 1;
-        ans.emplace_back(emails.size() + 1, accounts[i][0]);
-        for (auto e : emails) ans.back()[pos++] = e;
-    }
-    return ans;
-}
+//vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
+//    unordered_map<string, vector<int>> email_accounts;
+//    vector<bool> visited(accounts.size(), false);
+//
+//    for (int j = 0; j < accounts.size(); j++) {
+//        vector<string>& account = accounts[j];
+//        for (int i = 1; i < accounts[j].size(); i++) {
+//            email_accounts[account[i]].push_back(j);
+//        }
+//    }
+//
+//    vector<vector<string>> ans;
+//    for (int i = 0; i < accounts.size(); i++) {
+//        if (visited[i]) continue;
+//        
+//        unordered_set<string> emails;
+//        accountsDFS(email_accounts, accounts, visited, emails, i);
+//
+//        int pos = 1;
+//        ans.emplace_back(emails.size() + 1, accounts[i][0]);
+//        for (auto e : emails) ans.back()[pos++] = e;
+//        sort(ans.back().begin() + 1, ans.back().end());
+//    }
+//    return ans;
+//}
 
 
 // https://leetcode.com/problems/jump-game
@@ -1114,6 +1116,84 @@ vector<vector<int>> merge(vector<vector<int>>& intervals) {
     return merged;
 }
 
+
+// https://leetcode.com/problems/sort-colors/
+void sortColors(vector<int>& nums) {
+    int pos = 0;
+
+    for (int i = 0; i < nums.size(); i++) {
+        if (nums[i] == 0) {
+            swap(nums[i], nums[pos]);
+            pos++;
+        }
+    }
+    for (int i = pos; i < nums.size(); i++) {
+        if (nums[i] == 1) {
+            swap(nums[i], nums[pos]);
+            pos++;
+        }
+    }
+}
+
+
+// https://leetcode.com/problems/partition-equal-subset-sum/description/
+bool canPartition(vector<int>& nums) {
+    int sum = 0;
+    for (auto n : nums) sum += n;
+    
+    int len = sum / 2;
+    if (sum & 1) return false;
+    vector<vector<bool>> dp(2, vector<bool>(len + 1));
+
+    dp[1][0] = true, dp[0][0] = true;
+
+    for (int i = 0; i < nums.size(); i++) {
+
+        int n = nums[i];
+        for (int j = 0; j <= len; j++) {
+            if (j - n < 0) dp[i % 2][j] = dp[-(i % 2) + 1][j];
+            else dp[i % 2][j] = (dp[-(i % 2) + 1][j - n] || dp[-(i % 2) + 1][j]);
+        }
+
+        cout << endl;
+        for (auto c : dp[-(i % 2) + 1]) cout << c << " ";
+        cout << endl;
+        for (auto c : dp[i % 2]) cout << c << " ";
+        cout << endl;
+
+        if (dp[i % 2][len]) return true;
+    }
+    return false;
+}
+
+
+// https://leetcode.com/problems/word-break/
+bool wordBreakHelper(string s, vector<string>& wordDict, vector<bool>& dp, int offset) {
+    if (offset == s.size()) return true;
+    if (dp[offset]) return false;
+    dp[offset] = true;
+
+    int slen = s.length() - offset;
+
+    for (auto word : wordDict) {
+        int wlen = word.length();
+        if (wlen > slen) continue;
+
+        int i = 0;
+        for (; i < wlen; i++)
+            if (s[i + offset] != word[i]) break;
+
+        if (i == wlen && wordBreakHelper(s, wordDict, dp, offset + wlen)) return true;
+    }
+    return false;
+}
+
+bool wordBreak(string s, vector<string>& wordDict) {
+    vector<bool> dp(s.size(), false);
+    return wordBreakHelper(s, wordDict, dp, 0);
+}
+
+
 // https://leetcode.com/problems/insert-interval/submissions/
 vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
     vector<vector<int>> result;
@@ -1165,23 +1245,23 @@ bool hasCycle(ListNode* head) {
 }
 
 
-class TimeMap {
-private: 
-    unordered_map<string, vector<pair<int, string>>> mp;
-
-public:
-    TimeMap() {
-    }
-
-    void set(string key, string value, int timestamp) {
-        mp[key].emplace_back(timestamp, value);
-    }
-
-    string get(string key, int timestamp) {
-        auto it = upper_bound(mp[key].begin(), mp[key].end(), timestamp, [](pair<int, string> a) { return a.first; });
-        return it->first == timestamp ? it->second : prev(it)->second;
-    }
-};
+//class TimeMap {
+//private: 
+//    unordered_map<string, vector<pair<int, string>>> mp;
+//
+//public:
+//    TimeMap() {
+//    }
+//
+//    void set(string key, string value, int timestamp) {
+//        mp[key].emplace_back(timestamp, value);
+//    }
+//
+//    string get(string key, int timestamp) {
+//        auto it = upper_bound(mp[key].begin(), mp[key].end(), timestamp, [](pair<int, string> a) { return a.first; });
+//        return it->first == timestamp ? it->second : prev(it)->second;
+//    }
+//};
 
 
 // https://leetcode.com/problems/linked-list-cycle/
@@ -1315,25 +1395,25 @@ string minWindow(string s, string t) {
 
 
 // https://leetcode.com/problems/word-break/submissions/
-bool wordBreak(string s, vector<string>& wordDict) {
-    unordered_map<string, bool> memo;
-    return breakHelper(s, wordDict, memo);
-}
-bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>& memo) {
-    if (s.empty()) return true;
-    if (memo.find(s) != memo.end()) return memo[s];
-
-    for (string& word : wordDict) {
-        if (s.length() >= word.length() && s.substr(0, word.length()) == word) {
-            if (breakHelper(s.substr(word.length()), wordDict, memo)) {
-                memo[s] = true;
-                return true;
-            }
-        }
-    }
-    memo[s] = false;
-    return false;
-}
+//bool wordBreak(string s, vector<string>& wordDict) {
+//    unordered_map<string, bool> memo;
+//    return breakHelper(s, wordDict, memo);
+//}
+//bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>& memo) {
+//    if (s.empty()) return true;
+//    if (memo.find(s) != memo.end()) return memo[s];
+//
+//    for (string& word : wordDict) {
+//        if (s.length() >= word.length() && s.substr(0, word.length()) == word) {
+//            if (breakHelper(s.substr(word.length()), wordDict, memo)) {
+//                memo[s] = true;
+//                return true;
+//            }
+//        }
+//    }
+//    memo[s] = false;
+//    return false;
+//}
 
 
 // https://leetcode.com/problems/combination-sum/submissions/
