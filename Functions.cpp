@@ -1136,6 +1136,29 @@ void sortColors(vector<int>& nums) {
 }
 
 
+// https://leetcode.com/problems/spiral-matrix/description/
+vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    int m = matrix.size(), n = matrix[0].size();
+    int pos = 0, dir = 0, i = 0, j = 0;
+    vector<int> ans;
+    pair<int, int> dirs[4] = { {0, 1}, {1, 0}, {0, -1} , {-1, 0} };
+
+    while (pos < m * n) {
+        ans.push_back(matrix[i][j]);
+        matrix[i][j] = INT_MAX;
+        pos++;
+
+        if (i + dirs[dir].first < 0 || i + dirs[dir].first >= m ||
+            j + dirs[dir].second < 0 || j + dirs[dir].second >= n
+            || matrix[i + dirs[dir].first][j + dirs[dir].second] == INT_MAX) {
+            dir = (dir + 1) % 4;
+        }
+        i += dirs[dir].first; j += dirs[dir].second;
+    }
+    return ans;
+}
+
+
 // https://leetcode.com/problems/partition-equal-subset-sum/description/
 bool canPartition(vector<int>& nums) {
     int sum = 0;
