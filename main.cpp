@@ -44,7 +44,6 @@ public:
 };
 
 int main() { 
-	vector<int> test = { 1,5,10,6 };
-	cout << canPartition(test);
-
+	vector<vector<int>> matrix = { { 1, 2, 3},{4, 5, 6},{7, 8, 9} };
+	spiralOrder(matrix);
 }
