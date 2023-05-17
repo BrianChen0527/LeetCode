@@ -15,6 +15,9 @@ int romanToInt(string s);
 //Given a string s, find the length of the longest substring without repeating characters.
 int lengthOfLongestSubstring(string s);
 
+// https://leetcode.com/problems/spiral-matrix/description/
+vector<int> spiralOrder(vector<vector<int>>& matrix);
+
 //Given a string s, find the length of the longest substring without repeating characters.
 int lengthOfLongestSubstring(string s);
 
