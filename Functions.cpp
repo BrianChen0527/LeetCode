@@ -1159,6 +1159,27 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
 }
 
 
+// https://leetcode.com/problems/subsets/
+void subsetsPermuter(vector<int>& nums, vector<vector<int>>& ans, vector<int>& path, int pos, int nums_size) { 
+    ans.push_back(path);
+    if (pos == nums.size()) return;
+
+    for (int i = pos; i < nums_size; i++) {
+        path.push_back(nums[i]);
+        subsetsPermuter(nums, ans, path, i + 1, nums_size);
+        path.pop_back();
+    }
+}
+
+vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> ans = {};
+    int nums_size = nums.size();
+    vector<int> path = {};
+    subsetsPermuter(nums, ans, path, 0, nums_size);
+    return ans;
+}
+
+
 // https://leetcode.com/problems/partition-equal-subset-sum/description/
 bool canPartition(vector<int>& nums) {
     int sum = 0;

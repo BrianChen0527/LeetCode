@@ -18,6 +18,10 @@ int lengthOfLongestSubstring(string s);
 // https://leetcode.com/problems/spiral-matrix/description/
 vector<int> spiralOrder(vector<vector<int>>& matrix);
 
+// https://leetcode.com/problems/subsets/
+void subsetsPermuter(vector<int>& nums, vector<vector<int>>& ans, vector<int>& path, int pos, int nums_size);
+vector<vector<int>> subsets(vector<int>& nums);
+
 //Given a string s, find the length of the longest substring without repeating characters.
 int lengthOfLongestSubstring(string s);
 
