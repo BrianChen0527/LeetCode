@@ -1159,6 +1159,60 @@ vector<int> spiralOrder(vector<vector<int>>& matrix) {
 }
 
 
+// https://leetcode.com/problems/binary-tree-right-side-view/
+vector<int> rightSideView(TreeNode* root) {
+    vector<int> ans; 
+    if (!root) return ans;
+
+    queue<TreeNode*> Q;
+    Q.push(root);
+
+    while (!Q.empty()) {
+        int num_nodes = Q.size();
+        ans.push_back(Q.back()->val);
+
+        for(int i = 0; i < num_nodes; i++){
+            TreeNode* l = Q.front()->left;
+            TreeNode* r = Q.front()->right;
+            if (l) Q.push(l);
+            if (r) Q.push(r);
+            Q.pop();
+        }
+    }
+    return ans;
+}
+
+
+// https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+TreeNode* treeBuilder(vector<int>& preorder, vector<int>& inorder, 
+    unordered_map<int, int>& inorder_mp, int i, int pl, int pr) {
+    int curr_node = preorder[i++];
+    TreeNode* node = new TreeNode(curr_node);
+
+    if (pl == pr) return node;
+
+    int curr_node_pos = inorder_mp[curr_node];
+
+    if (curr_node_pos != pl && curr_node_pos != pr) {
+        node->left = treeBuilder(preorder, inorder, inorder_mp, i, pl, curr_node_pos - 1);
+        node->right = treeBuilder(preorder, inorder, inorder_mp,
+            i+ (curr_node_pos - pl), curr_node_pos + 1, pr);
+    }
+    else if (curr_node_pos == pl) {
+        node->right = treeBuilder(preorder, inorder, inorder_mp, i, pl + 1, pr);
+    }
+    else {
+        node->left = treeBuilder(preorder, inorder, inorder_mp, i, pl, pr - 1);
+    }
+    return node;
+}
+TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+    unordered_map<int, int> inorder_mp;
+    for (int i = 0; i < inorder.size(); i++) inorder_mp[inorder[i]] = i;
+    return treeBuilder(preorder, inorder, inorder_mp, 0, 0, inorder.size() - 1);
+}
+
+
 // https://leetcode.com/problems/subsets/
 void subsetsPermuter(vector<int>& nums, vector<vector<int>>& ans, vector<int>& path, int pos, int nums_size) { 
     ans.push_back(path);
@@ -1170,7 +1224,6 @@ void subsetsPermuter(vector<int>& nums, vector<vector<int>>& ans, vector<int>& p
         path.pop_back();
     }
 }
-
 vector<vector<int>> subsets(vector<int>& nums) {
     vector<vector<int>> ans = {};
     int nums_size = nums.size();
