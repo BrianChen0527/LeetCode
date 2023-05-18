@@ -43,7 +43,21 @@ public:
 	}
 };
 
+void inOrderTraversalPrint(TreeNode* root) {
+	if (root->left) inOrderTraversalPrint(root->left);
+	cout << root->val << " ";
+	if (root->right) inOrderTraversalPrint(root->right);
+}
+
 int main() { 
-	vector<vector<int>> matrix = { { 1, 2, 3},{4, 5, 6},{7, 8, 9} };
-	spiralOrder(matrix);
+	TreeNode* t1 = new TreeNode(1);
+	TreeNode* t2 = new TreeNode(2);
+	TreeNode* t3 = new TreeNode(3);
+
+	vector<int> preorder = { 3,9,20,15,7 };
+	vector<int> inorder = { 9,3,15,20,7 };
+
+	TreeNode* t = buildTree(preorder, inorder);
+
+	inOrderTraversalPrint(t);
 }

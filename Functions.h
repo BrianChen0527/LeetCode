@@ -386,6 +386,11 @@ struct TreeNode {
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
+// https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
+TreeNode* treeBuilder(vector<int>& preorder, vector<int>& inorder,
+    unordered_map<int, int>& inorder_mp, int i, int pl, int pr);
+TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder);
+
 // https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/
 TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q);
 
