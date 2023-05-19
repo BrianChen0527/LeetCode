@@ -337,7 +337,12 @@ string minWindow(string s, string t);
 
 // https://leetcode.com/problems/word-break/submissions/
 bool wordBreak(string s, vector<string>& wordDict);
-bool breakHelper(string s, vector<string>& wordDict, unordered_map<string, bool>& memo);
+
+// https://leetcode.com/problems/container-with-most-water/
+int maxArea(vector<int>& height);
+
+// https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+vector<string> letterCombinations(string digits);
 
 // https://leetcode.com/problems/combination-sum-iv/
 int combinationSum4(vector<int>& nums, int target);
