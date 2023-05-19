@@ -38,6 +38,63 @@ vector<int> twoSum(vector<int>& nums, int target) {
 }
 
 
+// https://leetcode.com/problems/letter-combinations-of-a-phone-number/
+vector<string> letterCombinations(string digits) {
+    unordered_map<char, string> mp{{'2', "abc"}, {'3', "def"}, {'4', "ghi"}, 
+        {'5', "jkl"}, {'6', "mno"}, {'7', "pqrs"}, {'8', "tuv"}, {'9', "wxyz"}};
+
+    queue<string> words;
+
+    for (char d : digits) {
+        if (d == '1') continue;
+
+        int num_words = words.size();
+
+        if (num_words == 0)
+            for (char c : mp[d]) {
+                string s;
+                words.push(s + c);
+            }
+        cout << "front: " << words.front()  << endl;
+        for (; num_words > 0; num_words--) {
+            string word = words.front();
+            words.pop();
+
+            cout << word << " " << d << endl;
+            for (char c : mp[d]) {
+                words.push(word + c);
+            }
+        }
+    }
+
+    unordered_set<string> final_words;
+    vector<string> ans;
+    while (!words.empty()) {
+        string word = words.front();
+
+        cout << word << "========" << endl;
+        if (final_words.find(word) == final_words.end()) ans.push_back(word);
+        final_words.insert(word);
+        words.pop();
+    }
+    return ans;
+}
+
+
+// https://leetcode.com/problems/container-with-most-water/
+int maxArea(vector<int>& height) {
+    int l = 0, r = height.size() - 1;
+    int maxA = 0;
+    while (l < r) {
+        int heightL = height[l], heightR = height[r];
+        maxA = max(maxA, (r - l) * min(heightL, heightR));
+        if (heightL < heightR) l++;
+        else r--;
+    }
+    return maxA;
+}
+
+
 //Given an integer x, return true if x is palindrome integer.
 bool isPalindrome(int x) {
     string str_x = to_string(x);
