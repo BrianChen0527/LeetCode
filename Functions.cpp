@@ -47,20 +47,16 @@ vector<string> letterCombinations(string digits) {
 
     for (char d : digits) {
         if (d == '1') continue;
-
         int num_words = words.size();
-
         if (num_words == 0)
             for (char c : mp[d]) {
                 string s;
                 words.push(s + c);
             }
-        cout << "front: " << words.front()  << endl;
         for (; num_words > 0; num_words--) {
             string word = words.front();
             words.pop();
 
-            cout << word << " " << d << endl;
             for (char c : mp[d]) {
                 words.push(word + c);
             }
@@ -72,7 +68,6 @@ vector<string> letterCombinations(string digits) {
     while (!words.empty()) {
         string word = words.front();
 
-        cout << word << "========" << endl;
         if (final_words.find(word) == final_words.end()) ans.push_back(word);
         final_words.insert(word);
         words.pop();
