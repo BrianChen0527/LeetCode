@@ -50,14 +50,6 @@ void inOrderTraversalPrint(TreeNode* root) {
 }
 
 int main() { 
-	TreeNode* t1 = new TreeNode(1);
-	TreeNode* t2 = new TreeNode(2);
-	TreeNode* t3 = new TreeNode(3);
-
-	vector<int> preorder = { 3,9,20,15,7 };
-	vector<int> inorder = { 9,3,15,20,7 };
-
-	TreeNode* t = buildTree(preorder, inorder);
-
-	inOrderTraversalPrint(t);
+	vector<string> s = letterCombinations("123");
+	vector_print(s);
 }
