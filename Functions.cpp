@@ -104,6 +104,26 @@ bool exist(vector<vector<char>>& board, string word) {
 }
 
 
+// https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
+vector<int> findAnagrams(string s, string p) {
+    vector<int> ms(26, 0), mp(26, 0); // ms is our sliding window
+    int len = p.length();
+    
+    for (int i = 0; i < len; i++) {
+        ms[s[i] - 'a']++;
+        mp[p[i] - 'a']++;
+    }
+
+    vector<int> ans;
+    if (ms == mp) ans.push_back(0);
+
+    for (int i = len; i < s.length(); i++) {
+
+    }
+    return ans;
+}
+
+
 // https://leetcode.com/problems/container-with-most-water/
 int maxArea(vector<int>& height) {
     int l = 0, r = height.size() - 1;
