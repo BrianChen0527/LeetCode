@@ -332,6 +332,9 @@ ListNode* mergeTwoLists(ListNode* list1, ListNode* list2);
 // https://leetcode.com/problems/longest-repeating-character-replacement/
 int characterReplacement(string s, int k);
 
+// https://leetcode.com/problems/minimum-height-trees/description/
+vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges);
+
 // https://leetcode.com/problems/minimum-window-substring/
 string minWindow(string s, string t);
 

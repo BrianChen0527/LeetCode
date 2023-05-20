@@ -50,6 +50,6 @@ void inOrderTraversalPrint(TreeNode* root) {
 }
 
 int main() { 
-	vector<vector<char>> test = { {'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'} };
-	exist(test, "ABCCED");
+	vector<char> test = { 'A','A','A','A','A','A','B','C','D','E','F','G' };
+	leastInterval(test, 2);
 }
