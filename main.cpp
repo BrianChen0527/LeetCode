@@ -16,7 +16,7 @@ void printTree(TreeNode* root) {
 
 		while (q.size()) {
 			TreeNode* node = q.front();
-			cout << node->val << " ";
+			cout << node->val << ' ';
 			if (node->left) q2.push(node->left);
 			if (node->right) q2.push(node->right);
 			q.pop();
@@ -29,7 +29,7 @@ void printTree(TreeNode* root) {
 template<typename T>
 void vector_print(vector<T> v) {
 	for (auto i : v) {
-		cout << i << " ";
+		cout << i << ' ';
 	}
 	cout << endl;
 }
@@ -45,11 +45,11 @@ public:
 
 void inOrderTraversalPrint(TreeNode* root) {
 	if (root->left) inOrderTraversalPrint(root->left);
-	cout << root->val << " ";
+	cout << root->val << ' ';
 	if (root->right) inOrderTraversalPrint(root->right);
 }
 
 int main() { 
-	vector<string> s = letterCombinations("123");
-	vector_print(s);
+	vector<vector<char>> test = { {'A', 'B', 'C', 'E'}, {'S', 'F', 'C', 'S'}, {'A', 'D', 'E', 'E'} };
+	exist(test, "ABCCED");
 }
