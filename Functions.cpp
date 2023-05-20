@@ -2210,20 +2210,18 @@ int maxSubarrayProduct(vector<int>& v) {
 
 // https://leetcode.com/problems/task-scheduler/
 int leastInterval(vector<char>& tasks, int n) {
-    unordered_map<char, int> mp;
-    int max_task = 0, max_task_count = 0;
-    for (char t : tasks) {
-        if (mp.find(t) == mp.end()) mp[t] = 0;
-        mp[t]++;
-        
-        if (mp[t] == max_task) max_task_count++;
-        else if (mp[t] > max_task) {
-            max_task = mp[t];
-            max_task_count = 1;
-        }
-        cout << max_task << endl;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+    unordered_map<char, int> m;
+    int maxCount = 0;
+    for (char c : tasks) {
+        m[c]++;
+        maxCount = max(maxCount, m[c]);
     }
-    return max(int(tasks.size()), (max_task - 1) * n + max_task_count);
+    int ans = (maxCount - 1) * (n + 1);
+    for (pair<char, int> p : m)
+        if (p.second == maxCount) ans++;
+    return max(int(tasks.size()), ans);
 }
 
 
