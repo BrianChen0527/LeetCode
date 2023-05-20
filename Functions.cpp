@@ -76,6 +76,34 @@ vector<string> letterCombinations(string digits) {
 }
 
 
+// https://leetcode.com/problems/word-search/description/
+bool wordSearch(vector<vector<char>>& board, string word, short r, short c, short pos) {
+    if (r < 0 || r >= board.size() || c < 0 || c >= board[0].size()) return false;
+    if (board[r][c] != word[pos]) return false;
+    if (pos == word.size() - 1) return true;
+
+    char tmp = board[r][c];
+    board[r][c] = '_';
+    if (wordSearch(board, word, r + 1, c, pos + 1) ||
+        wordSearch(board, word, r - 1, c, pos + 1) || 
+        wordSearch(board, word, r, c - 1, pos + 1) || 
+        wordSearch(board, word, r, c + 1, pos + 1)) return true;
+    board[r][c] = tmp;
+    return false;
+};
+bool exist(vector<vector<char>>& board, string word) {
+    uint8_t len = word.size();
+    int rows = board.size(), cols = board[0].size();
+    for (short i = 0; i < rows; i++) {
+        for (short j = 0; j < cols; j++) {
+            if (board[i][j] == word[0])
+                if (wordSearch(board, word, i, j, 0)) return true;
+        }
+    }
+    return false;
+}
+
+
 // https://leetcode.com/problems/container-with-most-water/
 int maxArea(vector<int>& height) {
     int l = 0, r = height.size() - 1;
