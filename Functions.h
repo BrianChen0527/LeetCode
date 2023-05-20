@@ -335,6 +335,10 @@ int characterReplacement(string s, int k);
 // https://leetcode.com/problems/minimum-window-substring/
 string minWindow(string s, string t);
 
+// https://leetcode.com/problems/word-search/description/
+bool wordSearch(vector<vector<char>>& board, vector<pair<short, short>>& dirs, string word, short r, short c, short pos, short rows, short cols);
+bool exist(vector<vector<char>>& board, string word);
+
 // https://leetcode.com/problems/word-break/submissions/
 bool wordBreak(string s, vector<string>& wordDict);
 
