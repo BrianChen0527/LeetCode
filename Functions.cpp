@@ -106,10 +106,11 @@ bool exist(vector<vector<char>>& board, string word) {
 
 // https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
 vector<int> findAnagrams(string s, string p) {
+    int plen = p.length(), slen = s.length();
+    if (plen > slen) return {};
+
     vector<int> ms(26, 0), mp(26, 0); // ms is our sliding window
-    int len = p.length();
-    
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < plen; i++) {
         ms[s[i] - 'a']++;
         mp[p[i] - 'a']++;
     }
@@ -117,8 +118,10 @@ vector<int> findAnagrams(string s, string p) {
     vector<int> ans;
     if (ms == mp) ans.push_back(0);
 
-    for (int i = len; i < s.length(); i++) {
-
+    for (int i = plen; i < slen; i++) {
+        ms[s[i - plen] - 'a']--;
+        ms[s[i] - 'a']++;
+        if (ms == mp) ans.push_back(i - plen + 1);
     }
     return ans;
 }
