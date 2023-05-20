@@ -104,6 +104,54 @@ bool exist(vector<vector<char>>& board, string word) {
 }
 
 
+// https://leetcode.com/problems/minimum-height-trees/description/
+vector<int> findMinHeightTrees(int n, vector<vector<int>>& edges) {
+    if (n == 0) return {};
+    if (n == 1) return { 0 };
+
+    vector<vector<int>> adj(n, vector<int>());
+    vector<int> degree(n, 0);
+
+    for (int i = 0; i < n - 1; i++) {
+        int n1 = edges[i][0], n2 = edges[i][1];
+        adj[n1].push_back(n2);
+        adj[n2].push_back(n1);
+        degree[n1]++; degree[n2]++;
+    }
+
+    queue<int> leaves;
+    vector<int> ans;
+    for (int i = 0; i < n; i++) {
+        if (degree[i] == 1) {
+            leaves.push(i);
+            ans.push_back(i);
+        }
+    }
+
+    while (n > 2) {
+        ans.clear();
+        int num_leaves = leaves.size();
+        n -= num_leaves;
+        for (int i = 0; i < num_leaves; i++) {
+            int leaf = leaves.front(); 
+            leaves.pop();
+            degree[leaf]--;
+
+            for (int node : adj[leaf]) {
+                degree[node]--;
+                if (degree[node] == 1) {
+                    cout << node << endl;
+
+                    leaves.push(node);
+                    ans.push_back(node);
+                }
+            }
+        }
+    }
+    return ans;
+}
+
+
 // https://leetcode.com/problems/find-all-anagrams-in-a-string/description/
 vector<int> findAnagrams(string s, string p) {
     int plen = p.length(), slen = s.length();
@@ -2162,18 +2210,20 @@ int maxSubarrayProduct(vector<int>& v) {
 
 // https://leetcode.com/problems/task-scheduler/
 int leastInterval(vector<char>& tasks, int n) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-    unordered_map<char, int> m;
-    int maxCount = 0;
-    for (char c : tasks) {
-        m[c]++;
-        maxCount = max(maxCount, m[c]);
+    unordered_map<char, int> mp;
+    int max_task = 0, max_task_count = 0;
+    for (char t : tasks) {
+        if (mp.find(t) == mp.end()) mp[t] = 0;
+        mp[t]++;
+        
+        if (mp[t] == max_task) max_task_count++;
+        else if (mp[t] > max_task) {
+            max_task = mp[t];
+            max_task_count = 1;
+        }
+        cout << max_task << endl;
     }
-    int ans = (maxCount - 1) * (n + 1);
-    for (pair<char, int> p : m)
-        if (p.second == maxCount) ans++;
-    return max(int(tasks.size()), ans);
+    return max(int(tasks.size()), (max_task - 1) * n + max_task_count);
 }
 
 
