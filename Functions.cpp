@@ -589,6 +589,70 @@ int reverse(int x) {
 }
 
 
+// https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+int kthSmallest(TreeNode* root, int k) {
+    stack<TreeNode*> dfs;
+    int pos = 0;
+    while (pos < k) {
+        while (root) {
+            dfs.push(root);
+            root = root->left;
+        }
+        root = dfs.top();
+        if (++pos == k) return root->val;
+        dfs.pop();
+        root = root->right;
+    }
+    return -1;
+}
+
+
+class LRUCache {
+public:
+    unordered_map<int, pair<int, int>> key_value;
+    unordered_map<int, int> timestamp_key;
+    int timestamp = 0; int items = 0; int oldest = 0; int cap = 0;
+
+    LRUCache(int capacity) {
+        cap = capacity;
+    }
+
+    int get(int key) {
+        if (key_value.find(key) == key_value.end()) return -1;
+        int old_timestamp = key_value[key].second;
+
+        key_value[key].second = timestamp;
+        timestamp_key.erase(old_timestamp);
+        timestamp_key[timestamp] = key;
+        timestamp++;
+
+        while (timestamp_key.find(oldest) == timestamp_key.end()) oldest++;
+        return key_value[key].first;
+    }
+
+    void put(int key, int value) {
+        if (key_value.find(key) != key_value.end()) {
+            int old_timestamp = key_value[key].second;
+            timestamp_key.erase(old_timestamp);
+            items--;
+        }
+        else if (items >= cap) {
+            int old_key = timestamp_key[oldest];
+
+            key_value.erase(old_key);
+            timestamp_key.erase(oldest);
+
+        }
+        key_value[key] = make_pair(value, timestamp);
+        timestamp_key[timestamp] = key;
+        timestamp++;
+        items++;
+
+        while (timestamp_key.find(oldest) == timestamp_key.end()) oldest++;
+    }
+};
+
+
 // parses string, and extracts integer from string (there can only be one continuous number in string)
 
 /*
