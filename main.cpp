@@ -51,9 +51,6 @@ void inOrderTraversalPrint(TreeNode* root) {
 
 int main() { 
 
-	vector<int>  preorder = { 5, 3, 2, 1, 4, 6 };
-	vector<int> inorder = {1,2,3,4,5,6};
-	TreeNode* root = buildTree(preorder, inorder);
-	printTree(root);
-	cout << kthSmallest(root, 3);
+	vector<int>  preorder = { 73,74,75,71,69,72,76,73 };
+	vector<int> inorder = dailyTemperatures(preorder);
 }

@@ -589,6 +589,23 @@ int reverse(int x) {
 }
 
 
+// https://leetcode.com/problems/daily-temperatures/description/
+vector<int> dailyTemperatures(vector<int>& temperatures) {
+    stack<int> highest_temps_idx = {};
+    vector<int> ans(temperatures.size(), 0);
+    for (int i = temperatures.size() - 1; i >= 0; i--) {
+        int temp = temperatures[i];
+        while (!highest_temps_idx.empty() && temp >= temperatures[highest_temps_idx.top()]) {
+            highest_temps_idx.pop();
+        }
+        if (!highest_temps_idx.empty()) ans[i] = highest_temps_idx.top() - i;
+
+        highest_temps_idx.push(i);
+    }
+    return ans;
+}
+
+
 // https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 int kthSmallest(TreeNode* root, int k) {
     stack<TreeNode*> dfs;

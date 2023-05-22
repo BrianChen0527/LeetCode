@@ -389,6 +389,8 @@ vector<vector<int>> kClosest(vector<vector<int>>& points, int k);
 // https://leetcode.com/problems/longest-substring-without-repeating-characters/
 int lengthOfLongestSubstring(string s);
 
+// https://leetcode.com/problems/daily-temperatures/description/
+vector<int> dailyTemperatures(vector<int>& temperatures);
 
 struct TreeNode {
     int val;
