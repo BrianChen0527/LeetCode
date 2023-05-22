@@ -869,17 +869,35 @@ vector<int> bestSum(int target, vector<int> nums) {
 }
 
 
+// https://leetcode.com/problems/next-permutation/
+void nextPermutation(vector<int>& nums) {
+    int i = nums.size() - 2;
+    for (; i >= 0; --i) {
+        if (nums[i] < nums[i + 1]) break;
+    }
+    if (i < 0) {
+        reverse(nums.begin(), nums.end());
+    }
+    else {
+        int j = nums.size() - 1;
+        while (nums[j] <= nums[i])
+            j--;
+        swap(nums[j], nums[i]);
+        reverse(nums.begin() + i + 1, nums.end());
+    }
+}
+
 // https://leetcode.com/problems/gas-station/description/
 int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
     int n = gas.size();
-    int min_gas = 0, min_pos = 0, curr_cost = 0;
+    int min_gas = 1, min_pos = 0, curr_cost = 0;
 
-    for (int i = 1; i < n * 2; i++) {
+    for (int i = 0; i < n * 2; i++) {
         int j = i % n;
         curr_cost += (gas[j] - cost[j]);
         if (curr_cost < min_gas) {
             min_gas = curr_cost;
-            min_pos = j;
+            min_pos = i;
         }
     }
     return curr_cost < 0 ? -1 : (min_pos + 1);
@@ -1998,9 +2016,6 @@ int numIslands(vector<vector<char>>& grid) {
 
     return islands;
 }
-
-
-
 
 
 // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
