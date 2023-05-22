@@ -49,57 +49,11 @@ void inOrderTraversalPrint(TreeNode* root) {
 	if (root->right) inOrderTraversalPrint(root->right);
 }
 
-class LRUCache {
-public:
-    unordered_map<int, pair<int, int>> key_value;
-    unordered_map<int, int> timestamp_key;
-    int timestamp = 0; int items = 0; int oldest = 0; int cap = 0;
-
-    LRUCache(int capacity) {
-        cap = capacity;
-    }
-
-    int get(int key) {
-        if (key_value.find(key) == key_value.end()) return -1;
-        int old_timestamp = key_value[key].second;
-
-        key_value[key].second = timestamp;
-        timestamp_key.erase(old_timestamp);
-        timestamp_key[timestamp] = key;
-        timestamp++;
-
-        while (timestamp_key.find(oldest) == timestamp_key.end()) oldest++;
-        return key_value[key].first;
-    }
-
-    void put(int key, int value) {
-        if (key_value.find(key) != key_value.end()) {
-            int old_timestamp = key_value[key].second;
-            timestamp_key.erase(old_timestamp);
-            items--;
-        }
-        else if (items >= cap) {
-            int old_key = timestamp_key[oldest];
-
-            key_value.erase(old_key);
-            timestamp_key.erase(oldest);
-
-        }
-        key_value[key] = make_pair(value, timestamp);
-        timestamp_key[timestamp] = key;
-        timestamp++;
-        items++;
-
-        while (timestamp_key.find(oldest) == timestamp_key.end()) oldest++;
-    }
-};
-
 int main() { 
-	LRUCache test(2);
 
-	test.put(1, 1);
-	test.put(2, 2);
-    test.get(1);
-	test.put(3, 3);
-    cout << test.get(2);
+	vector<int>  preorder = { 5, 3, 2, 1, 4, 6 };
+	vector<int> inorder = {1,2,3,4,5,6};
+	TreeNode* root = buildTree(preorder, inorder);
+	printTree(root);
+	cout << kthSmallest(root, 3);
 }

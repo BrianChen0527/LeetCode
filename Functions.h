@@ -399,6 +399,9 @@ struct TreeNode {
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
+// https://leetcode.com/problems/kth-smallest-element-in-a-bst/
+int kthSmallest(TreeNode* root, int k);
+
 // https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/
 TreeNode* treeBuilder(vector<int>& preorder, vector<int>& inorder,
     unordered_map<int, int>& inorder_mp, int i, int pl, int pr);
