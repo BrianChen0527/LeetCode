@@ -392,6 +392,10 @@ int lengthOfLongestSubstring(string s);
 // https://leetcode.com/problems/daily-temperatures/description/
 vector<int> dailyTemperatures(vector<int>& temperatures);
 
+// https://leetcode.com/problems/gas-station/description/
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost);
+
+
 struct TreeNode {
     int val;
     TreeNode* left;

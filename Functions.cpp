@@ -868,6 +868,23 @@ vector<int> bestSum(int target, vector<int> nums) {
     return table[target];
 }
 
+
+// https://leetcode.com/problems/gas-station/description/
+int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+    int n = gas.size();
+    int min_gas = 0, min_pos = 0, curr_cost = 0;
+
+    for (int i = 1; i < n * 2; i++) {
+        int j = i % n;
+        curr_cost += (gas[j] - cost[j]);
+        if (curr_cost < min_gas) {
+            min_gas = curr_cost;
+            min_pos = j;
+        }
+    }
+    return curr_cost < 0 ? -1 : (min_pos + 1);
+}
+
 // determine if we can construct the string "target" from an array of strings
 // using MEMOIZATION 
 bool canConstruct(string target, vector<string> substrings) {
@@ -1981,6 +1998,9 @@ int numIslands(vector<vector<char>>& grid) {
 
     return islands;
 }
+
+
+
 
 
 // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
