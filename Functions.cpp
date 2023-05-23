@@ -1315,8 +1315,30 @@ int maxSubArray(vector<int>& nums) {
     return maxN;
 }
 
+
+
 // https://leetcode.com/problems/maximum-product-subarray/
 int maxProduct(vector<int>& nums) {
+    int curr_min = 1, curr_max = 1, all_time_max = INT_MIN;
+    
+    for (int n : nums) {
+        if (n < 0) {
+            int tmp_min = curr_min;
+            curr_min = min(curr_max * n, n);
+            curr_max = max(tmp_min * n, n);
+        }
+        else {
+            curr_min = min(curr_min * n, n);
+            curr_max = max(curr_max * n, n);
+        }
+        all_time_max = max(all_time_max, curr_max);
+        curr_max = (curr_max == 0 ? 1 : curr_max);
+        curr_min = (curr_min == 0 ? 1 : curr_min);
+    }
+    return all_time_max;
+}
+
+int maxProduct2(vector<int>& nums) {
     int minP = nums[0], maxP = minP, trueMax = maxP;
     for (int i = 1; i < nums.size(); i++) {
         if (nums[i] < 0) {
@@ -1523,6 +1545,54 @@ bool canPartition(vector<int>& nums) {
     }
     return false;
 }
+
+
+// https://leetcode.com/problems/design-add-and-search-words-data-structure/
+class WordTrieNode {
+    public:
+        bool isWord;
+        vector<WordTrieNode*> children;
+
+        WordTrieNode() {
+            isWord = false;
+            children.resize(26, nullptr);
+        }
+};
+
+bool wordTrieSearch(WordTrieNode* root, string& word, int pos) {
+    if (pos == word.length()) return root->isWord;
+    if (word[pos] == '.') {
+        for (auto child : root->children) {
+            if (wordTrieSearch(child, word, pos + 1)) return true;
+        }
+        return false;
+    }
+    if (root->children[word[pos] - 'a']) return wordTrieSearch(root->children[word[pos] - 'a'], word, pos + 1);
+    return false;
+}
+
+class WordDictionary {
+public:
+    WordTrieNode* root;
+
+    WordDictionary() {
+        root = new WordTrieNode();
+    }
+
+    void addWord(string word) {
+        WordTrieNode* tmp = root;
+        for (char c : word) {
+            if (!tmp->children[c - 'a']) tmp->children[c - 'a'] = new WordTrieNode();
+            tmp = tmp->children[c - 'a'];
+        }
+        tmp->isWord = true;
+    }
+
+    bool search(string word) {
+        return wordTrieSearch(root, word, 0);
+    }
+};
+
 
 
 // https://leetcode.com/problems/word-break/
@@ -1866,14 +1936,41 @@ vector<vector<int>> updateMatrix(vector<vector<int>>& mat) {
 }
 
 
-// https://leetcode.com/problems/group-anagrams/
+// https://leetcode.com/problems/group-anagrams/description/
 vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    unordered_map<string, int> words_to_idx;
+    vector<vector<string>> ans;
+    int pos = 0;
+    for (auto s : strs) {
+        string tmp = s;
+        sort(s.begin(), s.end());
+        if (words_to_idx.find(s) != words_to_idx.end()) ans[words_to_idx[s]].push_back(tmp);
+        else {
+            ans.push_back({ tmp });
+            words_to_idx[s] = pos++;
+        }
+    }
+    return ans;
+}
+
+string countingSort(string s) {
+    string sorted = "";
+    vector<int> alphabet(26, 0);
+    for (char c : s) alphabet[c - 'a']++;
+    for (int i = 0; i < 26; i++) {
+        while (alphabet[i]-- > 0) {
+            sorted += char('a' + i);
+        }
+    }
+    return sorted;
+}
+vector<vector<string>> groupAnagrams2(vector<string>& strs) {
     unordered_map<string, vector<string>> anagrams;
     for (string s : strs) {
         anagrams[countingSort(s)].push_back(s);
     }
     
-    vector<vector<string>> ans(anagrams.size());
+    vector<vector<string>> ans;
     for (auto strs : anagrams)
         ans.push_back(strs.second);
     
@@ -1943,17 +2040,6 @@ vector<vector<int>> threeSum(vector<int>& nums) {
     return ans;
 }
 
-string countingSort(string s) {
-    string sorted = "";
-    vector<int> alphabet(26, 0);
-    for (char c : s) alphabet[c - 'a']++;
-    for (int i = 0; i < 26; i++) {
-        while(alphabet[i]-- > 0) {
-            sorted += char('a' + i);
-        }
-    }
-    return sorted;
-}
 
 // https://leetcode.com/problems/squares-of-a-sorted-array/
 vector<int> sortedSquares(vector<int>& nums) {
