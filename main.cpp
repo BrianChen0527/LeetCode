@@ -51,6 +51,6 @@ void inOrderTraversalPrint(TreeNode* root) {
 
 int main() { 
 
-	vector<int>  preorder = { 73,74,75,71,69,72,76,73 };
-	vector<int> inorder = dailyTemperatures(preorder);
+	vector<int> test = { 2, 3, -2, 4 };
+	cout << maxProduct(test);
 }
