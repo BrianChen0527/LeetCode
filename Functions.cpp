@@ -624,6 +624,54 @@ int kthSmallest(TreeNode* root, int k) {
 }
 
 
+// https://leetcode.com/problems/pacific-atlantic-water-flow/
+void waterFlowDFS(vector<vector<int>>& heights, vector<vector<short>>& land, int prev_height, int r, int c, int rows, int cols) {
+    land[r][c] = 1;
+    int currH = heights[r][c];
+    if (r + 1 < rows && heights[r + 1][c] >= currH && land[r + 1][c] != 1) waterFlowDFS(heights, land, heights[r][c], r + 1, c, rows, cols);
+    if (c - 1 >= 0 && heights[r][c - 1] >= currH && land[r][c - 1] != 1) waterFlowDFS(heights, land, heights[r][c], r, c - 1, rows, cols);
+    if (r - 1 >= 0 && heights[r - 1][c] >= currH && land[r - 1][c] != 1) waterFlowDFS(heights, land, heights[r][c], r - 1, c, rows, cols);
+    if (c + 1 < cols && heights[r][c + 1] >= currH && land[r][c + 1] != 1) waterFlowDFS(heights, land, heights[r][c], r, c + 1, rows, cols);
+}
+vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights) {
+    int rows = heights.size(), cols = heights[0].size();
+    vector<vector<short>> atl(rows, vector<short>(cols, 0));
+    vector<vector<short>> pac(rows, vector<short>(cols, 0));
+
+    for (int i = 0; i < rows; i++) {
+        pac[i][0] = 1;
+        atl[i][cols - 1] = 1;
+    }
+
+    pac[0] = vector<short>(cols, 1);
+    atl[rows - 1] = vector<short>(cols, 1);
+    atl[0][cols - 1] = atl[rows - 1][0] = pac[0][cols - 1] = pac[rows - 1][0] = 1;
+    
+    for (int i = 0; i < rows; i++) {
+        waterFlowDFS(heights, pac, heights[i][0], i, 0, rows, cols);
+        waterFlowDFS(heights, atl, heights[i][cols - 1], i, cols - 1, rows, cols);
+    }
+    for (int j = 0; j < cols; j++) {
+        waterFlowDFS(heights, pac, heights[0][j], 0, j, rows, cols);
+        waterFlowDFS(heights, atl, heights[rows - 1][j], rows - 1, j, rows, cols);
+    }
+    vector<vector<int>> ans;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            if (pac[i][j] == 1 && atl[i][j] == 1) ans.push_back({ i, j });
+        }
+    }
+
+    //for (int i = 0; i < rows; i++) {
+    //    for (int j = 0; j < cols; j++) {
+    //        cout << pac[i][j] << "\t";
+    //    }
+    //    cout << endl;
+    //}
+    return ans;
+}
+
+
 class LRUCache {
 public:
     unordered_map<int, pair<int, int>> key_value;
