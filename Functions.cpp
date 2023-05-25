@@ -624,6 +624,24 @@ int kthSmallest(TreeNode* root, int k) {
 }
 
 
+//https://leetcode.com/problems/find-the-duplicate-number/description/
+int findDuplicate(vector<int>& nums) {
+    int slow = nums[0], fast = nums[nums[0]];
+
+    while (slow != fast) {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+    }
+
+    fast = nums[nums[0]];
+    while (slow != fast) {
+        slow = nums[slow];
+        fast = nums[nums[fast]];
+    }
+    return fast;
+}
+
+
 // https://leetcode.com/problems/pacific-atlantic-water-flow/
 void waterFlowDFS(vector<vector<int>>& heights, vector<vector<short>>& land, int prev_height, int r, int c, int rows, int cols) {
     land[r][c] = 1;

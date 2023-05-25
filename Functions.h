@@ -18,6 +18,9 @@ int lengthOfLongestSubstring(string s);
 // https://leetcode.com/problems/pacific-atlantic-water-flow/
 vector<vector<int>> pacificAtlantic(vector<vector<int>>& heights);
 
+//https://leetcode.com/problems/find-the-duplicate-number/description/
+int findDuplicate(vector<int>& nums);
+
 // https://leetcode.com/problems/spiral-matrix/description/
 vector<int> spiralOrder(vector<vector<int>>& matrix);
 
