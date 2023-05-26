@@ -24,6 +24,9 @@ int findDuplicate(vector<int>& nums);
 // https://leetcode.com/problems/spiral-matrix/description/
 vector<int> spiralOrder(vector<vector<int>>& matrix);
 
+// https://leetcode.com/problems/top-k-frequent-words/
+vector<string> topKFrequent(vector<string>& words, int k);
+
 // https://leetcode.com/problems/subsets/
 void subsetsPermuter(vector<int>& nums, vector<vector<int>>& ans, vector<int>& path, int pos, int nums_size);
 vector<vector<int>> subsets(vector<int>& nums);

@@ -606,6 +606,39 @@ vector<int> dailyTemperatures(vector<int>& temperatures) {
 }
 
 
+// https://leetcode.com/problems/top-k-frequent-words/
+vector<string> topKFrequent(vector<string>& words, int k) {
+    unordered_map<string, int> counter;
+
+    for (auto w : words) counter[w]++;
+
+    auto comp = [&](const pair<int, string>& p1, const pair<int, string>& p2) {
+        return (p1.first == p2.first ? p1.second > p2.second : p1.first < p2.first); };
+    priority_queue < pair<int, string>, vector<pair<int, string>>, decltype(comp) > Q(comp);
+    for (auto k : counter) Q.emplace(k.second, k.first);
+
+    vector<string> ans;
+    for (int i = 0; i < k; i++) {
+        ans.push_back(Q.top().second);
+        Q.pop();
+    }
+    return ans;
+}
+
+
+int lengthOfLIS(vector<int>& nums) {
+    vector<int> ans = { nums[0] };
+
+    for (int i = 1; i < nums.size(); i++) {
+        auto it = lower_bound(ans.begin(), ans.end(), nums[i]);
+        if (it != ans.end()) ans.erase(it);
+        
+        ans.insert(it, nums[i]);
+    }
+    return ans.size();
+}
+
+
 // https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 int kthSmallest(TreeNode* root, int k) {
     stack<TreeNode*> dfs;
