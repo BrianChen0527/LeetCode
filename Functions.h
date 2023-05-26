@@ -24,6 +24,9 @@ int findDuplicate(vector<int>& nums);
 // https://leetcode.com/problems/spiral-matrix/description/
 vector<int> spiralOrder(vector<vector<int>>& matrix);
 
+// https://leetcode.com/problems/longest-increasing-subsequence/submissions/957462933/
+int lengthOfLIS(vector<int>& nums);
+
 // https://leetcode.com/problems/top-k-frequent-words/
 vector<string> topKFrequent(vector<string>& words, int k);
 
