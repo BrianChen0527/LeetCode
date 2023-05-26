@@ -627,34 +627,36 @@ vector<string> topKFrequent(vector<string>& words, int k) {
 
 
 // https://leetcode.com/problems/course-schedule-ii/
-bool courseScheduler(vector<vector<int>>& adj, vector<int>& schedule, unordered_set<int>& visiting, unordered_set<int>& visited, int course) {
-    if (visited.find(course) != visited.end()) return true;
-    if (visiting.find(course) != visiting.end()) return false;
-    visiting.insert(course);
-    for (int req : adj[course]) {
-        if (!courseScheduler(adj, schedule, visiting, visited, req));
-    }
-    visiting.erase(course);
-    visited.insert(course);
-    schedule.push_back(course);
-    return true;
-}
 vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
     vector<vector<int>> adj(numCourses, vector<int>());
+    vector<int> degrees(numCourses, 0);
 
     for (auto v : prerequisites) {
-        adj[v[0]].push_back(v[1]);
+        adj[v[1]].push_back(v[0]);
+        degrees[v[0]]++;
     }
 
-    unordered_set<int> visited;
     vector<int> schedule; schedule.reserve(numCourses);
-    
-    for (int i = 0; i < numCourses; i++) {
-        if (visited.find(i) != visited.end()) continue;
-        unordered_set<int> visiting;
-        if (!courseScheduler(adj, schedule, visiting, visited, i)) return {};
+    queue<int> canTake;
+    for (int j = 0; j < numCourses; j++) {
+        if (degrees[j] == 0) {
+            degrees[j]--;
+            canTake.push(j);
+            schedule.push_back(j);
+        }
     }
-    return schedule;
+
+    while (!canTake.empty()) {
+        int curr = canTake.front();
+        for (auto c : adj[curr]) {
+            if (--degrees[c] == 0) {
+                canTake.push(c);
+                schedule.push_back(c);
+            }
+        }
+        canTake.pop();
+    }
+    return schedule.size() == numCourses ? schedule : vector<int>();
 }
 
 
