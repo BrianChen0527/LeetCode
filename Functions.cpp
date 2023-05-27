@@ -548,26 +548,27 @@ int hammingWeight(uint32_t n) {
 
 // Given an unsorted array of integers nums, 
 // return the length of the longest consecutive elements sequence.
+//https://leetcode.com/problems/longest-consecutive-sequence/
 int longestConsecutive(vector<int>& nums) {
-    if (nums.size() < 2)
-        return nums.size();
-
-    sort(nums.begin(), nums.end());
-    int max_count = 1, count = 1;
-    int prev_num = nums[0];
-
-    for (int i = 1; i < nums.size(); i++) {
-        if (nums.at(i) - prev_num == 1) {
-            count++;
-            cout << count << endl;
-        }
-        else if (nums.at(i) - prev_num != 0) {
-            max_count = max(max_count, count);
-            count = 1;
-        }
-        prev_num = nums[i];
+    unordered_set<int> numbers;
+    for (auto c : nums) {
+        numbers.insert(c);
     }
-    return max(max_count, count);
+    int maxCount = 0;
+    for (auto it : numbers) {
+        int low = it - 1, high = it + 1, count = 1;
+
+        while (numbers.find(low) != numbers.end()) {
+            numbers.erase(low);
+            low--; count++;
+        }
+        while (numbers.find(high) != numbers.end()) {
+            numbers.erase(high);
+            high++; count++;
+        }
+        maxCount = max(maxCount, count);
+    }
+    return maxCount;
 }
 
 int reverse(int x) {
