@@ -2238,6 +2238,33 @@ int numIslands(vector<vector<char>>& grid) {
 }
 
 
+// https://leetcode.com/problems/path-sum-ii/
+void pathSumDFS(TreeNode* root, int targetSum, vector<int>& path, vector<vector<int>>& ans) {
+    if (!root->left && !root->right) {
+        if (targetSum == 0) ans.push_back(path);
+        return;
+    }
+    if (root->left) {
+        int l = root->left->val;
+        path.push_back(l);
+        pathSumDFS(root->left, targetSum - l, path, ans);
+        path.pop_back();
+    }
+    if (root->right) {
+        int r = root->right->val;
+        path.push_back(r);
+        pathSumDFS(root->right, targetSum - r, path, ans);
+        path.pop_back();
+    }
+}
+vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+    if (!root) return { };
+    vector<vector<int>> ans;
+    vector<int> path = {root->val};
+    pathSumDFS(root, targetSum - root->val, path, ans);
+    return ans;
+}
+
 // https://leetcode.com/problems/swap-nodes-in-pairs/
 ListNode* swapPairs(ListNode* head) {
     if (!head) return nullptr;
