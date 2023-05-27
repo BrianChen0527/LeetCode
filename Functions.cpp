@@ -2238,6 +2238,29 @@ int numIslands(vector<vector<char>>& grid) {
 }
 
 
+// https://leetcode.com/problems/swap-nodes-in-pairs/
+ListNode* swapPairs(ListNode* head) {
+    if (!head) return nullptr;
+    if (!head->next) return head;
+
+    ListNode* prev = nullptr;
+    ListNode* first = head;
+    ListNode* second = head->next;
+    head = second;
+    while (second) {
+        ListNode* third = second->next;
+        second->next = first;
+        first->next = third;
+        if (prev) prev->next = second;
+
+        prev = first;
+        first = third;
+        second = (third ? third->next : nullptr);
+    }
+    return head;
+}
+
+
 // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 int findMin(vector<int>& nums) {
     ios_base::sync_with_stdio(false);
