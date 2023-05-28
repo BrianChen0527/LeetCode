@@ -287,6 +287,8 @@ int jump(vector<int>& nums);
 // https://leetcode.com/problems/longest-common-subsequence
 int longestCommonSubsequence(string text1, string text2);
 
+
+
 struct ListNode {
     int val;
     ListNode* next;
@@ -294,6 +296,9 @@ struct ListNode {
     ListNode(int x) : val(x), next(nullptr) {}
     ListNode(int x, ListNode* next) : val(x), next(next) {}
 };
+
+// https://leetcode.com/problems/odd-even-linked-list/
+ListNode* oddEvenList(ListNode* head);
 
 // https://leetcode.com/problems/merge-k-sorted-lists/submissions/
 ListNode* mergeKLists(vector<ListNode*>& lists);
