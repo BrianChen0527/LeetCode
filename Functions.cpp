@@ -2298,6 +2298,34 @@ void rotate(vector<int>& nums, int k) {
 }
 
 
+// https://leetcode.com/problems/odd-even-linked-list/
+ListNode* oddEvenList(ListNode* head) {
+    if (!head || !head->next) return head;
+    ListNode* odd = head;
+    ListNode* even = head->next;
+    ListNode* even_head = even;
+    ListNode* curr = even->next;
+    int pos = 1;
+    
+    while (curr) {
+        cout << odd->val << " - " << even->val << endl;
+
+        if (pos++ % 2) {
+            odd->next = curr;
+            odd = odd->next;
+        }
+        else {
+            even->next = curr;
+            even = even->next;
+        }
+        curr = curr->next;
+    }
+    even->next = nullptr;
+    odd->next = even_head;
+    return head;
+}
+
+
 // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 int findMin(vector<int>& nums) {
     ios_base::sync_with_stdio(false);
