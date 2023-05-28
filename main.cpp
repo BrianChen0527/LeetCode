@@ -50,6 +50,16 @@ void inOrderTraversalPrint(TreeNode* root) {
 }
 
 int main() { 
-	vector<vector<int>> heights = { {1, 2, 2, 3, 5}, {3, 2, 3, 4, 4}, {2, 4, 5, 3, 1}, {6, 7, 1, 4, 5}, {5, 1, 1, 2, 4} };
-	pacificAtlantic(heights);
+	ListNode* l5 = new ListNode(5);
+	ListNode* l4 = new ListNode(4, l5);
+	ListNode* l3 = new ListNode(3, l4);
+	ListNode* l2 = new ListNode(2, l3);
+	ListNode* l1 = new ListNode(1, l2);
+
+	ListNode* test = oddEvenList(l1);
+
+	while(test) {
+		cout << test->val << " ";
+		test = test->next;
+	}
 }
