@@ -2314,6 +2314,31 @@ int findMaxLength(vector<int>& nums) {
 }
 
 
+// https://leetcode.com/problems/maximum-width-of-binary-tree/
+int widthOfBinaryTree(TreeNode* root) {
+    queue<pair<long, TreeNode*>> levels;
+    levels.emplace(0, root);
+    
+    int max_width = 1;
+    while (!levels.empty()) {
+        int n = levels.size();
+        int curr_start = levels.front().first;
+        max_width = max(max_width, int(levels.back().first - curr_start + 1));
+
+        curr_start -= curr_start % 2;
+        for (int i = 0; i < n; i++) {
+            long pos = levels.front().first;
+            TreeNode* curr = levels.front().second;
+            levels.pop();
+
+            if (curr->left) levels.emplace(pos * 2 - curr_start, curr->left);
+            if (curr->right) levels.emplace(pos * 2 + 1 - curr_start, curr->right);
+        }
+    }
+    return max_width;
+}
+
+
 // https://leetcode.com/problems/decode-string/
 string decodeString(string s) {
     stack<int> multiplier;
