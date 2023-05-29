@@ -2298,6 +2298,44 @@ void rotate(vector<int>& nums, int k) {
 }
 
 
+// https://leetcode.com/problems/decode-string/
+string decodeString(string s) {
+    stack<int> multiplier;
+    stack<string> strings;
+
+    int pos = 0;
+    string tmp = "", tmp_str = "";
+    while (pos < s.length()) {
+
+        if (!strings.empty()) cout << strings.top() << endl;
+
+        if (isdigit(s[pos])) {
+            tmp += s[pos];
+        }
+        else if (s[pos] == '[') {
+            multiplier.push(stoi(tmp));
+            strings.push(tmp_str);
+            tmp = tmp_str = "";
+        }
+        else if (s[pos] == ']') {
+            int n = multiplier.top();
+            string curr = tmp_str;
+            for (int i = 1; i < n; i++) tmp_str += curr;
+
+            tmp_str = strings.top() + tmp_str;
+            multiplier.pop();
+            strings.pop();
+        }
+        else {
+            tmp_str += s[pos];
+        }
+        pos++;
+    }
+
+    return tmp_str;
+}
+
+
 // https://leetcode.com/problems/odd-even-linked-list/
 ListNode* oddEvenList(ListNode* head) {
     if (!head || !head->next) return head;
