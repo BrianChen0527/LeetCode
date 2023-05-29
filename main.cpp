@@ -48,18 +48,10 @@ void inOrderTraversalPrint(TreeNode* root) {
 	cout << root->val << ' ';
 	if (root->right) inOrderTraversalPrint(root->right);
 }
+#include <typeinfo>  //for 'typeid' to work  
 
 int main() { 
-	ListNode* l5 = new ListNode(5);
-	ListNode* l4 = new ListNode(4, l5);
-	ListNode* l3 = new ListNode(3, l4);
-	ListNode* l2 = new ListNode(2, l3);
-	ListNode* l1 = new ListNode(1, l2);
-
-	ListNode* test = oddEvenList(l1);
-
-	while(test) {
-		cout << test->val << " ";
-		test = test->next;
-	}
+	string test = "2[abc]3[cd]ef";
+	string test2 =  decodeString(test);
+	cout << test2;
 }

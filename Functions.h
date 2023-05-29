@@ -287,7 +287,8 @@ int jump(vector<int>& nums);
 // https://leetcode.com/problems/longest-common-subsequence
 int longestCommonSubsequence(string text1, string text2);
 
-
+// https://leetcode.com/problems/decode-string/
+string decodeString(string s);
 
 struct ListNode {
     int val;
