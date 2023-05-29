@@ -2298,6 +2298,22 @@ void rotate(vector<int>& nums, int k) {
 }
 
 
+// https://leetcode.com/problems/contiguous-array/
+int findMaxLength(vector<int>& nums) {
+    int n = nums.size();
+    vector<int> mp(n * 2 + 1, -2);
+    mp[n] = -1;
+    int balance = 0, longest = 0;
+
+    for (int i = 0; i < nums.size(); i++) {
+        balance += (nums[i] ? 1 : -1);
+        if (mp[balance + n] < -1) mp[balance + n] = i;
+        else longest = max(longest, i - mp[balance + n]);
+    }
+    return longest;
+}
+
+
 // https://leetcode.com/problems/decode-string/
 string decodeString(string s) {
     stack<int> multiplier;
