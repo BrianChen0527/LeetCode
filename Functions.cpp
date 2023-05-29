@@ -1064,6 +1064,37 @@ bool constructUtil(string target, vector<string>& substrings, unordered_map<stri
     return false;
 }
 
+
+// https://leetcode.com/problems/find-k-closest-elements/
+vector<int> findClosestElements(vector<int>& arr, int k, int x) {
+    int pos = lower_bound(arr.begin(), arr.end(), x) - arr.begin();
+    deque<int> nums;
+    int low = pos - 1, high = pos;
+
+    int len = arr.size();
+    while (low >= 0 && high < len && k > 0) {
+        if (x - arr[low] <= arr[high] - x) {
+            nums.push_front(arr[low--]);
+        }
+        else {
+            nums.push_back(arr[high++]);
+        }
+        k--;
+    }
+
+    while (low >= 0 && k > 0) {
+        nums.push_front(arr[low--]);
+        k--;
+    }
+
+    while (high < len && k > 0) {
+        nums.push_back(arr[high++]);
+        k--;
+    }
+    return vector<int>(nums.begin(), nums.end());
+}
+
+
 // determine if we can construct the string "target" from an array of strings
 // using TABULATION
 bool canConstruct2(string target, vector<string> substrings) {
