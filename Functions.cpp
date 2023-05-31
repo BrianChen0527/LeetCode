@@ -1068,10 +1068,9 @@ bool constructUtil(string target, vector<string>& substrings, unordered_map<stri
 // https://leetcode.com/problems/find-k-closest-elements/
 vector<int> findClosestElements(vector<int>& arr, int k, int x) {
     int pos = lower_bound(arr.begin(), arr.end(), x) - arr.begin();
-    deque<int> nums;
-    int low = pos - 1, high = pos;
+    int low = pos - 1, high = pos, len = arr.size();
 
-    int len = arr.size();
+    deque<int> nums;
     while (low >= 0 && high < len && k > 0) {
         if (x - arr[low] <= arr[high] - x) {
             nums.push_front(arr[low--]);
@@ -1941,27 +1940,52 @@ int evalRPN(vector<string>& tokens) {
 }
 
 // https://leetcode.com/problems/longest-repeating-character-replacement/
-int characterReplacement(string s, int k) {
-    int ptr1 = 0, ptr2 = 0, maxf = 0, maxLen = 0;
-    unordered_map<char, int> table;
-    while (ptr2 < s.length()) {
-        int sublen = ptr2 - ptr1 + 1;
-        // increment the occurence of the new character in our table
-        table[s[ptr2]]++;
+//int characterReplacement(string s, int k) {
+//    int ptr1 = 0, ptr2 = 0, maxf = 0, maxLen = 0;
+//    unordered_map<char, int> table;
+//    while (ptr2 < s.length()) {
+//        int sublen = ptr2 - ptr1 + 1;
+//        // increment the occurence of the new character in our table
+//        table[s[ptr2]]++;
+//
+//        // maxf keeps track of the running highest frequency of any character in current and past substrings
+//        maxf = max(maxf, table[s[ptr2]]);
+//        
+//        // if current substring length - max frequency of a character in substring > k
+//        // that means we need to bring the sliding window closer from the back
+//        if (sublen - maxf > k) {
+//            table[s[ptr1]]--;
+//            ptr1++; sublen--;
+//        }
+//        maxLen = max(maxLen, sublen); ptr2++;
+//    }
+//    return maxLen;
+//}
 
-        // maxf keeps track of the running highest frequency of any character in current and past substrings
-        maxf = max(maxf, table[s[ptr2]]);
-        
-        // if current substring length - max frequency of a character in substring > k
-        // that means we need to bring the sliding window closer from the back
-        if (sublen - maxf > k) {
-            table[s[ptr1]]--;
-            ptr1++; sublen--;
+
+int characterReplacement(string s, int k) {
+    int n = s.length(), l = 0, r = 0;
+    int max_len = 0;
+    int most_common = 0;
+    vector<int> mp(26, 0);
+
+    while (r < n) {
+
+        mp[s[r] - 'A']++;
+        if (mp[s[r] - 'A'] > most_common) {
+            most_common = mp[s[r] - 'A'];
         }
-        maxLen = max(maxLen, sublen); ptr2++;
+        else if (--k < 0) {
+            mp[s[l++] - 'A']--;
+            k++;
+        }
+        max_len = max(max_len, r - l + 1);
+        r++;
     }
-    return maxLen;
+
+    return max_len;
 }
+
 
 // https://leetcode.com/problems/minimum-window-substring/
 string minWindow(string s, string t) {
