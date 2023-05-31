@@ -51,7 +51,8 @@ void inOrderTraversalPrint(TreeNode* root) {
 #include <typeinfo>  //for 'typeid' to work  
 
 int main() { 
-	string test = "2[abc]3[cd]ef";
-	string test2 =  decodeString(test);
-	cout << test2;
+	string test = "AABABBA";
+
+	characterReplacement(test, 1);
+
 }
