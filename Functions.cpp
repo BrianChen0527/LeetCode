@@ -1359,6 +1359,51 @@ bool canReach(vector<int>& arr, int start) {
 //}
 
 
+// https://leetcode.com/problems/add-two-numbers/
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+    ListNode* head = new ListNode(0);
+    ListNode* curr = head;
+    bool carry = false;
+
+    while (l1 && l2) {
+        curr->next = new ListNode(0);
+        curr = curr->next;
+        int s = l1->val + l2->val + (carry ? 1 : 0);
+        carry = (s >= 10);
+        curr->val = s % 10;
+        l1 = l1->next;
+        l2 = l2->next;
+    }
+    while (l2) {
+        curr->next = new ListNode(0);
+        curr = curr->next;
+        curr->val = l2->val + (carry ? 1 : 0);
+        carry = false;
+
+        if (curr->val > 9) {
+            curr->val = 0;
+            carry = true;
+        }
+        l2 = l2->next;
+    }
+    while (l1) {
+        curr->next = new ListNode(0);
+        curr = curr->next;
+        curr->val = l1->val + (carry ? 1 : 0);
+        carry = false;
+
+        if (curr->val > 9) {
+            curr->val = 0;
+            carry = true;
+        }
+        l1 = l1->next;
+    }
+
+    if (carry) curr->next = new ListNode(1);
+    return head;
+}
+
+
 // https://leetcode.com/problems/jump-game
 bool canJump(vector<int>& nums) {
     if (nums.size() < 2) return true;
