@@ -1404,6 +1404,25 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
 }
 
 
+// https://leetcode.com/problems/generate-parentheses/
+void parenthesisPermutor(int n, int l, int r, string curr, vector<string>& ans) {
+    if (l == n && r == n) { return ans.push_back(curr); }
+    
+    if (l < n) {
+        parenthesisPermutor(n, l + 1, r, curr + "(", ans);
+    }
+    if (r < n && r < l) {
+        parenthesisPermutor(n, l, r + 1, curr + ")", ans);
+    }
+}
+
+vector<string> generateParenthesis(int n) {
+    vector<string> ans;
+    parenthesisPermutor(n, 0, 0, "", ans);
+    return ans;
+}
+
+
 // https://leetcode.com/problems/jump-game
 bool canJump(vector<int>& nums) {
     if (nums.size() < 2) return true;
