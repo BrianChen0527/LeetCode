@@ -480,6 +480,29 @@ vector<vector<int>> levelOrder(TreeNode* root) {
     return levels;
 }
 
+
+// https://leetcode.com/problems/asteroid-collision/
+vector<int> asteroidCollision(vector<int>& asteroids) {
+    vector<int> result;
+
+    for (int i = 0; i < asteroids.size(); i++) {
+        if (asteroids[i] < 0) {
+            while (!result.empty() && result.back() > 0 && result.back() < abs(asteroids[i])) {
+                result.pop_back();
+            }
+            if (result.empty() || result.back() < 0)
+                result.push_back(asteroids[i]);
+            else if (result.back() == abs(asteroids[i]))
+                result.pop_back();
+        }
+        else { 
+            result.push_back(asteroids[i]);
+        }
+    } 
+    return result;
+}
+
+
 // Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
 // https://leetcode.com/problems/subarray-sum-equals-k/
 int subarraySum(vector<int>& nums, int k) {
@@ -1420,6 +1443,47 @@ vector<string> generateParenthesis(int n) {
     vector<string> ans;
     parenthesisPermutor(n, 0, 0, "", ans);
     return ans;
+}
+
+
+// https://leetcode.com/problems/sort-list/solutions/1795126/c-merge-sort-2-pointer-easy-to-understand/
+ListNode* mergeList(ListNode* l, ListNode* r) {
+    ListNode* tmp = new ListNode(0);
+    ListNode* head = tmp;
+
+    while (l && r) {
+        if (l->val > r->val) {
+            tmp->next = r;
+            r = r->next;
+        }
+        else{
+            tmp->next = l;
+            l = l->next;
+        }
+        tmp = tmp->next;
+    }
+    tmp->next = r ? r : l;
+    return head->next;
+}
+
+ListNode* sortList(ListNode* head) {
+    if (!head || !head->next) return head;
+    
+    ListNode* tmp;
+    ListNode* slow = head;
+    ListNode* fast = head;
+
+    while (fast && fast->next) {
+        tmp = slow;
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    tmp->next = nullptr;
+
+    ListNode* l = sortList(head);
+    ListNode* r = sortList(slow);
+    return mergeList(l, r);
 }
 
 
