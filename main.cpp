@@ -50,9 +50,13 @@ void inOrderTraversalPrint(TreeNode* root) {
 }
 #include <typeinfo>  //for 'typeid' to work  
 
-int main() { 
-	string test = "AABABBA";
 
-	characterReplacement(test, 1);
+
+int main() { 
+	vector<int> v = { 3,2,1,5,6,4 };
+	findKthLargest(v, 2);
 
 }
+
+
+

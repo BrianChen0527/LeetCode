@@ -290,6 +290,9 @@ int longestCommonSubsequence(string text1, string text2);
 // https://leetcode.com/problems/decode-string/
 string decodeString(string s);
 
+// https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/1019513/python-quickselect-average-o-n-explained/
+int findKthLargest(vector<int>& nums, int k);
+
 struct ListNode {
     int val;
     ListNode* next;
