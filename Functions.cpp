@@ -481,6 +481,7 @@ vector<vector<int>> levelOrder(TreeNode* root) {
 }
 
 
+
 // https://leetcode.com/problems/asteroid-collision/
 vector<int> asteroidCollision(vector<int>& asteroids) {
     vector<int> result;
@@ -1469,7 +1470,7 @@ ListNode* mergeList(ListNode* l, ListNode* r) {
 ListNode* sortList(ListNode* head) {
     if (!head || !head->next) return head;
     
-    ListNode* tmp;
+    ListNode* tmp = head;
     ListNode* slow = head;
     ListNode* fast = head;
 
@@ -1485,6 +1486,58 @@ ListNode* sortList(ListNode* head) {
     ListNode* r = sortList(slow);
     return mergeList(l, r);
 }
+
+
+// https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/1019513/python-quickselect-average-o-n-explained/
+int partition(vector<int>& nums, int l, int r) {
+    if (l == r) return r;
+
+    // use random index to speed up
+    int rand_idx = l + rand() % (r - l);
+    swap(nums[rand_idx], nums[r]);
+
+    int i = l;
+    for (int j = l; j < r; j++) {
+        if (nums[j] < nums[r]) swap(nums[i++], nums[j]);
+    }
+    swap(nums[r], nums[i]);
+    return i;
+}
+int quickSelect(vector<int>& nums, int l, int r, int k) {
+    int pivot = partition(nums, l, r);
+
+    if (k == r - pivot + 1) return nums[pivot];
+    if (k <= r - pivot) return quickSelect(nums, pivot + 1, r, k);
+    return quickSelect(nums, l, pivot - 1, k - (r - pivot + 1));
+}
+
+int findKthLargest(vector<int>& nums, int k) {
+    srand(time(NULL));
+    return quickSelect(nums, 0, nums.size() - 1, k);
+}
+
+
+// https://leetcode.com/problems/random-pick-with-weight/submissions/
+class Solution {
+public:
+    vector<int> weights;
+    int total;
+    Solution(vector<int>& w) {
+        srand(time(NULL));
+
+        weights.resize(w.size());
+        weights[0] = total = w[0];
+        for (int i = 1; i < w.size(); i++) {
+            weights[i] = w[i] + weights[i - 1];
+            total += w[i];
+        }
+    }
+
+    int pickIndex() {
+        int rand_idx = rand() % total;
+        return upper_bound(weights.begin(), weights.end(), rand_idx) - weights.begin();
+    }
+};
 
 
 // https://leetcode.com/problems/jump-game
