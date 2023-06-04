@@ -293,6 +293,9 @@ string decodeString(string s);
 // https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/1019513/python-quickselect-average-o-n-explained/
 int findKthLargest(vector<int>& nums, int k);
 
+// https://leetcode.com/problems/rotate-image/description/
+void rotate(vector<vector<int>>& matrix);
+
 struct ListNode {
     int val;
     ListNode* next;
