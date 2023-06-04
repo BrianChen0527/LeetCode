@@ -2673,6 +2673,26 @@ ListNode* oddEvenList(ListNode* head) {
 }
 
 
+// https://leetcode.com/problems/rotate-image/description/
+void rotate(vector<vector<int>>& matrix) {
+    int level = matrix.size();
+    int layer = 0;
+    while (level > 1) {
+        int len = level - 1;
+        int edge = layer + len;
+        for (int i = 0; i < len; i++) {
+            int tmp = matrix[layer + i][layer];
+            matrix[layer + i][layer] = matrix[edge][layer + i];
+            matrix[edge][layer + i] = matrix[edge - i][edge];
+            matrix[edge - i][edge] = matrix[layer][edge - i];
+            matrix[layer][edge - i] = tmp;
+        }
+        layer++;
+        level -= 2;
+    }
+}
+
+
 // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 int findMin(vector<int>& nums) {
     ios_base::sync_with_stdio(false);
