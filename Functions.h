@@ -429,6 +429,9 @@ struct TreeNode {
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
+// https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+vector<vector<int>> zigzagLevelOrder(TreeNode* root);
+
 // https://leetcode.com/problems/kth-smallest-element-in-a-bst/
 int kthSmallest(TreeNode* root, int k);
 

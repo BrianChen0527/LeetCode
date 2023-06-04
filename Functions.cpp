@@ -2693,6 +2693,34 @@ void rotate(vector<vector<int>>& matrix) {
 }
 
 
+// https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
+vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+    if (!root) return {};
+    vector<vector<int>> levels = {};
+    queue<TreeNode*> Q;
+    Q.push(root);
+
+    bool should_reverse = false;
+    while (!Q.empty()) {
+        int n = Q.size();
+        vector<int> level;
+
+        for (int i = 0; i < n; i++) {
+            TreeNode* node = Q.front();
+            Q.pop();
+            level.push_back(node->val);
+            if (node->left) Q.push(node->left);
+            if (node->right) Q.push(node->right);
+        }
+
+        if (should_reverse) reverse(levels.begin(), levels.end());
+        should_reverse = !should_reverse;
+        levels.push_back(level);
+    }
+    return levels;
+}
+
+
 // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 int findMin(vector<int>& nums) {
     ios_base::sync_with_stdio(false);
