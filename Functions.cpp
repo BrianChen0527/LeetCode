@@ -1488,6 +1488,38 @@ ListNode* sortList(ListNode* head) {
 }
 
 
+// https://leetcode.com/problems/maximal-square/solutions/600149/python-thinking-process-diagrams-dp-approach/
+int maximalSquare(vector<vector<char>>& matrix) {
+    int rows = matrix.size(), cols = matrix[0].size();
+    vector<vector<int>> dp(rows, vector<int>(cols, 0));
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            dp[i][j] = matrix[i][j] - '0';
+        }
+    }
+
+    int max_area = 0;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 1; j < cols; j++) {
+            max_area = max(max_area, dp[i][j]);
+            
+            int sqr = 0;
+            if (j - 1 >= 0 && i - 1 >= 0) {
+                sqr = min({dp[i][j - 1], dp[i - 1][j - 1], dp[i - 1][j]});
+
+                if (dp[i][j] && sqr) {
+                    dp[i][j] = ++sqr;
+                    max_area = max(max_area, sqr);
+                }
+            }
+        }
+    }
+
+    return pow(max_area, 2);
+}
+
+
 // https://leetcode.com/problems/kth-largest-element-in-an-array/solutions/1019513/python-quickselect-average-o-n-explained/
 int partition(vector<int>& nums, int l, int r) {
     if (l == r) return r;
