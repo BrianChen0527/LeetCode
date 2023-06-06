@@ -2507,8 +2507,31 @@ int numIslands(vector<vector<char>>& grid) {
 }
 
 
+// https://leetcode.com/problems/path-sum-iii/
+class PathSumIII {
+public:
+    int ans = 0;
+    unordered_map<long, int> path;
+
+    void pathSumIIIDFS(TreeNode* root, int targetSum, long currSum) {
+        currSum += root->val;
+        if (path.find(currSum - targetSum) != path.end()) ans += path[currSum - targetSum];
+        path[currSum]++;
+        if (root->left) pathSumIIIDFS(root->left, targetSum, currSum);
+        if (root->right) pathSumIIIDFS(root->right, targetSum, currSum);
+        path[currSum]--;
+    }
+    int pathSum(TreeNode* root, int targetSum) {
+        if (!root) return 0;
+        path[0] = 1;
+        pathSumIIIDFS(root, targetSum, 0);
+        return ans;
+    }
+};
+
+
 // https://leetcode.com/problems/path-sum-ii/
-void pathSumDFS(TreeNode* root, int targetSum, vector<int>& path, vector<vector<int>>& ans) {
+void pathSumIIDFS(TreeNode* root, int targetSum, vector<int>& path, vector<vector<int>>& ans) {
     if (!root->left && !root->right) {
         if (targetSum == 0) ans.push_back(path);
         return;
@@ -2516,21 +2539,21 @@ void pathSumDFS(TreeNode* root, int targetSum, vector<int>& path, vector<vector<
     if (root->left) {
         int l = root->left->val;
         path.push_back(l);
-        pathSumDFS(root->left, targetSum - l, path, ans);
+        pathSumIIDFS(root->left, targetSum - l, path, ans);
         path.pop_back();
     }
     if (root->right) {
         int r = root->right->val;
         path.push_back(r);
-        pathSumDFS(root->right, targetSum - r, path, ans);
+        pathSumIIDFS(root->right, targetSum - r, path, ans);
         path.pop_back();
     }
 }
-vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
+vector<vector<int>> pathSumII(TreeNode* root, int targetSum) {
     if (!root) return { };
     vector<vector<int>> ans;
     vector<int> path = {root->val};
-    pathSumDFS(root, targetSum - root->val, path, ans);
+    pathSumIIDFS(root, targetSum - root->val, path, ans);
     return ans;
 }
 
@@ -2713,7 +2736,7 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
             if (node->right) Q.push(node->right);
         }
 
-        if (should_reverse) reverse(levels.begin(), levels.end());
+        if (should_reverse) reverse(level.begin(), level.end());
         should_reverse = !should_reverse;
         levels.push_back(level);
     }
