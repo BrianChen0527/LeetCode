@@ -53,8 +53,7 @@ void inOrderTraversalPrint(TreeNode* root) {
 
 
 int main() { 
-	vector<vector<int>> v = { {1, 2, 3},{4, 5, 6},{7, 8, 9} };
-	rotate(v);
+	cout << myPow(2.0, -10);
 
 }
 

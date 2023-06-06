@@ -429,6 +429,9 @@ struct TreeNode {
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right) {}
 };
 
+// https://leetcode.com/problems/powx-n/solutions/1337794/java-c-simple-o-log-n-easy-faster-than-100-explained/
+double myPow(double x, int n);
+
 // https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
 vector<vector<int>> zigzagLevelOrder(TreeNode* root);
 
