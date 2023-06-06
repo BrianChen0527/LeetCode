@@ -717,6 +717,24 @@ int kthSmallest(TreeNode* root, int k) {
 }
 
 
+// https://leetcode.com/problems/powx-n/solutions/1337794/java-c-simple-o-log-n-easy-faster-than-100-explained/
+double myPow(double x, int n) {
+    if (n == 0) return 1;
+    if (x == 0.0) return 0;
+    if (n < 0) {
+        x = (1 / x);
+    }
+    long coef = labs(n);
+    double ans = 1;
+    while (coef != 0) {
+        if (coef & 1) ans *= x;
+        x *= x;
+        coef >>= 1;
+    }
+    return ans;
+}
+
+
 //https://leetcode.com/problems/find-the-duplicate-number/description/
 int findDuplicate(vector<int>& nums) {
     int slow = nums[0], fast = nums[nums[0]];
@@ -2505,6 +2523,9 @@ int numIslands(vector<vector<char>>& grid) {
 
     return islands;
 }
+
+
+
 
 
 // https://leetcode.com/problems/path-sum-iii/
