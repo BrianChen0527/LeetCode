@@ -717,6 +717,24 @@ int kthSmallest(TreeNode* root, int k) {
 }
 
 
+// https://leetcode.com/problems/combination-sum-iv/
+int combinationSum4Helper(vector<int>& nums, int target, unordered_map<int, int>& dp) {
+    if (dp.find(target) != dp.end()) return dp[target];
+    int sum = 0;
+    for (auto i : nums) {
+        if (target - i >= 0)
+            sum += combinationSum4Helper(nums, target - i, dp);
+    }
+    dp[target] = sum;
+    return sum;
+}
+int combinationSum4(vector<int>& nums, int target) {
+    unordered_map<int, int> dp;
+    dp[0] = 1;
+    return combinationSum4Helper(nums, target, dp);
+}
+
+
 // https://leetcode.com/problems/basic-calculator-ii/
 int calculate(string s) {
     s += '+';
@@ -2323,26 +2341,6 @@ vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
     return ans;
 }
 
-
-// https://leetcode.com/problems/combination-sum-iv/
-int combinationSum4(vector<int>& nums, int target) {
-    unordered_map<int, int> table;
-    return combinationHelper(nums, target, table);
-}
-
-int combinationHelper(vector<int>& nums, int target, unordered_map<int, int> &table) {
-    if (target == 0) return 1;
-    if (table.find(target) != table.end()) return table[target];
-
-    int totalWays = 0;
-    for (int i : nums) {
-        if (target - i >= 0) {
-            totalWays += combinationHelper(nums, target - i, table);
-        }
-    }
-    table[target] = totalWays;
-    return totalWays;
-}
 
 // https://leetcode.com/problems/k-closest-points-to-origin/
 class CoordCompare
