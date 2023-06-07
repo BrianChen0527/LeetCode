@@ -717,6 +717,43 @@ int kthSmallest(TreeNode* root, int k) {
 }
 
 
+// https://leetcode.com/problems/basic-calculator-ii/
+int calculate(string s) {
+    s += '+';
+    char op = '+';
+    int curr_num = 0;
+    int i = 0, tmp = 0, ans = 0;
+    while (i < s.length()) {
+        if (s[i] == ' ');
+        else if (isdigit(s[i])) curr_num = curr_num * 10 + (s[i] - '0');
+        else {
+            switch (op) {
+            case '*':
+                tmp *= curr_num;
+                break;
+            case '/':
+                tmp /= curr_num;
+                break;
+            case '-':
+                ans += tmp;
+                tmp = -curr_num;
+                break;
+            case '+':
+                ans += tmp;
+                tmp = curr_num;
+                break;
+            default:
+                break;
+            }
+            curr_num = 0;
+            op = s[i];
+        }
+        i++;
+    }
+    return ans;
+}
+
+
 // https://leetcode.com/problems/powx-n/solutions/1337794/java-c-simple-o-log-n-easy-faster-than-100-explained/
 double myPow(double x, int n) {
     if (n == 0) return 1;
