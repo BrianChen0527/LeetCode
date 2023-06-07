@@ -53,7 +53,8 @@ void inOrderTraversalPrint(TreeNode* root) {
 
 
 int main() { 
-	cout << myPow(2.0, -10);
+	vector<int> v = { 1,2,3 };
+	combinationSum4(v, 4);
 
 }
 
