@@ -419,6 +419,8 @@ vector<int> dailyTemperatures(vector<int>& temperatures);
 // https://leetcode.com/problems/gas-station/description/
 int canCompleteCircuit(vector<int>& gas, vector<int>& cost);
 
+// https://leetcode.com/problems/combination-sum-iv/
+int combinationSum4(vector<int>& nums, int target);
 
 struct TreeNode {
     int val;
