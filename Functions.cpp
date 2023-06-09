@@ -2342,6 +2342,28 @@ vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
 }
 
 
+// https://leetcode.com/problems/non-overlapping-intervals/
+
+
+int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+    sort(intervals.begin(), intervals.end(), [](const vector<int>& a, const vector<int>& b) { return a[0] < b[0]; });
+    
+    int to_remove = 0, back = intervals[0][1];
+    int pos = 1;
+    while(pos < intervals.size()) {
+        vector<int> interval = intervals[pos];
+
+        if (back > interval[0]) {
+            back = min(interval[1], back);
+            to_remove++;
+        }
+        else back = interval[1];
+        pos++;
+    }
+    return to_remove;
+}
+
+
 // https://leetcode.com/problems/insert-delete-getrandom-o1/solutions/85422/ac-c-solution-unordered-map-vector/
 class RandomizedSet {
 public:
