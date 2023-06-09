@@ -2342,6 +2342,39 @@ vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
 }
 
 
+// https://leetcode.com/problems/insert-delete-getrandom-o1/solutions/85422/ac-c-solution-unordered-map-vector/
+class RandomizedSet {
+public:
+    RandomizedSet() {
+
+    }
+
+    bool insert(int val) {
+        if (mp.find(val) != mp.end()) return false;
+        nums.push_back(val);
+        mp[val] = nums.size() - 1;   
+        return true;
+    }
+
+    bool remove(int val) {
+        if (mp.find(val) == mp.end()) return false;
+        int pos = mp[val];
+        swap(nums.back(), nums[pos]);
+        mp[nums[pos]] = pos;
+        mp.erase(val);
+        nums.pop_back();
+        return true;
+    }
+
+    int getRandom() {
+        return nums[rand() % nums.size()];
+    }
+private:
+    vector<int> nums;
+    unordered_map<int, int> mp; // number : index 
+};
+
+
 // https://leetcode.com/problems/k-closest-points-to-origin/
 class CoordCompare
 {
