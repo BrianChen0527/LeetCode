@@ -2274,7 +2274,7 @@ int characterReplacement(string s, int k) {
 
 
 // https://leetcode.com/problems/minimum-window-substring/
-string minWindow(string s, string t) {
+string minWindow2(string s, string t) {
     int start = 0, end = 0, counter = t.length(), minStart = 0, minLen = INT32_MAX;
         vector<int> m(128, 0);
         for (char c : t) m[c]++;
@@ -2298,7 +2298,36 @@ string minWindow(string s, string t) {
 }
 
 
+string minWindow(string s, string t) {
+    if (t.length() > s.length()) return "";
 
+    vector<int> mp(128, 0);
+    for (auto c : t) mp[c]++;
+    int offset = t.length();
+    int minLen = INT_MAX;
+
+    int l = 0, r = 0, minl = 0;
+    while (r < s.length()) {
+        if (mp[s[r]] > 0) offset--;
+        mp[s[r]]--;
+        r++;
+        
+        if (offset <= 0) {
+            while (offset <= 0) {
+                if (mp.find(s[l]) != mp.end()) {
+                    if (++mp[s[l]] > 0) offset++;
+                }
+                l++;
+            }
+            if (r - l + 1 < minLen) {
+                minLen = r - l + 1;
+                minl = l - 1;
+            }
+        }
+    }
+
+    return minLen == INT_MAX? "" : s.substr(minl, minLen);
+}
 
 
 // https://leetcode.com/problems/word-break/submissions/
