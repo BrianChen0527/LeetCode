@@ -53,8 +53,8 @@ void inOrderTraversalPrint(TreeNode* root) {
 
 
 int main() { 
-	vector<int> v = { 1,2,3 };
-	combinationSum4(v, 4);
+	//cout << minWindow("ADOBECODEBANC", "ABC") << endl;
+	cout << minWindow("a", "aa") << endl;
 
 }
 
