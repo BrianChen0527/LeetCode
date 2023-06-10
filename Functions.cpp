@@ -2305,27 +2305,20 @@ string minWindow(string s, string t) {
     for (auto c : t) mp[c]++;
     int offset = t.length();
     int minLen = INT_MAX;
-
     int l = 0, r = 0, minl = 0;
+
     while (r < s.length()) {
         if (mp[s[r]] > 0) offset--;
-        mp[s[r]]--;
-        r++;
+        mp[s[r++]]--;
         
         if (offset <= 0) {
-            while (offset <= 0) {
-                if (mp.find(s[l]) != mp.end()) {
-                    if (++mp[s[l]] > 0) offset++;
-                }
-                l++;
-            }
+            while (offset <= 0) { if (++mp[s[l++]] > 0) offset++; }
             if (r - l + 1 < minLen) {
                 minLen = r - l + 1;
                 minl = l - 1;
             }
         }
     }
-
     return minLen == INT_MAX? "" : s.substr(minl, minLen);
 }
 
