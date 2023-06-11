@@ -60,7 +60,7 @@ int trap(vector<int>& height) {
     return water;
 }
 int trap_V2(vector<int>& height) {
-    int l = 0, r = height.size();
+    int l = 0, r = height.size() - 1;
     int maxL = height[l], maxR = height[r];
     int water = 0;
 
