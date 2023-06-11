@@ -65,7 +65,7 @@ int trap_V2(vector<int>& height) {
     int water = 0;
 
     while (l < r) {
-        if (maxL >= maxR) {
+        if (maxL <= maxR) {
             water += maxL - height[l++];
             maxL = max(maxL, height[l]);
         }
