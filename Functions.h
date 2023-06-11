@@ -422,6 +422,11 @@ int canCompleteCircuit(vector<int>& gas, vector<int>& cost);
 // https://leetcode.com/problems/combination-sum-iv/
 int combinationSum4(vector<int>& nums, int target);
 
+// https://leetcode.com/problems/trapping-rain-water/
+int trap(vector<int>& height);
+
+class Codec;
+
 struct TreeNode {
     int val;
     TreeNode* left;

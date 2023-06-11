@@ -38,6 +38,119 @@ vector<int> twoSum(vector<int>& nums, int target) {
 }
 
 
+// https://leetcode.com/problems/trapping-rain-water/
+int trap(vector<int>& height) {
+    stack<pair<int, int>> prev_heights;
+
+    int water = 0;
+    for (int i = 0; i < height.size(); i++) {
+        int h = height[i];
+
+        if (h) {
+            int prev_H = 0;
+            while (!prev_heights.empty() && h > prev_heights.top().second) {
+                water += (prev_heights.top().second - prev_H) * (i - prev_heights.top().first - 1);
+                prev_H = prev_heights.top().second;
+                prev_heights.pop();
+            }
+            if (!prev_heights.empty()) water += (h - prev_H) * (i - prev_heights.top().first - 1);
+            prev_heights.emplace(i, h);
+        }
+    }
+    return water;
+}
+int trap_V2(vector<int>& height) {
+    int l = 0, r = height.size();
+    int maxL = height[l], maxR = height[r];
+    int water = 0;
+
+    while (l < r) {
+        if (maxL >= maxR) {
+            water += maxL - height[l++];
+            maxL = max(maxL, height[l]);
+        }
+        else {
+            water += maxR - height[r++];
+            maxR = max(maxR, height[r]);
+        }
+    }
+    return water;
+}
+
+
+
+// https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
+class Codec {
+public:
+
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        if (!root) return "";
+
+        queue<TreeNode*> Q;
+        Q.push(root);
+
+        string serial = to_string(root->val);
+        while (!Q.empty()) {
+            int n = Q.size();
+
+            for (int i = 0; i < n; i++) {
+                TreeNode* curr = Q.front();
+                Q.pop();
+
+                serial += ",";
+                if (curr->left) {
+                    serial += to_string(curr->left->val);
+                    Q.push(curr->left);
+                }
+                else { serial += "#"; }
+                serial += ",";
+                if (curr->right) {
+                    serial += to_string(curr->right->val);
+                    Q.push(curr->right);
+                }
+                else { serial += "#"; }
+            }
+        }
+        return serial;
+    }
+
+    TreeNode* deserialize(string data) {
+        if (data.empty()) return nullptr;
+        int pos = 0, len = 0;
+        while (isdigit(data[pos]) || data[pos] == '-') { len++; pos++; }
+        TreeNode* root = new TreeNode(stoi(data.substr(pos++ - len, len)));
+        queue<TreeNode*> Q;
+        Q.push(root);
+
+        while (pos < data.length()) {
+            len = 0;
+            TreeNode* left = nullptr;
+
+            while (isdigit(data[pos]) || data[pos] == '-') { pos++;  len++; }
+            if (data[pos] == '#') { pos++; }
+            else left = new TreeNode(stoi(data.substr(pos - len, len)));
+
+            Q.front()->left = left;
+            if (left)Q.push(left);
+            pos++;
+
+            len = 0;
+            TreeNode* right = nullptr;
+            while (pos < data.length() && (isdigit(data[pos]) || data[pos] == '-')) { pos++;  len++; }
+            if (pos < data.length() && data[pos] == '#') { pos++; }
+            else right = new TreeNode(stoi(data.substr(pos - len, len)));
+
+            Q.front()->right = right;
+            if (right)Q.push(right);
+            Q.pop();
+            pos++;
+        }
+        return root;
+    }
+};
+
+
 // https://leetcode.com/problems/letter-combinations-of-a-phone-number/
 vector<string> letterCombinations(string digits) {
     unordered_map<char, string> mp{{'2', "abc"}, {'3', "def"}, {'4', "ghi"}, 

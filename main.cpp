@@ -8,7 +8,7 @@ using namespace std;
 #include <fstream>
 
 void printTree(TreeNode* root) {
-	queue< TreeNode*> q;
+	queue<TreeNode*> q;
 	q.push(root);
 
 	while (q.size()) {
@@ -43,6 +43,7 @@ public:
 	}
 };
 
+
 void inOrderTraversalPrint(TreeNode* root) {
 	if (root->left) inOrderTraversalPrint(root->left);
 	cout << root->val << ' ';
@@ -53,9 +54,8 @@ void inOrderTraversalPrint(TreeNode* root) {
 
 
 int main() { 
-	//cout << minWindow("ADOBECODEBANC", "ABC") << endl;
-	cout << minWindow("a", "aa") << endl;
-
+	vector<int> v = { 4,2,0,3,2,5 };
+	cout << trap(v);
 }
 
 
