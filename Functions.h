@@ -426,6 +426,7 @@ int combinationSum4(vector<int>& nums, int target);
 int trap(vector<int>& height);
 
 class Codec;
+class MedianFinder;
 
 struct TreeNode {
     int val;

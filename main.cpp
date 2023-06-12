@@ -51,11 +51,79 @@ void inOrderTraversalPrint(TreeNode* root) {
 }
 #include <typeinfo>  //for 'typeid' to work  
 
+class MedianFinder {
+public:
+	priority_queue<int> minQ;
+	priority_queue<int> maxQ;
+
+	MedianFinder() {}
+
+	void addNum(int num) {
+
+		priority_queue<int> minQ1 = minQ;
+		priority_queue<int> maxQ1 = maxQ;
+		while (!minQ1.empty()) {
+			cout << minQ1.top() << endl;
+			minQ1.pop();
+		}
+		cout << "===========\n";
+		while (!maxQ1.empty()) {
+			cout << maxQ1.top() << endl;
+			maxQ1.pop();
+		}
+		cout << "===============\n";
+
+
+		if (minQ.size() > maxQ.size()) {
+			if (num > -minQ.top()) {
+				maxQ.push(-minQ.top());
+				minQ.pop();
+				minQ.push(-num);
+			}
+			else maxQ.push(num);
+		}
+		else {
+			if (minQ.empty() || num > -minQ.top()) minQ.push(-num);
+			else {
+				maxQ.push(num);
+				minQ.push(-maxQ.top());
+				maxQ.pop();
+			}
+		}
+	}
+
+	double findMedian() {
+
+		priority_queue<int> minQ1 = minQ;
+		priority_queue<int> maxQ1 = maxQ;
+		while (!minQ1.empty()) {
+			cout << minQ1.top() << endl;
+			minQ1.pop();
+		}
+		cout << "===========\n";
+		while (!maxQ1.empty()) {
+			cout << maxQ1.top() << endl;
+			maxQ1.pop();
+		}
+		cout << "===============\n";
+		
+		if (minQ.size() > maxQ.size()) { return -minQ.top(); }
+		else if (maxQ.size() > minQ.size()) { return maxQ.top(); }
+		else { 
+			cout << maxQ.top()-minQ.top() << " jerere\n";
+			return maxQ.top() - minQ.top() / 2.0; }
+	}
+};
 
 
 int main() { 
-	vector<int> v = { 4,2,0,3,2,5 };
-	cout << trap(v);
+	MedianFinder* med = new MedianFinder();
+	med->addNum(6);
+	med->addNum(10);
+	med->addNum(2);
+	double b = med->findMedian();
+	cout << b;
+
 }
 
 
