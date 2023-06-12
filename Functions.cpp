@@ -78,6 +78,39 @@ int trap_V2(vector<int>& height) {
 }
 
 
+class MedianFinder {
+public:
+    priority_queue<int> minQ;
+    priority_queue<int> maxQ;
+
+    MedianFinder() {}
+
+    void addNum(int num) {
+        if (minQ.size() > maxQ.size()) {
+            if (num > -minQ.top()) {
+                maxQ.push(-minQ.top());
+                minQ.pop();
+                minQ.push(-num);
+            }
+            else maxQ.push(num);
+        }
+        else {
+            if (minQ.empty() || num > -minQ.top()) minQ.push(-num);
+            else {
+                maxQ.push(num);
+                minQ.push(-maxQ.top());
+                maxQ.pop();
+            }
+        }
+    }
+
+    double findMedian() {
+        if (minQ.size() > maxQ.size()) { return -minQ.top(); }
+        else if (maxQ.size() > minQ.size()) { return maxQ.top(); }
+        else return maxQ.top() - minQ.top() / 2.0;
+    }
+};
+
 
 // https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 class Codec {
