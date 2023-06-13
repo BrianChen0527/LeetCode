@@ -112,6 +112,38 @@ public:
 };
 
 
+// https://leetcode.com/problems/word-ladder/solutions/
+int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
+    unordered_set<string> dict(wordList.begin(), wordList.end());
+    if (dict.find(endWord) == dict.end()) return 0;
+
+    queue<string> Q;
+    Q.push(beginWord);
+    int steps = 1;
+    while (!Q.empty()) {
+        int n = Q.size();
+        for (int k = 0; k < n; k++) {
+            string s = Q.front();
+            for (int i = 0; i < s.length(); i++) {
+                s = Q.front();
+                for (int j = 0; j < 26; j++) {
+                    s[i] = ('a' + j);
+
+                    if (dict.find(s) != dict.end()) {
+                        if (s == endWord) return steps + 1;
+                        Q.push(s);
+                        dict.erase(s);
+                    }
+                }
+            }
+            Q.pop();
+        }
+        steps++;
+    }
+    return 0;
+}
+
+
 // https://leetcode.com/problems/serialize-and-deserialize-binary-tree/
 class Codec {
 public:

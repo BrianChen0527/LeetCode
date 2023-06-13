@@ -117,12 +117,8 @@ public:
 
 
 int main() { 
-	MedianFinder* med = new MedianFinder();
-	med->addNum(6);
-	med->addNum(10);
-	med->addNum(2);
-	double b = med->findMedian();
-	cout << b;
+	vector<string> strList = { "hot","dot","dog","lot","log","cog" };
+	cout << ladderLength("hit", "cog", strList);
 
 }
 

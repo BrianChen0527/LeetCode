@@ -1,2 +1,85 @@
-﻿  main.cpp
+﻿  Functions.cpp
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(63,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(124,25): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(160,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(228,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(273,30): warning C4267: 'initializing': conversion from 'size_t' to 'uint8_t', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(274,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(274,52): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(311,39): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(335,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(335,45): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(358,37): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(416,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(447,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(467,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(472,52): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(513,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(514,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(642,46): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(799,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(876,22): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(999,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(999,56): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1168,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1177,46): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1210,46): warning C4267: '*=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1284,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1292,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1302,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1345,13): warning C4244: 'initializing': conversion from '__int64' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1346,52): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1517,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1517,81): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1539,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1554,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1744,29): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1744,54): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1770,15): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1798,15): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1799,51): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1809,19): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1821,70): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1906,34): warning C4305: 'initializing': truncation from 'int' to 'uint16_t'
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1906,25): warning C4309: 'initializing': truncation of constant value
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1991,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(1991,65): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2059,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2059,48): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2089,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2130,79): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2147,32): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2233,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2236,33): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2261,75): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2431,23): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2456,49): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2484,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2540,71): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2577,1): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2629,26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2629,48): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2736,43): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2758,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2760,17): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2760,40): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2800,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2800,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2905,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(2926,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3012,30): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3039,25): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3062,40): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3062,65): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3073,35): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3101,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3101,50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3619,49): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3629,21): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3632,31): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3653,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3743,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3826,5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3833,36): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\brian\source\repos\LeetCodeEasy\LeetCodeEasy\Functions.cpp(3847,42): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
   LeetCodeEasy.vcxproj -> C:\Users\brian\source\repos\LeetCodeEasy\x64\Debug\LeetCodeEasy.exe
