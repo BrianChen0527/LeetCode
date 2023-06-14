@@ -425,6 +425,9 @@ int combinationSum4(vector<int>& nums, int target);
 // https://leetcode.com/problems/trapping-rain-water/
 int trap(vector<int>& height);
 
+// https://leetcode.com/problems/basic-calculator/
+int calculatorHard(string s);
+
 // https://leetcode.com/problems/word-ladder/solutions/
 int ladderLength(string beginWord, string endWord, vector<string>& wordList);
 

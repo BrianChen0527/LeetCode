@@ -117,8 +117,7 @@ public:
 
 
 int main() { 
-	vector<string> strList = { "hot","dot","dog","lot","log","cog" };
-	cout << ladderLength("hit", "cog", strList);
+	calculatorHard("(1 - (4 + 5 + 2) - 3) - (6 + 8)");
 
 }
 
