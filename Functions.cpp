@@ -112,6 +112,44 @@ public:
 };
 
 
+// https://leetcode.com/problems/basic-calculator/
+int calculatorHard(string s) {
+    s += '+';
+    stack<int> nums;
+    stack<bool> ops;
+    int curr = 0, tot = 0;
+    bool add = true;
+    for (char c : s){
+        if (isdigit(c)) curr = curr * 10 + (c - '0');
+        else if (c == '-') {
+            tot += add ? curr : -curr;
+            curr = 0;
+            add = false;
+        } 
+        else if (c == '+') {
+            tot += add ? curr : -curr;
+            curr = 0;
+            add = true;
+        }
+        else if (c == '(') {
+            nums.push(tot);
+            ops.push(add);
+            add = true;
+            tot = 0;
+        }
+        else if (c == ')') {
+            tot += add ? curr : -curr;
+            tot = ops.top() ? nums.top() + tot : nums.top() - tot;
+            curr = 0;
+            nums.pop(); 
+            ops.pop();
+        }
+        cout << c << "  total: " << tot << " current: " << curr << endl;
+    }
+    return tot;
+}
+
+
 // https://leetcode.com/problems/word-ladder/solutions/
 int ladderLength(string beginWord, string endWord, vector<string>& wordList) {
     unordered_set<string> dict(wordList.begin(), wordList.end());
