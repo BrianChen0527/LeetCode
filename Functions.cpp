@@ -3093,6 +3093,28 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
 }
 
 
+// https://leetcode.com/problems/maximum-profit-in-job-scheduling/description/
+int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+
+    vector<job> jobs;
+    map<int, int> M;
+    jobs.reserve(startTime.size());
+
+    for (size_t i = 0; i < startTime.size(); i++) {
+        jobs.push_back(job(startTime[i], endTime[i], profit[i]));
+    }
+    sort(jobs.begin(), jobs.end(), [](const job& a, const job& b) { return a.end < b.end; });
+    
+    int last = jobs.back().end;
+    M[0] = 0;
+    for (job J : jobs) {
+        int end = J.end, start = J.start, profit = J.profit;
+        M[-end] = max(M.lower_bound(-end)->second, M.lower_bound(-start)->second + profit);
+    }
+    return M.lower_bound(-last)->second;
+}
+
+
 // https://leetcode.com/problems/find-minimum-in-rotated-sorted-array/
 int findMin(vector<int>& nums) {
     ios_base::sync_with_stdio(false);
