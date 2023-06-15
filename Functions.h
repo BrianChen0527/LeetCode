@@ -431,6 +431,17 @@ int calculatorHard(string s);
 // https://leetcode.com/problems/word-ladder/solutions/
 int ladderLength(string beginWord, string endWord, vector<string>& wordList);
 
+
+// https://leetcode.com/problems/maximum-profit-in-job-scheduling/description/
+struct job {
+    int start;
+    int end;
+    int profit;
+    job() : start(0), end(0), profit(0) {};
+    job(int s, int e, int p) : start(s), end(e), profit(p) {};
+};
+int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit);
+
 class Codec;
 class MedianFinder;
 

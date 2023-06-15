@@ -6,6 +6,7 @@ using namespace std;
 #include <iostream>
 #include "Functions.h"
 #include <fstream>
+#include <map>
 
 void printTree(TreeNode* root) {
 	queue<TreeNode*> q;
@@ -116,9 +117,24 @@ public:
 };
 
 
-int main() { 
-	calculatorHard("(1 - (4 + 5 + 2) - 3) - (6 + 8)");
+int main() {
+	vector<int> v1 = { 1,2,2,3 };
+	vector<int> v2 = { 2,5,3,4 };
+	vector<int> v3 = { 3,4,1,2 };
+	jobScheduling(v1, v2, v3);
+	
+	
+	std::map<int, int> mymap;
 
+	mymap[-10] = 20;
+	mymap[-20] = 40;
+	mymap[-30] = 80;
+	mymap[-40] = 100;
+
+	auto itlow = mymap.lower_bound(-25);  // itlow points to b
+
+	cout << (*itlow).second << endl;
+	return 0;
 }
 
 
