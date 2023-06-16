@@ -431,6 +431,8 @@ int calculatorHard(string s);
 // https://leetcode.com/problems/word-ladder/solutions/
 int ladderLength(string beginWord, string endWord, vector<string>& wordList);
 
+// https://leetcode.com/problems/largest-rectangle-in-histogram/description/
+int largestRectangleArea(vector<int>& heights);
 
 // https://leetcode.com/problems/maximum-profit-in-job-scheduling/description/
 struct job {
