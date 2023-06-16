@@ -1904,6 +1904,28 @@ int longestCommonSubsequence(string text1, string text2) {
     return table[table.size() - 1][table.at(0).size() - 1];
 }
 
+
+// https://leetcode.com/problems/largest-rectangle-in-histogram/description/
+int largestRectangleArea(vector<int>& heights) {
+    heights.push_back(0);
+
+    stack<int> bar_pos;
+    int max_area = 0;
+    for (int i = 0; i < heights.size(); i++) {
+        int height = heights[i];
+
+        while (!bar_pos.empty() && height < heights[bar_pos.top()]) {
+            int pos = bar_pos.top();
+            bar_pos.pop();
+            int l = bar_pos.empty() ? -1 : bar_pos.top();
+            max_area = max(max_area, heights[pos] * (i - l - 1));
+            cout << i << " : " << l << " : " << max_area << endl;
+        }
+        bar_pos.push(i);
+    }
+    return max_area;
+}
+
 // https://leetcode.com/problems/merge-k-sorted-lists/submissions/
 ListNode* mergeKLists(vector<ListNode*>& lists) {
     if (lists.empty()) return nullptr;
@@ -3095,7 +3117,6 @@ vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
 
 // https://leetcode.com/problems/maximum-profit-in-job-scheduling/description/
 int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
-
     vector<job> jobs;
     map<int, int> M;
     jobs.reserve(startTime.size());
