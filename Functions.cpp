@@ -1905,6 +1905,25 @@ int longestCommonSubsequence(string text1, string text2) {
 }
 
 
+// https://leetcode.com/problems/binary-tree-maximum-path-sum/
+class BinaryTreeMaxPathSum {
+    int maxSum = INT_MIN;
+public:
+    int maxPathSum(TreeNode* root) {
+        maxPathSumDFS(root);
+        return maxSum;
+    }
+
+    int maxPathSumDFS(TreeNode* root) {
+        if (!root) return 0;
+        int l = maxPathSumDFS(root->left);
+        int r = maxPathSumDFS(root->right);
+        maxSum = max(maxSum, l + r + root->val);
+        return max(l, r) + root->val;
+    }
+};
+
+
 // https://leetcode.com/problems/largest-rectangle-in-histogram/description/
 int largestRectangleArea(vector<int>& heights) {
     heights.push_back(0);
@@ -1919,7 +1938,6 @@ int largestRectangleArea(vector<int>& heights) {
             bar_pos.pop();
             int l = bar_pos.empty() ? -1 : bar_pos.top();
             max_area = max(max_area, heights[pos] * (i - l - 1));
-            cout << i << " : " << l << " : " << max_area << endl;
         }
         bar_pos.push(i);
     }
