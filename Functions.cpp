@@ -847,6 +847,33 @@ vector<int> dailyTemperatures(vector<int>& temperatures) {
 }
 
 
+class FreqStack {
+public:
+    unordered_map<int, int> freq_counter;
+    map<int, vector<int>> mp;
+    int maxFreq = 0;
+
+    FreqStack() {
+
+    }
+
+    void push(int val) {
+        freq_counter[val]++;
+        int freq = freq_counter[val];
+        maxFreq = max(maxFreq, freq);
+        mp[freq].push_back(val);
+    }
+
+    int pop() {
+        int num = mp[maxFreq].back();
+        mp[maxFreq].pop_back();
+        freq_counter[num]--;
+        if (mp[maxFreq].empty()) maxFreq--;
+        retunr num;
+    }
+};
+
+
 // https://leetcode.com/problems/top-k-frequent-words/
 vector<string> topKFrequent(vector<string>& words, int k) {
     unordered_map<string, int> counter;
@@ -1919,7 +1946,7 @@ public:
         int l = maxPathSumDFS(root->left);
         int r = maxPathSumDFS(root->right);
         maxSum = max(maxSum, l + r + root->val);
-        return max(l, r) + root->val;
+        return max(0, max(l, r) + root->val);
     }
 };
 
