@@ -847,6 +847,35 @@ vector<int> dailyTemperatures(vector<int>& temperatures) {
 }
 
 
+// https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+int longestIncreasingPath(vector<vector<int>>& matrix) {
+    int rows = matrix.size(), cols = matrix[0].size();
+    vector<vector<int>> dp(rows, vector<int>(cols, INT_MIN));
+    int max_path = 0;
+    for (int r = 0; r < rows; r++) {
+        for (int c = 0; c < cols; c++) {
+            max_path = max(max_path, longestIncreasingDFS(matrix, dp, r, c, INT_MIN));
+        }
+    }
+    return max_path;
+}
+
+int longestIncreasingDFS(vector<vector<int>>& matrix, vector<vector<int>>& dp, int r, int c, int prev) {
+    if (r < 0 || c < 0 || r >= dp.size() || c >= dp[0].size() || matrix[r][c] <= prev) return 0;
+    if (dp[r][c] >= 0) return dp[r][c];
+    if (dp[r][c] == -1) return 0;
+    dp[r][c] = -1;
+    int curr = matrix[r][c];
+    int max_path = longestIncreasingDFS(matrix, dp, r + 1, c, curr);
+    max_path = max(max_path, longestIncreasingDFS(matrix, dp, r - 1, c, curr));
+    max_path = max(max_path, longestIncreasingDFS(matrix, dp, r, c + 1, curr));
+    max_path = max(max_path, longestIncreasingDFS(matrix, dp, r, c - 1, curr));
+    dp[r][c] = max_path + 1;
+
+    return dp[r][c];
+}
+
+
 class FreqStack {
 public:
     unordered_map<int, int> freq_counter;
@@ -869,7 +898,7 @@ public:
         mp[maxFreq].pop_back();
         freq_counter[num]--;
         if (mp[maxFreq].empty()) maxFreq--;
-        retunr num;
+        return num;
     }
 };
 
