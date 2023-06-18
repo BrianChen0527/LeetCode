@@ -118,8 +118,9 @@ public:
 
 
 int main() {
-	vector<int> v1 = { 2,1,2 };
-	cout << largestRectangleArea(v1);
+	vector<vector<int>> v1 = { {9, 9, 4},{6, 6, 8},{2, 1, 1} };
+	cout << longestIncreasingPath(v1);
+
 }
 
 
