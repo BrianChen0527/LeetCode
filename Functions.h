@@ -438,6 +438,9 @@ int largestRectangleArea(vector<int>& heights);
 int longestIncreasingPath(vector<vector<int>>& matrix);
 int longestIncreasingDFS(vector<vector<int>>& matrix, vector<vector<int>>& dp, int r, int c, int prev);
 
+// https://leetcode.com/problems/longest-valid-parentheses/
+int longestValidParentheses(string s);
+
 // https://leetcode.com/problems/maximum-profit-in-job-scheduling/description/
 struct job {
     int start;
