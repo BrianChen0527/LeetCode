@@ -860,6 +860,27 @@ int longestIncreasingPath(vector<vector<int>>& matrix) {
     return max_path;
 }
 
+
+// https://leetcode.com/problems/longest-valid-parentheses/
+int longestValidParentheses(string s) {
+    stack<int> S;
+    S.push(-1);
+
+    int n = s.length(), ans = 0;
+    for (int i = 0; i < n; i++) {
+        int top = S.top();
+        if (top != -1 && s[i] == ')' && s[top] == '(') {
+            S.pop();
+            ans = max(ans, i - S.top());
+        }
+        else {
+            S.push(i);
+        }
+    }
+    return ans;
+}
+
+
 int longestIncreasingDFS(vector<vector<int>>& matrix, vector<vector<int>>& dp, int r, int c, int prev) {
     if (r < 0 || c < 0 || r >= dp.size() || c >= dp[0].size() || matrix[r][c] <= prev) return 0;
     if (dp[r][c] >= 0) return dp[r][c];
