@@ -7,6 +7,7 @@ using namespace std;
 #include "Functions.h"
 #include <fstream>
 #include <map>
+#include <unordered_set>
 
 void printTree(TreeNode* root) {
 	queue<TreeNode*> q;
@@ -118,9 +119,12 @@ public:
 
 
 int main() {
-	string s = "()(()(";
-	cout << longestValidParentheses(s);
+	wordSearchII machine;
+	vector<vector<char>> board = { {'o','a','b','n'},{'o','t','a','e'},{'a','h','k','r'},{'a','f','l','v'}};
+	vector<string> words = { "oa", "oaa" };
+	vector<string> ans = machine.findWords(board, words);
 
+	for (auto s : ans) cout << s << endl;
 }
 
 

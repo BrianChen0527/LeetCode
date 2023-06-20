@@ -441,6 +441,31 @@ int longestIncreasingDFS(vector<vector<int>>& matrix, vector<vector<int>>& dp, i
 // https://leetcode.com/problems/longest-valid-parentheses/
 int longestValidParentheses(string s);
 
+class TrieNode {
+public:
+    TrieNode* children[26];
+    bool period;
+    TrieNode() {
+        period = false;
+        for (int i = 0; i < 26; i++) {
+            children[i] = NULL;
+        }
+    }
+};
+
+class TrieNode2 {
+public:
+    TrieNode2* children[26];
+    bool period;
+    int numChildren;
+    char c;
+    TrieNode2() : numChildren(0), period(false), c('_') {
+        for (int i = 0; i < 26; i++) {
+            children[i] = nullptr;
+        }
+    }
+};
+
 // https://leetcode.com/problems/maximum-profit-in-job-scheduling/description/
 struct job {
     int start;
