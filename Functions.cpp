@@ -978,6 +978,70 @@ vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
 }
 
 
+// https://leetcode.com/problems/word-search-ii/submissions/975201106/
+class WordSearchII {
+    int rows;
+    int cols;
+public:
+    TrieNode2* constructTrie(vector<string>& words) {
+        TrieNode2* root = new TrieNode2();
+        TrieNode2* node = root;
+        for (auto word : words) {
+            node = root;
+            for (auto c : word) {
+                int pos = c - 'a';
+                if (!node->children[pos]) node->children[pos] = new TrieNode2();
+                node->numChildren++;
+                node = node->children[pos];
+            }
+            node->period = true;
+        }
+        return root;
+    }
+    bool gridWordSearch(vector<vector<char>>& board, int r, int c, TrieNode2* node, unordered_set<string>& ans, string& path) {
+        if (r < 0 || c < 0 || r >= rows || c >= cols || node->numChildren == 0) return false;
+
+        char curr = board[r][c];
+        int pos = curr - 'a';
+        if (curr == '_' || !node->children[pos]) return false;
+        bool found = false;
+        path.push_back(curr);
+        TrieNode2* next_node = node->children[pos];
+        if (next_node->period) {
+            found = true;
+            ans.insert(path);
+        }
+        board[r][c] = '_';
+        found = gridWordSearch(board, r + 1, c, next_node, ans, path) || found;
+        found = gridWordSearch(board, r - 1, c, next_node, ans, path) || found;
+        found = gridWordSearch(board, r, c + 1, next_node, ans, path) || found;
+        found = gridWordSearch(board, r, c - 1, next_node, ans, path) || found;
+        board[r][c] = curr;
+        path.pop_back();
+
+        if (found && next_node->numChildren == 0) {
+            delete next_node;
+            node->children[pos] = nullptr;
+            node->numChildren--;
+        }
+        return found;
+    }
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        TrieNode2* root = constructTrie(words);
+        rows = board.size(), cols = board[0].size();
+        unordered_set<string> ans;
+        string path = "";
+
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                gridWordSearch(board, r, c, root, ans, path);
+            }
+        }
+        return vector<string>(ans.begin(), ans.end());
+    }
+};
+
+
 // https://leetcode.com/problems/longest-increasing-subsequence/submissions/957462933/
 int lengthOfLIS(vector<int>& nums) {
     vector<int> ans = { nums[0] };
@@ -3857,18 +3921,6 @@ int coinChange(vector<int>& coins, int amount) {
     return (dp[amount] == INT_MAX ? -1 : dp[amount]);
 }
 
-
-class TrieNode {
-public:
-    TrieNode* children[26];
-    bool period;
-    TrieNode() {
-        period = false;
-        for (int i = 0; i < 26; i++) {
-            children[i] = NULL;
-        }
-    }
-};
 
 class Trie {
 public:
