@@ -1056,7 +1056,28 @@ int lengthOfLIS(vector<int>& nums) {
 }
 
 
-int numBusesToDestination(vector<vector<int>>& routes, int source, int target) {
+// https://leetcode.com/problems/smallest-range-covering-elements-from-k-lists/
+vector<int> smallestRange(vector<vector<int>>& nums) {
+    vector<pair<int, int>> tmp;
+    vector<pair<int, int>> ans;
+    while (!nums.empty()) {
+        int pos1 = 0, pos2 = 0, idx = nums.size() - 1;
+        vector<int>& last = nums.back();
+        while (pos1 < ans.size() && pos2 < last.size()) {
+
+        }
+        while (pos1 < ans.size()) {
+            tmp.back()
+        }
+        while (pos2 < last.size()) {
+
+        }
+
+        nums.pop_back();
+        ans = tmp;
+        tmp.clear();
+    }
+
 
 }
 
